@@ -116,7 +116,8 @@
 %      \ackfile preamble command
 %
 % ------------------------- initial code ------------------------------
-\RequirePackage{ifthen} \newboolean{phd} % This is a Ph.D. thesis
+\RequirePackage{ifthen} 
+\newboolean{phd} % This is a Ph.D. thesis
 \newboolean{phdabstract} % AJR : Include an abstract with Ph.D. thesis
 \newboolean{nofrontmatter} % Skip everything before the index
 \newboolean{figures} % There are figures (list of figures)

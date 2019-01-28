@@ -1,0 +1,13 @@
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.pdf
+*.dvi
+*.fls
+*.lof
+*.fdb_latexmk
+*.synctex.gz
+
+.ipynb_checkpoints
