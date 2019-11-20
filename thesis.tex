@@ -100,44 +100,37 @@
 %=============================================================================
 \chapter{Introduction}
 %=============================================================================
-What is it that makes us human? 
-What makes us better than automatons that blindly react to their environment?
-Some may say free will, but perhaps a better answer is cognitive control.
-Cognitive control is the ability to take into account contextual cues (either previously or currently in your environment) to decide what behavioral route to take in response to a stimulus. 
+
+What makes us human?
+What makes us "better" than automatons that blindly react to their environment?
+Some may say free will, but perhaps they are really thinking of cognitive control.
+Cognitive control is the ability to take into account context to decide what action to take in response to a stimulus. 
 A common example is driving.
-If you are driving through a neighborhood with notoriously short yellow lights, I would hope you are more likely to stop when you see a light turn yellow.
-If instead, you are driving through a neighborhood where the yellow light lasts for eight, maybe even ten seconds, you may cruise right through the intersection knowing you have plenty of time.
+If you are driving through a neighborhood with notoriously short yellow lights, I would hope you are likely to stop when you see a light turn yellow.
+On the other hand, if you are driving through a neighborhood where the yellow light lasts for eight, maybe ten seconds, you may cruise through the intersection.
 The two automaton behaviors are the braking and continuing (maybe speeding up a little) through the yellow light.
 Cognitive control represents the process that selects one of the two behaviors.
-In this example, cognitive control is being informed by the spatial location and its association with either a short or long yellow light.
+In this example, cognitive control is informed by the spatial location of the driver and the location's association with either a short or long yellow light.
 
-There is a vast sea of research about cognitive control, its ontology, its neural basis, and when it breaks down, but several key gaps still remain ~\citep{Gratton2017,Dosenbach2010,Braver2000}.
+There is a vast sea of cognitive control research: its ontology, its neural basis, when it breaks down, but several key gaps still remain ~\citep{Gratton2017,Dosenbach2010,Braver2000}.
 \textbf{The first key gap is how neural networks are represented during a task that requires cognitive control}.
-The current literature goes on at length about activation studies and meta-analyses, as well as clever mixed-design (event \& block) experiments ~\citep{Gratton2017a,Lerman-Sinkoff2017,Herd2006,Rizio2012,Cooper2015,AppelBaum2014}.
-There are even reports of what networks are a part of cognitive control using resting state data ~\citep{Dosenbach2007}.
+The current literature has found which brain regions are associated with cognitive control and what networks those regions participate in at rest ~\citep{Gratton2017a,Lerman-Sinkoff2017,Herd2006,Rizio2012,Cooper2015,AppelBaum2014,Dosenbach2007}.
 However, the crucial missing evidence is directly observing the networks during a task.
-There are several technical reasons why network organization hasn't been investigated during a task and this current proposal seeks to overcome the technical difficulties and provide an open source tool for others to use.
-Filling this gap will provide direct evidence that cognitive control networks exist during performance of a task and provide a more solid foundation for studying networks related to cognitive control in the future.
+The reason this evidence does not exist is because of the lack of available methods.
+By creating and sharing this method, we will provide more direct evidence for cognitive control networks.
 
-\textbf{Second is how the neural networks relate to behavior in cognitive control tasks}.
-Again, clever experiment designs, lesion studies, and task manipulations have related changes of activity to cognitive control and behavior, but there is still no evidence directly linking the level of task network connectivity to task behavior ~\citep{Nomura2010,Egner2004,Gonthier2016a,Braver2010,Huang2017}.
-The present research seeks to fill this gap and provide a more definitive connection between proposed cognitive control networks and behavior.
+\textbf{A second key gap is how cognitive control networks correlate with behavior}.
+Related to the first gap, researchers have correlated brain activation and networks at rest with behavior, but not networks during a task. ~\citep{Nomura2010,Egner2004,Gonthier2016a,Braver2010,Huang2017}
+The present research seeks to provide a more definitive connection between proposed cognitive control networks and behavior.
 
-Behavior has now been mentioned several times, but how is cognitive control measured in the lab?
-Using the driving example, behavior is measured by whether the person stops or speeds through the intersection when the light is yellow.
+We've used driving as a behavior, but how is cognitive control measured in the lab?
 In the lab, we don't use cars and pedals, we use pictures.
-Specifically, there are a class of tasks that tap in the construct of cognitive control, and these include, but are not limited to: Stroop, Eriksen Flanker, and Simon ~\citep{Simon1967,Eriksen1974a,Stroop1935}.
-In all of these tasks, there is a dominant, automatic response and a weaker controlled response. 
-For a word version of the Stroop task, the automatic response is reading the word.
-For an arrow Flanker task, the automatic response is pressing the button corresponding to the predominant direction of the arrows.
-For the Simon task, the automatic/dominant response is responding with the hand that is closest to the stimulus shown on the screen.
-The controlled/weaker action for each of the tasks are: reporting the color of the font, responding to the direction of only the middle arrow, and responding with the hand the stimulus is associated with, respectively.
-Sometimes the automatic response is congruent with the controlled response (e.g. the word red has a red font color), but other times the response is incongruent (e.g. the word red has a blue font color).
-For the incongruent trials, the controlled response is different from the automatic response, and this introduces conflict.
-Thus, by looking at the reaction time difference between incongruent trials and congruent trials, we are peering into the cost associated with engaging cognitive control to override an automatic response (however, there are alternative explanations) ~\citep{Hommel2011}. 
-
-Correlating network intra-connectivity with reaction time cost across participants (e.g. one measure per participant), a direct relationship between cognitive control networks and behavior will be established.
-This research will quantitatively connect the theoretical notions of cognitive control proposed by Braver, and the anatomical basis of cognitive control derived primarily from Dosenbach ~\citep{Braver2008,Dosenbach2007}
+These pictures present conflicting information the viewer must disern given the context.
+A classic task in this domain is Stroop.
+In this task, the viewer must ignore the word (the automatic response) and report the color of the font (the controlled response).
+The conflict arises when the word is a different color than its font color (e.g., the word red colored in blue font).
+Thus, by looking at the reaction time difference between trials with  and without conflict, we can measure the cost to engage cognitive control in order to override an automatic response (however, there are alternative explanations) ~\citep{Hommel2011}. 
+We can establish a relationship between network connectivity and reaction time cost with the above measures, and connect the construct of cognitive control with anatomy ~\citep{Braver2008,Dosenbach2007}.
 
 \section{History of Cognitive Control}
 
@@ -184,6 +177,10 @@ The maintenance of the goal (name the font color, not the word) is held in worki
 If there was a long sequence of congruent trials (e.g. the word red with the font color red), the participant may take a shortcut and use the automatic process of naming the word.
 An incongruent trial may appear after this sequence of congruent trials, and then the participant has to engage the controlled process through phasic dopamine release into the PFC.
 Again, a common thread of these models does not lay with their accuracy to describe all of human cognition, but with their utility to frame our thoughts and describe particular aspects of human cognition. 
+
+% add section for conflict monitoring theory (CMT)
+
+% add section for Prediction of Response-Outcome (PRO)
 
 
 \section{Dual Mechanisms of Control}
