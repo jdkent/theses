@@ -401,6 +401,65 @@ A large variance difference in reaction time between congruent and incongruent t
 Whereas a small variance difference suggests consistent focus throughout the task, potentially indicating a proactive approach.
 
 
+%=============================================================================
+\chapter{NiBetaSeries}
+%=============================================================================
+
+Beta series correlations appeared exciting when initially produced ~\citep{Rissman2004},
+but have been relegated to post-hoc analyses being used as almost an afterthought in many
+publications (add citations).
+There was a brief resurgence when Benjamin Turner, Jeannette Mumford, and Hunar Abdulrahman... repurposed
+beta series for classification of different trial types; however beta series correlations
+remained under used.
+Beta series correlations give a lens into how the brain's organization changes depending
+on cognitive state, the theoretical implications would be fruitful for the field of neuroscience.
+Then why aren't more researchers looking at beta series correlations?
+Surveying the existing toolboxes available for calculating beta series correlations reveals a
+potential answer.
+A couple toolboxes that calculate beta series include BASCO, pybetaseries, and pyMVPA.
+However, BASCO has limitations on the number of methods you can use to generate beta series,
+pybetaseries is no longer being actively developed, and pyMVPA requires the user to know
+a decent amount of python to make use of their functions.
+With the limitations of the current toolboxes and the relative anonyminity of beta series,
+it comes with little surprise that many researchers do not use this method and instead reach for
+more familiar analyses using General Linear Models (GLMs) or resting state correlations applied
+to task data (add citation).
+
+To change this trend and make beta series more accessible, I've created a toolbox called NiBetaSeries.
+NiBetaSeries leverages the latest trends in the python neuroimaging world and adds to the flourishing
+ecosystem of tools that share a core organizational philosophy.
+This tool calculates betaseries correlations for the user and passes the beta series images themselves
+for the user to decide what analysis method they wish to pursue.
+
+With the creation of this toolbox, I can test another reason for the dearth of published materials on
+beta series correlations.
+Namely, most researchers may not have found any results with beta series correlations.
+In this chapter; I will explore under what experimental conditions NiBetaSeries is useful and offer
+recommendations for when to use the toolbox.
+
+\section{Simulations}
+Simulation in fMRI has a rich literature, with mutliple strategies varying along the axis
+of practicality and accuracy.
+For testing tools/methods on many different experimental designs; simulating the bloch equations
+is too computationally intensive and simpler simulations can generate realistic data.
+To this author's knowledge, the first accessible tool to generate simulated fMRI data is NeuRoSim (add citation).
+NeuRoSim allows the user to create expected responses to stimuli, motion noise, physiological noise,
+timeseries drift, and autocorrelation of the timeseries (add citation).
+More recently, the python module fmrisim was released mirroring the functionality of NeuRoSim, making this tool
+the ideal choice to test NiBetaSeries; another python application.
+
+
+\section{Real Data}
+
+%=============================================================================
+\chapter{Beta Series versus Background Correlations}
+%=============================================================================
+
+\section{Background Correlations}
+
+Talk all about Micheal Cole...
+
+
 
 %=============================================================================
 \appendix
@@ -445,6 +504,12 @@ Voxels from cerebrospinal fluid and white matter were used to create a mask in t
 Mask was eroded and limited to sub-cortical regions to limit overlap with gray matter, six principal components were estimated. 
 Frame-wise displacement was calculated for each functional run using Nipype implementation ~\citep{Power2014b}.
 
+Validation will come from simulations and real data (perhaps a simple motor tapping task)
+potential:
+- stop signal task with motor and vocal stops: https://openneuro.org/datasets/ds000007/versions/00001
+- animals versus tools: https://openneuro.org/datasets/ds000238/versions/00002
+- mostly congruent versus mostly incongruent: https://openneuro.org/datasets/ds001751/versions/1.0.0
+- rest and cognitive control: https://openneuro.org/datasets/ds002152/versions/1.0.0
 \section{Aim 1}
 Data from Open Source projects hosted on \href{https://openfmri.org/}{OpenfMRI} will be used to validate the beta-series analysis. 
 The datasets encompass two tasks, a flanker task and a Simon task.
