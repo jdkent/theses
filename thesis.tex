@@ -56,7 +56,7 @@
 \captionsetup{font=footnotesize}
 % https://tex.stackexchange.com/questions/370278/is-there-any-reason-to-use-inputenc
 \usepackage[utf8]{inputenc} % for non-ascii characters
-
+\newcommand{\comment}[1]{}
 %=============================================================================
 % prelude
 %=============================================================================
@@ -102,7 +102,7 @@
 %=============================================================================
 
 What makes us human?
-What makes us "better" than automatons that blindly react to their environment?
+What makes us "different" than robotic automatons that blindly react to their environment?
 Some may say free will, but perhaps they are really thinking of cognitive control.
 Cognitive control is the ability to take into account context to decide what action to take in response to a stimulus. 
 A common example is driving.
@@ -179,9 +179,10 @@ An incongruent trial may appear after this sequence of congruent trials, and the
 Again, a common thread of these models does not lay with their accuracy to describe all of human cognition, but with their utility to frame our thoughts and describe particular aspects of human cognition. 
 
 % add section for conflict monitoring theory (CMT)
+\section{Conflict Monitoring Theory}
 
 % add section for Prediction of Response-Outcome (PRO)
-
+\section{Prediction of Response-Outcome}
 
 \section{Dual Mechanisms of Control}
 
@@ -256,7 +257,7 @@ The currently proposed study will interrogate this difference and provide a clea
 
 
 %=============================================================================
-\chapter{The Research}
+\chapter{Research Overview}
 %=============================================================================
 
 Advances in both fMRI analysis and theory of cognitive control have collided to produce ripe new areas to advance our understanding of cognitive control through fMRI ~\citep{Braver2012,Rissman2004,Mumford2012,Cisler2012}.
@@ -486,10 +487,11 @@ Talk all about Micheal Cole...
 %=============================================================================
 \interlinepenalty=10000	% prevents bib items from splitting across pages
 \bibliographystyle{uithesis}
-\bibliography{library} 
+\bibliography{thesis} 
 
 \end{document}
 
+\comment{
 % currently unused text
 \section{General Methods}
 Results included in this manuscript (and results to be included) come from preprocessing performed using FMRIPREP version 1.0.4, a Nipype based tool ~\citep{Esteban2018,Gorgolewski2011,Gorgolewski2017}. 
@@ -727,3 +729,4 @@ Whereas for residual analysis, the cingulo-opercular average intra-network conne
 	\caption{Residual prediction. As reaction time cost increases, the cingulo-opercular average intra-network connectivity decreases, consistent with engagement of proactive control.}
 	\label{fig:predict_residuals_rt_cost}
 \end{figure}
+}
