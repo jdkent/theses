@@ -119,8 +119,8 @@ However, the crucial missing evidence is directly observing the networks during 
 The reason this evidence does not exist is because of the lack of available methods.
 By creating and sharing this method, we will provide more direct evidence for cognitive control networks.
 
-\textbf{A second key gap is how cognitive control networks correlate with behavior}.
-Related to the first gap, researchers have correlated brain activation and networks at rest with behavior, but not networks during a task. ~\citep{Nomura2010,Egner2004,Gonthier2016a,Braver2010,Huang2017}
+\textbf{The second key gap is how cognitive control networks correlate with behavior}.
+Related to the first gap, researchers have correlated brain activation and networks at rest with behavior, but not networks during a task. ~\citep{nomura2010b,Egner2004,Gonthier2016a,Braver2010,Huang2017}
 The present research seeks to provide a more definitive connection between proposed cognitive control networks and behavior.
 
 We've used driving as a behavior, but how is cognitive control measured in the lab?
@@ -149,7 +149,8 @@ With the knowledge that people behave differently to the same stimulus depending
 The seed of cognitive control was planted.
 
 Following this line of thought, Shriffrin \& Schneider differentiated the top-down and bottom-up processes, otherwise known as controlled and automatic processes by looking at processing speed, attentional load, and capacity ~\citep{Shiffrin1977}. 
-They derived three basic attributes of cognitive control. One, controlled processes are slower relative to automatic processes. 
+They derived three fundemental attributes of cognitive control.
+One, controlled processes are slower relative to automatic processes. 
 Two, controlled processes are in competition with automatic processes. 
 And three, controlled processes tap into a shared limited resource.
 
@@ -180,9 +181,10 @@ Again, a common thread of these models does not lay with their accuracy to descr
 
 % add section for conflict monitoring theory (CMT)
 \section{Conflict Monitoring Theory}
-
+TODO
 % add section for Prediction of Response-Outcome (PRO)
 \section{Prediction of Response-Outcome}
+TODO
 
 \section{Dual Mechanisms of Control}
 
@@ -229,7 +231,7 @@ Sound familiar?
 Braver's conception of proactive and reactive cognitive control maps onto the slow sustained component and the quick/adaptive component, respectively ~\citep{Braver2012}.
 The proactive component is anchored by the dorsal anterior cingulate cortex and anterior insula in the cingulo-opercular network ~\citep{Dosenbach2008}.
 The reactive component is anchored by the lateral prefrontal cortex and the parietal cortex in the fronto-parietal network ~\citep{Dosenbach2008}.
-A double dissociation between the fronto-parietal and cingulo-opercular networks has been demonstrated in a lesion study, providing further evidence of the network separability ~\citep{Nomura2010}.
+A double dissociation between the fronto-parietal and cingulo-opercular networks has been demonstrated in a lesion study, providing further evidence of the network separability ~\citep{nomura2010b}.
 While Braver has mentioned Dosenbach's analytical methods, serious inquiry mapping the relationship between proactive and reactive control with the fronto-parietal and congulo-opercular networks has yet to be established ~\citep{Braver2006,Cooper2015}.
 
 \section{Intrinsic and Extrinsic Networks}
@@ -250,10 +252,10 @@ The current study will use one regressor per trial to model residual connectivit
 Residual connectivity will measure the intrinsic connectivity and the additional task demands that are not directly related to the stimulus such maintaining goal information.
 Thus residual connectivity represents both intrinsic and extrinsic network properties.
 
-Beta-series, which measures the trial-to-trial variation of the brain's response to stimuli, mainly represents the extrinsic network, that is, connectivity induced by stimuli. ~\citep{Rissman2004}.
+beta series, which measures the trial-to-trial variation of the brain's response to stimuli, mainly represents the extrinsic network, that is, connectivity induced by stimuli. ~\citep{Rissman2004}.
 The trial-to-trial variance may also be influenced by intrinsic spontaneous fluctuations of the BOLD response that is ongoing throughout the task, and introduce correlations that are not directly related to seeing the stimulus ~\citep{He2013}.
 However, as the Cole (2014) study found, the stronger fronto-parietal intra-network connectivity is likely due to the trial-to-trial variations of the BOLD response to stimuli.
-The currently proposed study will interrogate this difference and provide a clearer contribution of stimulus evoked connectivity (beta-series) and residual connectivity.
+The currently proposed study will interrogate this difference and provide a clearer contribution of stimulus evoked connectivity (beta series) and residual connectivity.
 
 
 %=============================================================================
@@ -274,12 +276,12 @@ Thus, the main thrust of this research is to establish these networks during a c
 \begin{figure}[H]%
     \centering
     \includegraphics[scale=0.25]{betaseries_correlation_illustration}
-    \caption{Setting up Beta-series Correlations. In the flanker task example above, betas (i.e. activation index) have been fit to every voxel per trial, and separated by condition (incongruent and congruent). This figure is only representing the incongruent trials, but both incongruent and congruent trial data can be collected. Regions of interest (ROIs) can be selected from these beta-maps and all the voxels within the ROI are averaged. Once the betas are extracted from each ROI for each trial, the resulting lists of betas can be correlated with each other.}%
+    \caption{Setting up beta series Correlations. In the flanker task example above, betas (i.e. activation index) have been fit to every voxel per trial, and separated by condition (incongruent and congruent). This figure is only representing the incongruent trials, but both incongruent and congruent trial data can be collected.Regions of interest (ROIs) can be selected from these beta maps and all the voxels within the ROI are averaged. Once the betas are extracted from each ROI for each trial, the resulting lists of betas can be correlated with each other.}%
     \label{fig:betaseries_correlation_illustration}%    
 \end{figure}
 
-The first method is beta-series correlations and is sensitive to the theoretical notion of reactive cognitive control (Figure ~\ref{fig:betaseries_correlation_illustration}). 
-Beta-series correlations model the response after a congruent or incongruent stimulus capturing the "on-the-fly" conflict adaptations, otherwise known as reactive cognitive control.
+The first method is beta series correlations and is sensitive to the theoretical notion of reactive cognitive control (Figure ~\ref{fig:betaseries_correlation_illustration}). 
+beta series correlations model the response after a congruent or incongruent stimulus capturing the "on-the-fly" conflict adaptations, otherwise known as reactive cognitive control.
 Aim 1 will establish the use of this method due to its novel application to fast-event related designs of fMRI.
 
 The second method is residual correlations; the time-course of the brain's activity after regressing out the stimulus onset information ~\citep{Fair2007,Cole2014,Bolt2017}. 
@@ -292,27 +294,32 @@ This research will contribute to the ongoing conversation of the neural basis of
 \begin{figure}[H]%
 	\centering
 	\includegraphics[width=1\linewidth]{all_aims}
-	\caption{Outline of my three aims. Aim 1 seeks to produce and validate software developed with nipype to perform beta-series correlations. Aim 2 will profile beta-series correlations and residual correlations on the same task datasets to derive differences and similarities between the methods. Finally, Aim 3 connects the correlations derived from the two methods and compares them to behavioral measures of cognitive control (e.g. reaction time cost). Abbreviations: RT=reaction time}
+	\caption{Outline of my three aims. Aim 1 seeks to produce and validate software developed with nipype to perform beta series correlations. Aim 2 will profile beta series correlations and residual correlations on the same task datasets to derive differences and similarities between the methods. Finally, Aim 3 connects the correlations derived from the two methods and compares them to behavioral measures of cognitive control (e.g. reaction time cost). Abbreviations: RT=reaction time}
 	\label{fig:all_aims}
 \end{figure}
 
-\textbf{Specific Aim 1}: Create and validate a program to perform beta-series correlations
+\textbf{Specific Aim 1}: Create and validate a program to perform beta series correlations
+\newline
 \newline
 \textit{Rationale}: A beta in this context refers to the free varying parameter in the general linear model (GLM) that "fits" the data.
-\begin{equation} \label{eq:1}
-Y = X\beta + \epsilon 
+\begin{equation}
+	Y = X\beta + \epsilon 
+	\label{eq:1}
 \end{equation}
-Equation \ref{eq:1} is the basic GLM where $Y$ represents the time-series we are attempting to explain. The $\beta$ assumes any value that minimizes the squared error between the modeled data and the actual data. 
+Equation \ref{eq:1} is the classic GLM where $Y$ represents the time-series we are attempting to explain.
+The $\beta$ assumes any value that minimizes the squared error between the modeled data and the actual data. 
 $\epsilon$ refers to the error that is not captured by the model.
 \begin{equation} \label{eq:2}
 Y = X_{Ti}\beta + \epsilon
 \end{equation}
 Equation \ref{eq:2} describes the least squares separate (LSS) implementation of a GLM, where the major difference is in the design term $X_{Ti}\beta$.
-This notation represents that a particular trial's $\beta$ is being estimated and not the average of all the trials.
-Another detail not explicitly noted in the equation is that all other trials (e.g. every trial except the one being modeled) are treated as a single nuisance regressor, so the beta will only account for the unique variance described by that trial and any shared variance will given to the other trials.
+This notation represents that a particular ($Ti$) trial's $\beta$ is being estimated and not the average of all the trials.
+Another detail not explicitly noted in the equation is that all other trials of the same type are treated as a single nuisance regressor.
+The particular trial's $\beta$ will only account for the unique variance described by that trial.
+If there are other trial types, each unique trial type will be its own nuisance regressor containing all trials of that type.
 Thus we can account for the unique trial-to-trial variability of the betas.
 \begin{algorithm}
-	\caption{Beta-series Algorithm}\label{al:1}
+	\caption{Beta Series Algorithm}\label{al:1}
 	\begin{algorithmic}[1]
 		\FOR{\texttt{Ti in Trials}}
     		\STATE \texttt{$Y = X_{Ti}\beta + \epsilon$}
@@ -320,87 +327,99 @@ Thus we can account for the unique trial-to-trial variability of the betas.
 	\end{algorithmic}
 \end{algorithm}
 The algorithm to calculate each trial's $\beta$ estimate will be iteratively performed across trials and depending on the trial's condition (e.g. congruent vs. incongruent), the $\beta$ value will be placed in its corresponding list (Algorithm ~\ref{al:1}).
-While programs exist to compute beta-series correlations, there isn't one that utilizes least squares separate estimation, a modeling strategy that would help with deriving betas from fast event related designs with beta-series correlations ~\citep{Mumford2012,Gottlich2015}. 
+While programs exist to compute beta series correlations, there isn't one that utilizes least squares separate estimation, a modeling strategy that would help with deriving betas from fast event related designs with beta series correlations ~\citep{Mumford2012,Gottlich2015}. 
 The proposed software seeks to fill that gap (Figure ~\ref{fig:all_aims}).
 \newline
-\textit{Hypothesis}
-The beta-series software will produce data that will generate coherent correlative networks.
-These networks will be spatially similar to published existing networks ~\citep{Smith2009,Dosenbach2010}
-\newline
-\textit{Method}: Under the Nipype framework, I will primarily use FMRIB's FSL utilities to model data on a trial-by-trial basis ~\citep{Smith2004,Gorgolewski2017}. 
-Using a traditional GLM with a double gamma basis function, modeling will be completed by performing a GLM for each trial individually, with all other trials combined into a single term to form a regressor of non-interest ~\citep{Mumford2012}.
-
-Validation of the beta-series software will be performed on two younger adult datasets where they performed a standard arrow flanker task (slow event related) or a simon task (fast event related).
-Two methods of analysis will be used to validate the beta-series approach, Independent Components Analysis (ICA), and ROI-ROI correlations with 160 ROIs derived from Dosenbach's meta-analysis of task data ~\citep{Dosenbach2010}.
-
-ICA will reveal the underlying structure of the data, and the resulting components will be spatially correlated with existing parcellations using ICA ~\citep{Smith2009}(Figure ~\ref{fig:smith_maps}).
-Medium to large spatial overlap (r $>$ .25) was found significant in smith (2009) and a similar threshold will be used to identify the fronto-parietal and cingulo-opercular networks.
-
-ROI-ROI correlations will provide further evidence that beta-series networks cluster together. Each participant will have a 160 x 160 matrix of Pearson's R correlations, with each ROI's network affiliation being labeled by Dosenbach (2010) (Figure ~\ref{fig:dosenbach_rois}). 
-Within network correlations will be generated along with between network correlations, producing two values for each participant (average within network correlation and average between network correlation).
-Then a one-tailed student's t-test will evaluate whether the within network correlations are significantly greater than between network correlations.
-\newline
-\textit{Alternative Methods}: If the beta-series approach introduces bias into the correlation measures (e.g. all regions are strongly correlated with each other), the method to derive betas will be re-evaluated.
-If there is not a suitable method to reduce/remove the bias, psycho-physiological interactions (PPI) may be used instead to derive relative trial activation, although there is no a priori reason to believe PPI will be less susceptible to bias.
-If network parcellations do not reasonably overlap with existing parcellations, this could be of interest by itself.
-It may suggest novel networks are generated during a task that do not exist in identified resting state networks.
-However, to draw a relation with the existing literature, specific ROIs from the major network hubs (Dosenbach, 2010) will be used to give the beta-series correlations their best shot at overlapping with existing networks.
-If the ROI-ROI correlation, student's t-test does not provide enough rigor to demonstrate the within versus between network connectivity, graph theoretical measures such as the participation coefficient and within-module degree will be used to identify provincial hubs and connector hubs ~\citep{Wang2010}. 
-\newline
-\textbf{Specific Aim 2}: Characterize the relationship between beta-series correlations (reactive) and residual correlations (proactive) during cognitive control tasks.
-\newline
-\textit{Rationale}: The dual mechanisms of control theory posits these networks should be differentially sensitive to the type of correlation method applied ~\citep{Dosenbach2007,Braver2006}. 
-In the existing literature there has not been an attempt to analyze data with these  complementary methodologies, presenting an excellent opportunity to conceptually frame task data into stimulus evoked components and persistent background components.
 \newline
 \textit{Hypothesis}:
-With residual correlations, the connectivity within the cingulo-opercular network should be stronger than the connectivity within the fronto-parietal network. With beta-series correlations, the connectivity within the fronto-parietal network should be stronger than the connectivity within the cingulo-opercular network.
+The beta series software will capture brain response variability across trials to produce correlations that are different from resting state correlations.
 \newline
-\textit{Methods}: To calculate residual correlations two steps will be completed.
-First the stimulus responses will be modeled and removed from the data.
-Second the data will be z-transformed and Pearson's R correlations will be performed.
-Stimulus onsets from the task will be represented as impulses and convolved with a double gamma function to be used as the basis function for the GLM. 
+\newline
+\textit{Method}:
+Under the Nipype framework, I will use python to model data on a trial-by-trial basis ~\citep{Smith2004,Gorgolewski2017}. 
+Using a traditional GLM with a double gamma basis function, modeling will be completed by performing a GLM for each trial individually, with all other trials of the same type combined into a single term to form a regressor of non-interest ~\citep{Mumford2012}.
+Additionally, trials from other trial types will each get their own regressor.
+
+Validation of the beta series software will be shown progressively from simulations to real data.
+Starting from simulations, two voxels will be simulated with a specified correlation of BOLD responses that I control.
+I will vary the correlation between the two voxels and inject different amounts of noise to ascertain how well nibetaseries recaptures the correlation I set between the two voxels.
+From these simulations I will be able to approximate power for subsequent analyses.
+ 
+The next level of validation will proceed by comparing task data with resting state data.
+The resting state data will be analytically treated the same as the task data, testing the assertion nibetaseries uses the BOLD response to capture correlations between brain regions.
+Brain regions and networks will be defined with the Schaefer 400 atlas ~\citep{schaefer2017}.
+The number of trials for a specific trial type will be divided into two sets and the difference of the correlation matrices between the two sets will determine the reliability of the correlation within task data.
+The task correlation matrix will also be subtracted from the resting state correlation matrix to test whether BOLD responses from a task improves the reliability of beta series correlations.
+Specifically, the comparison will be generated by subtracting one correlation matrix from another, taking the absolute value of the differences, and adding up the individual values.
+I hypothesize the reliability within the task data will be greater than the reliability between task and rest.
+The hypothesis will be tested with a paired-sample ttest, comparing the difference between the two sets of a single trial type for the task data and the difference between the task trial type set and the rest trial type set.
+ 
+The final level of validation will be identical to the previous analysis, except the resting state data will have simulated task evoked responses inserted creating “pseudo-task” data.
+The resting state data will be convolved with a hemodynamic response that represents the average response for each unique trial type.
+For every occurance of a trial, the corresponding hemodynamic response will be fit to every voxel.
+If engaging in a task only adds BOLD responses to the ongoing resting state activity, the correlation matrices from the “pseudo-task” data and the task data should be close to each other.
+However, if there is variance in the BOLD response that is independent of the ongoing resting state fluctuations, the correlation matrices from the “pseudo-task” data and the task data should be different.
+This test may provide evidence that beta series correlations capture unique variance not explained by resting state fluctuations, validating the utility of beta series correlations to answer novel questions about brain activity during a task.
+\newline
+\newline
+\textit{Alternative Methods}: If the beta series approach introduces bias into the correlation measures (e.g., all regions are strongly correlated with each other), the method to derive betas will be re-evaluated.
+If there is not a suitable method to reduce/remove the bias, psycho-physiological interactions (PPI) may be used instead to derive relative trial activation, although there is no a priori reason to believe PPI will be less susceptible to bias.
+In addition to taking absolute differences between correlation matrices, spatial correlations between matrices would indicate the similarity of the overall pattern of correlations.
+To ensure the results are specific to a particular parcellation of the brain regions the Power atlas may be used to replicate the results.
+\newline
+\newline
+\textbf{Specific Aim 2}: Characterize the relationship between beta series correlations (reactive) and residual correlations (proactive) during cognitive control tasks.
+\newline
+\newline
+\textit{Rationale}: The dual mechanisms of control theory posits these networks should be differentially sensitive to the type of correlation method applied ~\citep{Dosenbach2007,Braver2006}. 
+In the existing literature there has not been an attempt to analyze data with these complementary methodologies, presenting an excellent opportunity to conceptually frame task data into stimulus evoked components and persistent residual components.
+Furthermore, work by Michael Cole suggests there will not be large differences between residual correlations and beta series correlations ~\citep{Cole2019}.
+However, the differences between residual correlations and beta series correlations have not been explicitly tested.
+Testing the differences between residual and beta series correlations will provide insights on how the brain flexibly organizes to complete a task and further theories of cognitive control.
+\newline
+\newline
+\textit{Hypothesis}:
+I hypothesize the cingulo-opercular network will be modulated by proactive cognitive control and will be detectable with residual time series, but not beta series.
+My complementary hypothesis states the frontal-parietal network will be modulated by reactive cognitive control and will be detectable with beta series, but not residual time series. 
+\newline
+\newline
+\textit{Methods}:
+Data from the openneuro dataset \href{https://openneuro.org/datasets/ds001751/versions/1.0.0}{ds001751} will be used to measure both beta series and residual correlations during a Flanker task.
+The task has two block types, mostly incongruent (80 percent incongruent) and mostly congruent (20 percent incongruent).
+The mostly incongruent block incites proactive cognitive control because the participant is likely to resolve a stimulus conflict for each trial.
+On the other hand, the mostly congruent block encourages reactive control because the participant is not likely to see a conflicting stimulus.
+All participants went through both congruent and incongruent blocks constituting a fully within subjects design.
+The behavioral results indicate a successful manipulation of the congruency effect ~\citep{Aben2019}.
+The participants had a much smaller congruency effect (measured with reaction timeseries) during the mostly incongruent block relative to the mostly congruent block.
+For each participant, I will be able to measure both beta series correlations and residual correlations during mostly incongruent blocks and mostly congruent blocks. 
+Using the Dosenbach ROIs, I will create correlation matrices for both beta series and residual time series ~\citep{Dosenbach2010}.
+I will test the robustness of the results using the schafer atlas as an alternative atlas ~\citep{schaefer2017}.
+
+To calculate residual correlations three steps will be completed.
+First, the stimulus responses will be modeled and removed from the data.
+To remove the stimulus responses, stimulus onsets from the task will be represented as impulses and convolved with a double gamma function to be used as the basis function for the GLM. 
 Each stimulus event will entered into the GLM as its own regressor.
 This ensures the trial-to-trial variance will be removed from the task data, and not just the mean response of there being a stimulus. 
 The residual data from the GLM will represent BOLD responses not captured by direct responses to stimuli. 
-Subsequently, the residuals will be z-transformed to normalize the distributions and Pearson's correlations will be extracted from ROIs that participate in the fronto-parietal network and the cingulo-opercular network.
-The beta-series calculation will be performed as described in aim 1. 
-The correlation will be performed in the same manner as described for the residual calculations with an extra step for cognitive subtraction.
-That is, instead of residuals, the beta-maps will be normalized and ROI-ROI correlations will be performed for both congruent and incongruent conditions.
-The extra step will be a subtraction (incongruent - congruent) of the Pearson's R correlation matrices, signifying regions that are more strongly correlated in the incongruent condition relative to the congruent condition.
-Average within network correlations will be performed for the cingulo-opercular and fronto-parietal networks across participants for both beta-series and residual correlations.
-Then student's t-tests will be performed, with hypothesized directional effects for beta-series: fronto-parietal $>$ cingulo-opercular, and residual: cingulo-opercular $>$ fronto-parietal.
-\newline
-\textit{Alternative Methods}: 
-One point of potential weakness is the subtraction method for the beta-series correlations.
-There is a possibility correlations between rois do not change significantly between task conditions (e.g. congruent versus incongruent). 
-Thus, an alternative may be to collapse the conditions and more generally report the reactive cognitive control response to any stimulus instead of stimuli that invoke strong cognitive control processes.
-If the student's t-tests between average within network correlations do not produce results, ICA can be run on both the beta-series and residual maps to produce data driven components for the fronto-parietal and cingulo-opercular networks. The spatial overlap between the components derived from beta-series and from the residual maps will be used to derive ROIs.
-\newline
-\textbf{Specific Aim 3}: Characterize the relationship between the derived cognitive control networks and established behavioral measures of cognitive control.
-\newline
-\textit{Rationale}: The fronto-parietal and cingulo-opercular networks are theoretically motivated to explain different aspects of behavior, namely reactive and proactive cognitive control, respectively. 
-There is recent work deriving measures from reaction time and dividing the measures into reactive and proactive components ~\citep{Fassbender2014}.
-Similarly, there is a growing body of behavioral research designing task paradigms to explicitly divide the behavior into proactive and reactive components ~\citep{Gonthier2016,AppelBaum2014}.
-However, this explicit connection of behavior with beta-series and/or residual correlations has not been performed and will fill an explanatory gap towards the relation between cognitive control networks and behavioral engagement of cognitive control.
-\newline
-\textit{Hypothesis}: The fronto-parietal network derived from the beta-series approach should correlate with the "reactive" components of behavior and the cingulo-opercular network should correlate with the "proactive" components of behavior.
-\newline
-\textit{Methods}: Behavior will be measured by looking at the congruency effect (e.g. incongruent - congruent) reaction time.
-Studies that have manipulated the proportion of congruent/incongruent trials in a task  found a larger congruency effect in blocks in which there were more congruent trials relative to incongruent trials ~\citep{AppelBaum2014,Funes2010}.
-This indicates that a larger congruency effect suggests a more reactive strategy, where a late stage correction during the incongruent trials results in a larger reaction time relative to the automatic congruent trials.
-On the other hand, a smaller congruency effect suggests a more proactive strategy, if early selection keeps the goal task in mind, the reaction time on the congruent trials may be slower and the incongruent trial reaction times will be faster.
-The congruency effect will be measured for each participant, as well as the intra-network connectivity measures for fronto-parietal and cingulo-opercular for both beta-series and residual correlations as explained in aim 2.
-The connectivity measures will be correlated with the congruency effect across participants.
-\newline
-\textit{Alternative Methods}: The congruency effect is one of many analytical methods to parse behavioral data.
-Another potentially fruitful method is the congruency sequence effect (i.e. Gratton effect) which states that the trial sequence congruent/incongruent will result in a larger reaction time for the incongruent trial relative to the sequence incongruent/incongruent ~\citep{Gehring1992,Egner2007}.
-The difficulty of congruency sequence effects rests in its interpretation under the proactive/reactive framework.
-A person with a large congruency sequence effect could be interpreted as utilizing proactive control since they use the previous trial to prepare or adjust proactively to the current trial.
-Just as easily, a small congruency sequence effect could be interpreted as utilizing proactive control since the participant must be monitoring the goal information in a proactive manner such that the context in which they see an incongruent trial does not matter.
-Another method is look at reaction time variance across conditions ~\citep{Fassbender2014}. 
-A large variance difference in reaction time between congruent and incongruent trials (i.e. incongruentVariance $-$ congruentVariance) suggests more lapses in attention, indicating the late-correction reactive control was engaged.
-Whereas a small variance difference suggests consistent focus throughout the task, potentially indicating a proactive approach.
+Second, the data will be split into the mostly congruent block and mostly incongruent blocks.
+Third,  the data will be z-transformed to normalize the distributions and Pearson's R correlations will be extracted from ROIs that participate in the fronto-parietal network and the cingulo-opercular network.
 
+The beta series calculation will be done as described in aim 1.
+The correlations will be performed similarly to the residual correlations, except instead of residuals, the beta maps will be normalized and ROI-ROI correlations will be performed for the incongruent trial type.
+Average within network correlations for the cingulo-opercular and fronto-parietal networks across participants for both beta series and residual correlations in the mostly incongruent block and mostly congruent block serve as the primary outcome data.
+I will look at change in within network correlations as a function of the network (fronto-parietal and cingulo-opercular) by block (mostly incongruent and mostly congruent) by method (residual and beta series correlations) using multiple regression with a random intercept for participant.
+I predict a significant network by block by method interaction.
+From this interaction I expect the within network residual correlations from the cingulo-opercular network to increase during the mostly incongruent block relative to the mostly congruent block.
+This prediction supports the proactive role of the cingulo-opercular network which is proposed to be online during the entirety of the mostly incongruent block.
+I also expect the within network beta series correlations from the fronto-parietal network to increase during the mostly congruent block relative to the mostly incongruent block.
+This prediction supports the reactive role of the fronto-parietal network which is only called upon during the incongruent trials within the mostly incongruent block.
+\newline
+\newline
+\textit{Alternative Methods}:
+Beta series correlations give correlations for each trial type (incongruent and congruent), but in the proposed methods I only anticipate the incongruent trials to have explanatory power.
+However, it could be the relationship between congruent and incongruent trial types changes between the blocks suggesting subtracting the congruent correlation matrix from the incongruent correlation matrix would be more sensitive to the difference between blocks.  
+If within network correlations from mixed effects regression do not adequately model the differences, I can use graph theoretical measures such as participation coefficient and efficiency.
+\newline
 
 %=============================================================================
 \chapter{NiBetaSeries}
@@ -453,10 +472,10 @@ the ideal choice to test NiBetaSeries; another python application.
 \section{Real Data}
 
 %=============================================================================
-\chapter{Beta Series versus Background Correlations}
+\chapter{Beta Series versus Residual Correlations}
 %=============================================================================
 
-\section{Background Correlations}
+\section{Residual Correlations}
 
 Talk all about Micheal Cole...
 
@@ -490,243 +509,3 @@ Talk all about Micheal Cole...
 \bibliography{thesis} 
 
 \end{document}
-
-\comment{
-% currently unused text
-\section{General Methods}
-Results included in this manuscript (and results to be included) come from preprocessing performed using FMRIPREP version 1.0.4, a Nipype based tool ~\citep{Esteban2018,Gorgolewski2011,Gorgolewski2017}. 
-Each T1 weighted volume was corrected for bias field using N4BiasFieldCorrection v2.1.0 and skull-stripped using antsBrainExtraction.sh v2.1.0 (using OASIS template) ~\citep{Tustison2010}. 
-Cortical surface was estimated using FreeSurfer v6.0.0 ~\citep{Dale1999}. 
-The skull-stripped T1w volume was co-registered to skull-stripped ICBM 152 Nonlinear Asymmetrical template version 2009c using nonlinear transformation implemented in ANTs v2.1.0 ~\citep{Avants2018,Fonov2009}.
-Functional data was slice time corrected using AFNI and motion corrected using MCFLIRT v5.0.9 ~\citep{Jenkinson2002,Cox1996}. 
-This was followed by co-registration to the corresponding T1-weighted volume using boundary based registration 9 degrees of freedom - implemented in FreeSurfer v6.0.0 ~\citep{Greve2009}.
-Motion correcting transformations, T1 weighted transformation and MNI template warp were applied in a single step using antsApplyTransformations v2.1.0 with Lanczos interpolation ~\citep{Avants2018}.
-Three tissue classes were extracted from T1w images using FSL FAST v5.0.9 ~\citep{Zhang2001}.
-Voxels from cerebrospinal fluid and white matter were used to create a mask in turn used to extract physiological noise regressors using aCompCor ~\citep{Behzadi2007}.
-Mask was eroded and limited to sub-cortical regions to limit overlap with gray matter, six principal components were estimated. 
-Frame-wise displacement was calculated for each functional run using Nipype implementation ~\citep{Power2014b}.
-
-Validation will come from simulations and real data (perhaps a simple motor tapping task)
-potential:
-- stop signal task with motor and vocal stops: https://openneuro.org/datasets/ds000007/versions/00001
-- animals versus tools: https://openneuro.org/datasets/ds000238/versions/00002
-- mostly congruent versus mostly incongruent: https://openneuro.org/datasets/ds001751/versions/1.0.0
-- rest and cognitive control: https://openneuro.org/datasets/ds002152/versions/1.0.0
-\section{Aim 1}
-Data from Open Source projects hosted on \href{https://openfmri.org/}{OpenfMRI} will be used to validate the beta-series analysis. 
-The datasets encompass two tasks, a flanker task and a Simon task.
-The flanker task is a slow event related design, giving the beta-series algorithm the best chance to estimate accurate betas.
-The Simon task is a fast event-related task, providing the targeted use case for this beta-series algorithm.
-\subsection{Flanker Dataset}
-\textit{Participants}: 26 participants (mean age 20.5 $\pm$ 4.8, 15 females), without a history of psychiatric or neurological illness confirmed by psychiatric assessment. 
-Participants gave written informed consent as approved by the institutional review boards of New York University (NYU) and the NYU School of Medicine.
-\newline
-\textit{Flanker Task}: Two 5-minute fMRI scans were acquired while participants completed a slow event-related Eriksen flanker task (inter-trial interval varied between 8 and 14 s with mean = 12 s). 
-On each trial, participants had to indicate the direction of a central arrow in an array of 5 arrows. 
-In congruent trials all arrows pointed in the same direction as the central arrow (e.g., $\leftarrow \leftarrow \leftarrow \leftarrow \leftarrow$). 
-In contrast, in incongruent trials the flanking arrows pointed in the opposite direction (e.g., $\leftarrow \leftarrow \rightarrow \leftarrow \leftarrow$). 
-Each run contained 12 congruent and 12 incongruent trials, presented in a pseudo-random order. 
-Participants responded using the index- and middle finger of the right hand.
-\newline
-\textit{Data Acquisition}
-All scans were acquired using a standard Siemens head coil on a Siemens Allegra 3.0T scanner.
-During each of the two flanker task blocks they obtained 146 contiguous echo planar imaging (EPI) whole-brain volumes (TR = 2000 ms; TE = 30 ms; flip angle = 80\textdegree: 40 slices: matrix = 64 x 64; FOV = 192 mm; acquisition voxel size = 3 x 3 x 4 mm).
-For spatial normalization and localization, they obtained a high-resolution T1-weighted magnetization prepared gradient echo sequence (MPRAGE: TR = 2500 ms; TE = 4.35 ms; TI = 900 ms; flip angle = 8\textdegree; 176 slices: FOV = 256mm).
-\newline
-
-\subsection{Simon Dataset}
-\textit{Participants}: 21 participants (mean age 30.5 $\pm$ 7.3, 9 females), without a history of psychiatric or neurological illness confirmed by psychiatric assessment. 
-Participants gave written informed consent as approved by the institutional review boards of New York University (NYU) and the NYU School of Medicine.
-\newline
-\textit{Simon Task}: On each trial (inter-trial interval (ITI) was 2.5 seconds, with null events for jitter), a red or green box appeared on the right or left side of the screen. 
-Participants used their left index finger to respond to the presentation of a green box, and their right index finger to respond to the presentation of a red box.
-In congruent trials the green box appeared on the left or the red box on the right, while in more demanding incongruent trials the green box appeared on the right and the red on the left.
-Subjects performed two blocks, each containing 48 congruent and 48 incongruent trials, presented in a pre-determined order (as per OptSeq), interspersed with 24 null trials (fixation only).
-\newline
-\textit{Data Acquisition}: Functional imaging data were acquired using a research dedicated Siemens Allegra 3.0 T scanner, with a standard Siemens head coil, located at the NYU Center for Brain Imaging.
-They obtained 151 contiguous echo planar imaging (EPI) whole-brain functional volumes (TR=2000 ms; TE=30 ms; flip angle=80\textdegree, 40 slices, matrix=64x64; FOV=192 mm; acquisition voxel size=3x3x4mm) during each of the two simon task blocks. 
-A high-resolution T1-weighted anatomical image was also acquired using a magnetization prepared gradient echo sequence (MPRAGE, TR=2500 ms; TE= 3.93 ms; TI=900 ms; flip angle=8\textdegree; 176 slices, FOV=256 mm).
-
-\subsection{Beta-series Analysis}
-After preprocessing (see general methods), several regressors of no interest will also be entered into the model that were output from FMRIPREP.
-These include the first five eigenvariates from white matter and high temporal variance regions, and the time-courses classified as noise in ICA-AROMA.
-The betas will be modeled using \href{https://github.com/HBClab/NiBetaSeries}{NiBetaSeries}, the software generated for Aim 1.
-After the betas are modeled, the two separate runs will be concatenated and normalized with a mean of zero and a standard deviation of one.
-\newline
-
-\subsection{Validation Analyses}
-Validation will proceed in two separate analyses, independent components analysis and ROI-ROI correlations. 
-Each method demonstrates the validity of the beta-series algorithm with an increasing burden of proof. 
-Independent components analysis will confirm the data self organize into coherent networks that are spatially similar to the smith networks. 
-Particular attention will be given to the executive and left and right fronto-parietal networks as these correspond most closely to the cingulo-opercular and fronto-parietal networks, respectively.
-The selected ROIs for correlation were generated via meta-analyses of task data ~\citep{Dosenbach2010}. 
-These ROIs will be used to verify that beta-series correlations follow existing network structures.
-A 10mm sphere will be drawn around each ROI to provide an average signal from the voxels that fit within the mask.
-Additionally, since the correlation matrices will exist for all available conditions (e.g. congruent and incongruent), differences between the matrices will also be calculated and a student's t-test will be performed.
-The expected amount of false positives will be calculated (with an alpha of 0.05) and compared to the actual amount of positives to identify if there are any reliable differences between the correlation matrices.
-\subsection{Predictions}
-
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=5]{smith_maps}
-	\caption{Smith Maps ~\citep{Smith2009}. Borrowed from Smith (2009), this figure demonstrates the correspondence between reported activation coordinates (right column in each block) and resting state (left column in each block). Beta-series maps (decomposed via Independent Components Analysis) should also have high spatial correlations with the resting state components}
-	\label{fig:smith_maps}
-\end{figure}
-
-After the beta-series maps are decomposed using ICA (for both congruent beta-series maps and incongruent beta-series maps), the components are predicted to show a high degree of spatial similarity with the components derived from Smith (2009) (Figure ~\ref{fig:smith_maps}).
-Most importantly, there will be homologous components for the executive network (close to the cingulo-opercular network) and the left/right fronto-parietal networks.
-
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.25]{dosenbach_rois}
-	\caption{Dosenbach ROIs ~\citep{Dosenbach2010}. Pulled from the supplemental figures from Dosenbach (2010), The \href{https://github.com/nilearn/nilearn/blob/master/nilearn/datasets/data/dosenbach_2010.csv}{160 ROIs} were generated from 5 large meta-analyses. These ROIs will act as the seed regions for all beta-series correlations.}
-	\label{fig:dosenbach_rois}
-\end{figure}
-
-Using the same beta-series maps, betas will be extracted and averaged from each ROI and correlated with every other ROI to produce a 160 x 160 symmetric matrix.
-The predicted result is that for each condition (congruent and incongruent), the within network correlations for the fronto-parietal and cingulo-opercular network will be larger than the between network correlations.
-
-\subsection{Preliminary Results}
-The main result is that beta-series derived networks are similar to existing networks.
-\begin{figure}[H]%
-    \centering
-    \newcounter{connum}
-    \forloop{connum}{1}{\value{connum} < 21}{
-    	\subfloat{{\includegraphics[width=2.0cm]{con_IC_\arabic{connum}} }}
-    }
-    \caption{Congruent Independent Components (Flanker). The Flanker task from the OpenFMRI dataset. Only the betas derived from the congruent trials were used to generate these components.}%
-
-    \label{fig:con_ICs}%
-\end{figure}
-
-\begin{figure}[H]%
-    \centering
-    \newcounter{incnum}
-    \forloop{incnum}{1}{\value{incnum} < 21}{
-    	\subfloat{{\includegraphics[width=2.0cm]{inc_IC_\arabic{incnum}} }}
-    }
-    \caption{Incongruent Independent Components (Flanker). The Flanker task from the OpenFMRI dataset. Only the betas derived from the incongruent trials were used to generate these components.}%
-    \label{fig:inc_ICs}%
-\end{figure}
-
-Decomposing the slow event related Flanker task with ICA presented 
-
-\begin{figure}[H]%
-	\centering
-	\subfloat[congruent matrix]{{\includegraphics[width=0.5\linewidth]{congruent_dosenbach_flanker_matrix}}}
-	\subfloat[incongruent matrix]{{\includegraphics[width=0.5\linewidth]{incongruent_dosenbach_flanker_matrix}}}
-
-	\subfloat[congruent connectome]{{\includegraphics[width=0.5\linewidth]{congruent_dosenbach_flanker_connectome}}}
-	\subfloat[incongruent connectome]{{\includegraphics[width=0.5\linewidth]{incongruent_dosenbach_flanker_connectome}}}
-
-\caption{Beta-series Correlations with Dosenbach ROIs (Flanker). The Flanker task from the OpenFMRI dataset. The matrices and connectomes represent the same data. a and c represent Beta-series Correlations from congruent trials, whereas b and d represent Beta-series Correlations from incongruent trials. The red lines between spheres in the connectomes represent the top 0.3\% correlations in the data. Network identification is color coded in the legends in the matrices, the same coloring scheme is used in the connectomes.}
-\label{fig:OpenfMRIFlanker}
-\end{figure}
-
-\begin{figure}[H]%
-	\centering
-	\subfloat[congruent matrix]{{\includegraphics[width=0.5\linewidth]{congruent_dosenbach_simon_matrix}}}
-	\subfloat[incongruent matrix]{{\includegraphics[width=0.5\linewidth]{incongruent_dosenbach_simon_matrix}}}
-
-	\subfloat[congruent connectome]{{\includegraphics[width=0.5\linewidth]{congruent_dosenbach_simon_connectome}}}
-	\subfloat[incongruent connectome]{{\includegraphics[width=0.5\linewidth]{incongruent_dosenbach_simon_connectome}}}
-
-\caption{Beta-series Correlations with Dosenbach ROIs (Simon). The Simon task from the OpenFMRI dataset. The matrices and connectomes represent the same data. a and c represent Beta-series Correlations from congruent trials, whereas b and d represent Beta-series Correlations from incongruent trials. The red lines between spheres in the connectomes represent the top 0.3\% correlations in the data. Network identification is color coded in the legends in the matrices, the same coloring scheme is used in the connectomes.}
-\label{fig:OpeFMRISimon}
-\end{figure}
-
-\section{Aim 2}
-Once Beta-series correlations are established for use in a fast event-related design, the relationship between beta-series correlations and residual correlations will be determined.
-Residual correlations (e.g. removing task activation before estimating functional connectivity) have been published before ~\citep{Fair2007,Cole2014,Bolt2017}.
-However, previous derivations of residual correlations only removed the average task activation and did not account for trial-to-trial variability.
-Additionally, those residual correlations have only been compared to resting networks, there has not been an investigation on how these residual correlations compare to task evoked correlations.
-
-\subsection{Flanker Dataset}
-\textit{Participants}: 58 participants (mean age 69.6 $\pm$ 3.5 (range 65-80), 36 females), without a history of psychiatric or neurological illness confirmed by psychiatric assessment. 
-Only participants that scored 26 and above on the Montreal Cognitive Assessment (MoCA) were included for participation in order to exclude for cognitive impairment (mean = 27.7, range = 26-30). 
-Additionally, participants were excluded if they weren't fluent in english, had a diagnosis of any dementia or neurodegenerative disease, any medical condition predisposing the participant to imminent functional decline.
-Participants gave written informed consent as approved by the institutional review boards of the University of Iowa.
-\newline
-\textit{Flanker Task}: On each trial (inter-trial interval (ITI) was 2.72 seconds, with null events for jitter), five arrows were presented either all facing the same direction or with the central arrow facing the opposing direction.
-The participant was instructed to only respond to the direction of the central arrow, responding only with their index fingers, (e.g. if the central arrow pointed left, participant should press with their left index finger and if the central arrow pointed right, the participant should press with their right index finger), as fast and as accurately as they could.
-Participants performed 40 congruent, 40 incongruent, and 40 neutral trials (120 total), in a predetermined order (as per OptSeq) with 40 null trials (fixation only).
-\newline
-\textit{Data Acquisition}: Functional imaging data were acquired using a research dedicated Siemens Allegra 3.0 T scanner with an 8 channel Siemens head coil and a research dedicated GE Discovery 750W 3.0 T scanner with a 16 channel head coil.
-They obtained 315 contiguous echo planar imaging (EPI) whole-brain functional volumes (SIEMENS: TR=2000 ms; TE=30 ms; flip angle=90\textdegree, 36 slices, matrix=64x64; FOV=384 mm; acquisition voxel size=3.44x3.44x4mm, GE: TR=2000 ms; TE=30 ms; flip angle=80\textdegree, 36 slices; matrix=64x64; FOV=192mm)
-A high-resolution T1-weighted anatomical image was also acquired using a magnetization prepared gradient echo sequence (MPRAGE, TR=2300 ms; TE= 2.95 ms; TI=900 ms; flip angle=9\textdegree; 176 slices, FOV=256 mm, GE: BRAVO, TR=8.59 ms; TE: 3.38 ms; TI=450 ms; flip angle=12\textdegree; 252 slices, FOV=256 mm).
-\subsection{Simon Dataset}
-\textit{Participants}: 40 participants (mean age 64.3 $\pm$ 8.0, 19 females, range 50-80), without a history of psychiatric or neurological illness confirmed by psychiatric assessment. 
-Participants gave written informed consent as approved by the institutional review boards of the University of Iowa.
-\newline
-\textit{Simon Task}: On each trial (inter-trial interval (ITI) was 2.50 seconds, with null events for jitter), an X or an O was presented on either to the left or the right of a central fixation cross.
-The X and O were associated with a certain button press (either left or right index finger), and the pairing was counterbalanced across participants.
-The participant was instructed to only respond to the X and O, irrespective of location, and also perform as quickly and as accurately as possible.
-Participants performed 36 congruent and 36 incongruent trials (72 total), in a predetermined order (as per OptSeq) with 36 null trials (fixation only).
-\newline
-\textit{Data Acquisition}: Functional imaging data were acquired using a research dedicated GE Discovery 750W scanner, with a 32 channel head coil, located at the University of Iowa.
-They obtained 151 contiguous echo planar imaging (EPI) whole-brain functional volumes (TR=2000 ms; TE=30 ms; flip angle=80\textdegree, 37 slices, matrix=64x64; FOV=192 mm; acquisition voxel size=3x3x4mm).
-A high-resolution T1-weighted anatomical image was also acquired using a magnetization prepared gradient echo sequence (BRAVO, TR=8.464 ms; TE= 3.48 ms; TI=450 ms; flip angle=12\textdegree; 176 slices, FOV=256 mm).
-\subsection{Analysis}
-Betas will be extracted as they are in Aim 1.
-Residual maps will derived by including one regressor per trial (convolved with a double gamma function) to remove the impact of trial-to-trial variations in direct response to the stimuli.
-After the beta maps and the residual maps are centered (mean=0) and variance scaled to one, correlations will be performed between all extracted signals from ROIs (Figure ~\ref{fig:dosenbach_rois}), resulting in a 160x160 symmetric matrix for each participant.
-Each participant will have their intra-network correlations averaged to have a singular value per network.
-The average correlation from the fronto-parietal and cingulo-opercular networks across participants will be compared with one-tailed student's t-tests.
-\subsection{Predictions}
-We predict the intra-network connectivity will be greater in the fronto-parietal network than the cingulo-opercular network when performing beta-series correlations (Figures ~\ref{fig:predict_betaseries_ovr},~\ref{fig:predict_betaseries_spc}).
-For residual correlations, on the other hand, we predict the intra-network connectivity will be greater in the cingulo-opercular network than the fronto-parietal network (Figure ~\ref{fig:predict_residuals}.
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.5]{predict_betaseries_ovr}
-	\caption{Beta-series Correlation prediction (overall). The betas from the incongruent and congruent conditions are combined.}
-	\label{fig:predict_betaseries_ovr}
-\end{figure}
-
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.5]{predict_betaseries_spc}
-	\caption{Beta-series Correlation prediction (condition specific). The average correlations derived from congruent trials are subtracted from the average correlations derived from incongruent trials.}
-	\label{fig:predict_betaseries_spc}
-\end{figure}
-
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.5]{predict_residuals}
-	\caption{Residual prediction. The cingulo-opercular network demonstrates a stronger average within network correlations relative to the fronto-parietal network.}
-	\label{fig:predict_residuals}
-\end{figure}
-
-\section{Aim 3}
-The connection between the brain and behavior remains central to the field of neuroscience ~\citep{Krakauer2017}. 
-And for good reason, while large curated datasets can tell us much about organization and mapping of the brain, how that organization applies to behavior is what drives theory and discovery. 
-In the spirit of that idea, Aim 3 connects the cingulo-opercular and fronto-parietal networks with behavior. 
-\subsection{Analysis}
-The betas and residual maps will be calculated as explained in Aim 1 and Aim 2.
-Reaction times from the Flanker and Simon Tasks will be averaged by condition (congruent and incongruent) per participant.
-The congruency effect will be measured using the reaction time cost between incongruent and congruent conditions (e.g. incongruentRT $-$ congruentRT).
-The congruency effect will be correlated with the average intra-network correlations for the fronto-parietal and cingulo-opercular networks across participants.
-The strength of the correlations (network x behavior) will be compared with each other, such that the correlation between the average fronto-parietal intra-network correlation and the congruency effect will be compared to the average cingulo-opercular intra-network correlation and the congruency effect.
-\subsection{Predictions}
-We predict for beta-series analysis, the fronto-parietal average intra-network connectivity will correlate more strongly with congruency cost relative to the cingulo-opercular network's average intra-network connectivity correlation with congruency cost (Figures ~\ref{fig:predict_betaseries_rt_cost_ovr}, ~\ref{fig:predict_betaseries_rt_cost_spc}).
-Whereas for residual analysis, the cingulo-opercular average intra-network connectivity will correlate more strongly with congruency cost relative to fronto-parietal network's average intra-network connectivity correlation with congruency cost (Figure ~\ref{fig:predict_residuals_rt_cost}).
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.5]{predict_betaseries_rt_cost_ovr}
-	\caption{Beta-series Correlation prediction (overall). The intra-network connectivity is averaged across conditions (congruent and incongruent). As reaction time cost increases, so does fronto-parietal average intra-network connectivity, consistent with reactive cognitive control. This relationship is slightly weaker then the condition specific measure because of the averaging across conditions.}
-	\label{fig:predict_betaseries_rt_cost_ovr}
-\end{figure}
-
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.5]{predict_betaseries_rt_cost_spc}
-	\caption{Beta-series Correlation prediction (condition specific). The intra-network connectivity is subtracted (incongruent $-$ congruent). As reaction time cost increases, so does fronto-parietal average intra-network connectivity, consistent with reactive cognitive control.}
-	\label{fig:predict_betaseries_rt_cost_spc}
-\end{figure}
-
-\begin{figure}[H]%
-	\centering
-	\includegraphics[scale=0.5]{predict_residuals_rt_cost_spc}
-	\caption{Residual prediction. As reaction time cost increases, the cingulo-opercular average intra-network connectivity decreases, consistent with engagement of proactive control.}
-	\label{fig:predict_residuals_rt_cost}
-\end{figure}
-}
