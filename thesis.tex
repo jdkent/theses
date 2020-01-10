@@ -1,4 +1,4 @@
-%
+% cSpell:disable
 % you should only have one "documentclass" line.  the following lines
 % are samples that give various options.  the nofrontmatter option is
 % nice because it suppresses the title and signature pages when you want
@@ -46,7 +46,7 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 % path to figures
-\graphicspath{{img/Aim1/}{img/Aim2/}{img/Aim3/}{img/CurrentStudy/}{img/GeneralDiscussion/}{img/GeneralMethods/}{img/Introduction/}}
+\graphicspath{{notebooks/}{img/}{img/Aim1/}{img/Aim2/}{img/Aim3/}{img/CurrentStudy/}{img/GeneralDiscussion/}{img/GeneralMethods/}{img/Introduction/}}
 \usepackage{forloop} % for loops display images
 \usepackage{hyperref} % to insert hyperlinks
 \usepackage{textcomp} % to write degree symbols
@@ -96,7 +96,7 @@
 \begin{document}
 
 \frontmatter
-
+% cSpell:enable
 %=============================================================================
 \chapter{Introduction}
 %=============================================================================
@@ -125,7 +125,7 @@ The present research seeks to provide a more definitive connection between propo
 
 We've used driving as a behavior, but how is cognitive control measured in the lab?
 In the lab, we don't use cars and pedals, we use pictures.
-These pictures present conflicting information the viewer must disern given the context.
+These pictures present conflicting information the viewer must discern given the context.
 A classic task in this domain is Stroop.
 In this task, the viewer must ignore the word (the automatic response) and report the color of the font (the controlled response).
 The conflict arises when the word is a different color than its font color (e.g., the word red colored in blue font).
@@ -149,7 +149,7 @@ With the knowledge that people behave differently to the same stimulus depending
 The seed of cognitive control was planted.
 
 Following this line of thought, Shriffrin \& Schneider differentiated the top-down and bottom-up processes, otherwise known as controlled and automatic processes by looking at processing speed, attentional load, and capacity ~\citep{Shiffrin1977}. 
-They derived three fundemental attributes of cognitive control.
+They derived three fundamental attributes of cognitive control.
 One, controlled processes are slower relative to automatic processes. 
 Two, controlled processes are in competition with automatic processes. 
 And three, controlled processes tap into a shared limited resource.
@@ -232,7 +232,7 @@ Braver's conception of proactive and reactive cognitive control maps onto the sl
 The proactive component is anchored by the dorsal anterior cingulate cortex and anterior insula in the cingulo-opercular network ~\citep{Dosenbach2008}.
 The reactive component is anchored by the lateral prefrontal cortex and the parietal cortex in the fronto-parietal network ~\citep{Dosenbach2008}.
 A double dissociation between the fronto-parietal and cingulo-opercular networks has been demonstrated in a lesion study, providing further evidence of the network separability ~\citep{nomura2010b}.
-While Braver has mentioned Dosenbach's analytical methods, serious inquiry mapping the relationship between proactive and reactive control with the fronto-parietal and congulo-opercular networks has yet to be established ~\citep{Braver2006,Cooper2015}.
+While Braver has mentioned Dosenbach's analytical methods, serious inquiry mapping the relationship between proactive and reactive control with the fronto-parietal and cingulo-opercular networks has yet to be established ~\citep{Braver2006,Cooper2015}.
 
 \section{Intrinsic and Extrinsic Networks}
 
@@ -244,7 +244,7 @@ Connectivity measures between regions (or between multiple regions known as netw
 Intervention studies have also seen changes in connectivity in relation to the behavior that was targeted ~\citep{Horowitz-Kraus2015}.
 Some researchers attribute the functional connections between regions to Hebbian mechanisms, in which a simple interpretation is that "regions that fire together wire together" ~\citep{Harmelech2013}.
 Thus if there is a long history of regions robustly communicating with each other, then we would be able to see that relationship represented in resting state.
-However, there are many other sources that may contribute to resting state signal, such as motion, heartrate, non-neuronal processes, etc. ~\citep{Winder2017,Murphy2013}.
+However, there are many other sources that may contribute to resting state signal, such as motion, heart rate, non-neuronal processes, etc. ~\citep{Winder2017,Murphy2013}.
 
 Given the multiple non-neurological sources of signals in resting state, another way to "boost" the signal of relevant networks is to observe them during a task ~\citep{Cole2014}.
 In Cole (2014) they found increased connectivity in the fronto-parietal network from the task data, however in their model, they did not remove the impact of trial-to-trial variability, suggesting that the increased fronto-parietal connectivity could have been due to stimulus evoked connectivity and not due to a general state difference between rest and task.
@@ -293,12 +293,12 @@ This research will contribute to the ongoing conversation of the neural basis of
 \section{Specific Aims}
 \begin{figure}[H]%
 	\centering
-	\includegraphics[width=1\linewidth]{all_aims}
-	\caption{Outline of my three aims. Aim 1 seeks to produce and validate software developed with nipype to perform beta series correlations. Aim 2 will profile beta series correlations and residual correlations on the same task datasets to derive differences and similarities between the methods. Finally, Aim 3 connects the correlations derived from the two methods and compares them to behavioral measures of cognitive control (e.g. reaction time cost). Abbreviations: RT=reaction time}
+	\includegraphics[width=1\linewidth]{overall_thesis_pic}
+	\caption{Outline of my three aims. Aim 1 seeks to produce and validate software developed with nipype to perform beta series correlations. Aim 2 will profile beta series correlations and residual correlations on the same task datasets to derive differences and similarities between the methods and their relation to reaction time cost}
 	\label{fig:all_aims}
 \end{figure}
 
-\textbf{Specific Aim 1}: Create and validate a program to perform beta series correlations
+\textbf{Specific Aim 1}: Create and validate NiBetaSeries to perform beta series correlations
 \newline
 \newline
 \textit{Rationale}: A beta in this context refers to the free varying parameter in the general linear model (GLM) that "fits" the data.
@@ -317,7 +317,7 @@ This notation represents that a particular ($Ti$) trial's $\beta$ is being estim
 Another detail not explicitly noted in the equation is that all other trials of the same type are treated as a single nuisance regressor.
 The particular trial's $\beta$ will only account for the unique variance described by that trial.
 If there are other trial types, each unique trial type will be its own nuisance regressor containing all trials of that type.
-Thus we can account for the unique trial-to-trial variability of the betas.
+Thus we can account for the unique trial-to-trial variability of the $\beta$s.
 \begin{algorithm}
 	\caption{Beta Series Algorithm}\label{al:1}
 	\begin{algorithmic}[1]
@@ -340,35 +340,83 @@ Under the Nipype framework, I will use python to model data on a trial-by-trial 
 Using a traditional GLM with a double gamma basis function, modeling will be completed by performing a GLM for each trial individually, with all other trials of the same type combined into a single term to form a regressor of non-interest ~\citep{Mumford2012}.
 Additionally, trials from other trial types will each get their own regressor.
 
-Validation of the beta series software will be shown progressively from simulations to real data.
+Validation of the beta series software will be shown in three steps progressively from simulations to real data.
+The first question I'm answering is \textbf{whether NiBetaSeries is able to capture BOLD response correlations.}
 Starting from simulations, two voxels will be simulated with a specified correlation of BOLD responses that I control.
 I will vary the correlation between the two voxels and inject different amounts of noise to ascertain how well nibetaseries recaptures the correlation I set between the two voxels.
 From these simulations I will be able to approximate power for subsequent analyses.
- 
-The next level of validation will proceed by comparing task data with resting state data.
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[width=1\linewidth]{validation_of_beta_series_pt_1}
+	\caption{Applying Beta Series to both task and rest BOLD data.
+	A) Flattened example task and resting state BOLD data are illustrated with 5 regions/voxels and 12 time points.
+	Resting state data is being treated as if a task was performed.
+	B) The two trial types in the task: switch and repeat. While the events did not actually occur during the resting state scan,
+	I am treating the resting state data as though the events did occur.
+	C) The expected betas series for the task and rest data.
+	Note in the task data the switch trial type has higher betas on average relative to the repeat trial type.
+	The trial types in the rest data should have similar betas since there was no actual task performed.
+	D) The beta series are correlated between all regions for all trial types resulting in four 5x5 matrices.
+	I expect the difference between the switch and repeat trial types in the task data to be greater than
+	the difference between the switch and repeat trial types in the rest data.}
+	\label{fig:validation_of_beta_series_pt_1}
+\end{figure}
+
+The second question I'm answering is \textbf{whether beta series correlations rely on the BOLD response to detect task-modulated differences}. 
+The second validation will proceed by comparing task data with resting state data (Figure ~\ref{fig:validation_of_beta_series_pt_1}).
 The resting state data will be analytically treated the same as the task data, testing the assertion nibetaseries uses the BOLD response to capture correlations between brain regions.
 Brain regions and networks will be defined with the Schaefer 400 atlas ~\citep{schaefer2017}.
-The number of trials for a specific trial type will be divided into two sets and the difference of the correlation matrices between the two sets will determine the reliability of the correlation within task data.
-The task correlation matrix will also be subtracted from the resting state correlation matrix to test whether BOLD responses from a task improves the reliability of beta series correlations.
-Specifically, the comparison will be generated by: 1) subtracting one correlation matrix from another, 2) taking the absolute value of the differences, and 3) adding up the individual values.
-I hypothesize the reliability within the task data will be greater than the reliability between task and rest.
-The hypothesis will be tested with a paired-sample ttest, comparing the difference between the two sets of a single trial type for the task data and the difference between the task trial type set and the resting state set.
- 
-The final level of validation will be identical to the previous analysis, except the resting state data will have simulated task evoked responses inserted creating “pseudo-task” data.
+Beta series correlation matrices will be derived for repeat and switch trials separately for both task and rest resulting in four correlation matrices.
+Beta series correlations will be averaged within the Schaefer control network, compressing the data to four observations per participant.
+A linear mixed effects model will be run to test if the difference between switch and repeat can only be seen with the task beta series correlations.
+The average correlation will be the dependent measure; data type (i.e., task or rest) and trial type (i.e., switch or repeat) will be the categorical predictors; and participant will have a random intercept.
+I hypothesize there will be a significant interaction between data type and trial type where the difference between switch and repeat is greater for task beta series correlations relative to the rest beta series correlations.
+
+\begin{figure}[H]%
+	\centering
+	\includegraphics[width=1\linewidth]{validation_of_beta_series_pt_2}
+	\caption{Creating Pseudo Task data from resting state data.
+	A) Starting with the example flattened task BOLD data, B) calculate the average response of the task BOLD data
+	to the two trial types (Switch and Repeat).
+	C) Once the average responses (or betas) are calculated,
+	D) I will take the resting state data and add the average responses back into the task BOLD data
+	every time that trial type occurs.
+	With the "pseudo-task" BOLD data, I can treat it as I would normal task BOLD data and calculate beta series
+	correlations.
+	}
+	\label{fig:validation_of_beta_series_pt_2}
+\end{figure}
+
+The third question I'm answering is \textbf{if beta series correlations are driven by ongoing resting state fluctuations or by BOLD response variability dependent on task demands.}
+BOLD response variability could merely be a reflection of ongoing resting state fluctuations and not a representation of brain reconfiguration driven by task demands (e.g., such as whether the trial type is switch or repeat).
+If BOLD response variability is driven by resting state fluctuations, the difference in correlations between the switch and repeat trials would be attributable to the differences in response magnitude for each trial type.
+In other words, the larger the BOLD response, the easier it is to detect the ongoing resting state correlations.
+The third and final validation will be identical to the previous analysis, except the resting state data will have inserted task evoked responses creating “pseudo-task” data (Figure ~\ref{fig:validation_of_beta_series_pt_2}).
 The resting state data will be convolved with a hemodynamic response that represents the average response for each unique trial type for a participant.
-For every occurance of a trial, the corresponding hemodynamic response will be fit to every voxel.
+For every trial, the corresponding hemodynamic response for that trial type will be fit to every voxel.
 If engaging in a task only adds BOLD responses to the ongoing resting state activity, the correlation matrices from the “pseudo-task” data and the task data should be close to each other.
 However, if there is variance in the BOLD response that is independent of the ongoing resting state activity, the correlation matrices from the “pseudo-task” data and the task data should be different.
 This test may provide evidence that beta series correlations capture unique variance not explained by resting state fluctuations, validating the utility of beta series correlations to answer novel questions about brain activity during a task.
+\begin{figure}[H]%
+	\centering
+	\includegraphics[width=1\linewidth]{aim_1_validation}
+	\caption{Expected results from the real data validation.
+	I expect the difference in beta series correlations between switch and repeat trial types should be the largest in the real task BOLD data and significantly greater than "pseudo-task" BOLD data and resting state BOLD data}
+	\label{fig:aim_1_validation}
+\end{figure}
+The pattern of hypothesized trial-type differences for task, "pseudo-task" and rest is seen in Figure ~\ref{fig:aim_1_validation}.
 \newline
 \newline
 \textit{Alternative Methods}: If the beta series approach introduces bias into the correlation measures (e.g., all regions are strongly correlated with each other), the method to derive betas will be re-evaluated.
 If there is not a suitable method to reduce/remove the bias, psycho-physiological interactions (PPI) may be used instead to derive relative trial activation, although there is no a priori reason to believe PPI will be less susceptible to bias.
-In addition to taking absolute differences between correlation matrices, spatial correlations between matrices would indicate the similarity of the overall pattern of correlations.
-To ensure the results are specific to a particular parcellation of the brain regions the Power atlas may be used to replicate the results.
+If averaging correlations within a network does not capture the data type by trial type interaction, multivariate methods may be used.
+Specifically, a classifier could be trained on the correlation matrices to identify each of the categories (e.g., rest-switch, rest-repeat, task-switch, task-repeat)
+leveraging the full correlation matrix.
+Another option is to use graph theoretical measurements such as local or global efficiency to capture the state of overall network.
 \newline
 \newline
-\textbf{Specific Aim 2}: Characterize the relationship between beta series correlations (reactive) and residual correlations (proactive) during cognitive control tasks.
+\textbf{Specific Aim 2}: Characterize the relationship between beta series correlations (reactive) and residual correlations (proactive) during a flanker task.
 \newline
 \newline
 \textit{Rationale}: The dual mechanisms of control theory posits these networks should be differentially sensitive to the type of correlation method applied ~\citep{Dosenbach2007,Braver2006}.
@@ -389,12 +437,24 @@ The mostly incongruent block incites proactive cognitive control because the par
 On the other hand, the mostly congruent block encourages reactive control because the participant is not likely to see a conflicting stimulus.
 All participants went through both congruent and incongruent blocks constituting a fully within subjects design.
 The behavioral results indicate a successful manipulation of the congruency effect ~\citep{Aben2019}.
-The participants had a much smaller congruency effect (measured with reaction timeseries) during the mostly incongruent block relative to the mostly congruent block.
+The participants had a much smaller congruency effect (measured with reaction time series) during the mostly incongruent block relative to the mostly congruent block.
 For each participant, I will be able to measure both beta series correlations and residual correlations during mostly incongruent blocks and mostly congruent blocks. 
 Using the Dosenbach ROIs, I will create correlation matrices for both beta series and residual time series ~\citep{Dosenbach2010}.
-I will test the robustness of the results using the schafer atlas as an alternative atlas ~\citep{schaefer2017}.
+I will test the robustness of the results using the Schaefer atlas as an alternative atlas ~\citep{schaefer2017}.
 
-To calculate residual correlations four steps will be completed.
+\begin{figure}[H]%
+	\centering
+	\includegraphics[width=1\linewidth]{residual_correlations}
+	\caption{Calculating Residual Correlations.
+	A) Flattened and simplified task BOLD data with 12 time points and 5 regions/voxels.
+	B) Each trial onset will get its own regressor in a GLM to
+	C) calculate an individual beta per trial, resulting in a beta series.
+	D) The beta series will be subtracted from the original task BOLD data, removing potential
+	trial modulated BOLD response variance, only leaving the variance attributed to task context (e.g., whether the block was congruent or incongruent).}
+	\label{fig:residual_correlations}
+\end{figure}
+
+To calculate residual correlations four steps will be completed ~\ref{fig:residual_correlations}.
 First, the stimulus responses will be modeled and removed from the data.
 To remove the stimulus responses, stimulus onsets from the task will be represented as impulses and convolved with a double gamma as the basis function for the GLM. 
 Each stimulus event will entered into the GLM as its own regressor.
@@ -405,11 +465,21 @@ The splitting allows me to analyze the state dependent correlations during the m
 Third, the data will be z-transformed to normalize the distributions and Pearson's R correlations will be extracted from ROIs that participate in the fronto-parietal network and the cingulo-opercular network.
 Fourth, ROIs that belong to the same network will be correlated with each other and averaged giving an average within network correlation.
 
-The beta series calculation will be done as described in aim 1.
-The correlations will be performed similarly to the residual correlations, except instead of residuals, the beta maps will be normalized and ROI-ROI correlations will be performed for the incongruent trial type.
-Average within network correlations for the cingulo-opercular and fronto-parietal networks across participants for both beta series and residual correlations in the mostly incongruent block and mostly congruent block serve as the primary outcome data.
+Beta series will be calculated as described in aim 1.
+The correlations will be performed similarly to the residual correlations, except instead of residuals, the beta maps will be normalized and within network correlations will be calculated for the incongruent trial type within the mostly incongruent and mostly congruent blocks.
+Average within network correlations for the cingulo-opercular and fronto-parietal networks across participants for both beta series and residual correlations in the mostly incongruent block and mostly congruent block serve as the primary outcome measure.
 I will look at change in within network correlations as a function of the network (fronto-parietal and cingulo-opercular) by block (mostly incongruent and mostly congruent) by method (residual and beta series correlations) using mixed effects modeling with a random intercept for participant.
-I predict a significant network by block by method interaction.
+I predict a significant network by block by method interaction ~\ref{fig:aim_2_validation}.
+\begin{figure}[H]%
+	\centering
+	\includegraphics[width=1\linewidth]{aim_2_validation}
+	\caption{Hypothesized relationship between network (fronto-parietal and cingulo-opercular), method (beta series and residual), and block (mostly congruent and mostly incongruent).
+	I hypothesize the fronto-parietal network beta series correlation should be lower during the incongruent block relative to the congruent block.
+	There is not a strong prediction on how the cingulo opercular network will behave with beta series correlations.
+	I also hypothesize the cingulo-opercular network residual correlation should be higher during the incongruent block relative to the congruent block.
+	There is not a strong prediction on how the fronto-parietal network will behave with residual correlations.}
+	\label{fig:aim_2_validation}
+\end{figure}
 From this interaction I expect the within network residual correlations from the cingulo-opercular network to increase during the mostly incongruent block relative to the mostly congruent block.
 This prediction supports the proactive role of the cingulo-opercular network which is proposed to be online during the entirety of the mostly incongruent block.
 I also expect the within network beta series correlations from the fronto-parietal network to increase during the mostly congruent block relative to the mostly incongruent block.
@@ -442,7 +512,7 @@ A couple toolboxes that calculate beta series include BASCO, pybetaseries, and p
 However, BASCO has limitations on the number of methods you can use to generate beta series,
 pybetaseries is no longer being actively developed, and pyMVPA requires the user to know
 a decent amount of python to make use of their functions.
-With the limitations of the current toolboxes and the relative anonyminity of beta series,
+With the limitations of the current toolboxes and the relative anonymity of beta series,
 it comes with little surprise that many researchers do not use this method and instead reach for
 more familiar analyses using General Linear Models (GLMs) or resting state correlations applied
 to task data (add citation).
@@ -460,13 +530,13 @@ In this chapter; I will explore under what experimental conditions NiBetaSeries 
 recommendations for when to use the toolbox.
 
 \section{Simulations}
-Simulation in fMRI has a rich literature, with mutliple strategies varying along the axis
+Simulation in fMRI has a rich literature, with multiple strategies varying along the axis
 of practicality and accuracy.
 For testing tools/methods on many different experimental designs; simulating the bloch equations
 is too computationally intensive and simpler simulations can generate realistic data.
 To this author's knowledge, the first accessible tool to generate simulated fMRI data is NeuRoSim (add citation).
 NeuRoSim allows the user to create expected responses to stimuli, motion noise, physiological noise,
-timeseries drift, and autocorrelation of the timeseries (add citation).
+time series drift, and autocorrelation of the time series (add citation).
 More recently, the python module fmrisim was released mirroring the functionality of NeuRoSim, making this tool
 the ideal choice to test NiBetaSeries; another python application.
 
@@ -474,14 +544,20 @@ the ideal choice to test NiBetaSeries; another python application.
 \section{Real Data}
 
 %=============================================================================
+\chapter{Residual Correlations}
+%=============================================================================
+Talk all about Micheal Cole...
+
+%=============================================================================
 \chapter{Beta Series versus Residual Correlations}
 %=============================================================================
 
 \section{Residual Correlations}
 
-Talk all about Micheal Cole...
 
-
+%=============================================================================
+\chapter{General Discussion}
+%=============================================================================
 
 %=============================================================================
 \appendix
