@@ -164,7 +164,7 @@
 \ProcessOptions
 % --------------------- package loading -------------------------------
 \LoadClass[12pt]{report}[1995/06/26]
-\RequirePackage{fancyheadings,indentfirst}
+\RequirePackage{fancyhdr,indentfirst}
 \usepackage{algorithmic}
 \usepackage[ruled,chapter]{algorithm}
 \usepackage[toc,page,titletoc]{appendix}
