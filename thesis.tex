@@ -101,161 +101,101 @@
 \chapter{Introduction}
 %=============================================================================
 
-What makes us human?
-What makes us "different" than robotic automatons that blindly react to their environment?
-Some may say free will, but perhaps they are really thinking of cognitive control.
-Cognitive control is the ability to take into account context to decide what action to take in response to a stimulus. 
-A common example is driving.
-If you are driving through a neighborhood with notoriously short yellow lights, I would hope you are likely to stop when you see a light turn yellow.
-On the other hand, if you are driving through a neighborhood where the yellow light lasts for eight, maybe ten seconds, you may cruise through the intersection.
-The two automaton behaviors are the braking and continuing (maybe speeding up a little) through the yellow light.
-Cognitive control represents the process that selects one of the two behaviors.
-In this example, cognitive control is informed by the spatial location of the driver and the location's association with either a short or long yellow light.
+At the heart of any cognitive neuroscientist is the desire to relate the physical
+processes of the brain to cognition.
+The advent of functional Magnetic Resonance Imaging (fMRI) presented an amazing opportunity
+to pursue the brain/cognition relationship like never before~\cite{ogawa1990}.
+The serendipitous connection between blood rushing to areas of the brain where neurons
+are working hardest provided the backdrop for discovering the large scale organization
+of the brain and discovering which brain areas are recruited for specific tasks.
+Another line of inquiry combines the previous questions to ask: How does the brain
+organize to complete different tasks?
+Instead of observing the brain's organization while there is no explicit task or observing
+the whether a particular area is strongly recruited during a particular context,
+answering the question how the brain organizes during a task represents our brain state
+during the majority of our lives.
+Whether it's writing an email, playing a card game, talking with colleagues; we are
+often engaged in tasks throughout the day.
+Thus, investigating how the brain organizes during a task grants understanding how
+we operate in daily life.
+What do I mean by organization?
+For the context of this thesis, brain organization refers to which brain areas are communicating
+with each other, which is measured by a statistical dependency between
+regions like a Pearson's correlation.
+The eagerness to understand brain organization during tasks has outpaced the investigations
+of the methods to understand brain organization.
+I compared different methods to measure brain organization during a task
+and provide recommendations on which method to use.
 
-There is a vast sea of cognitive control research: its ontology, its neural basis, when it breaks down, but several key gaps still remain ~\citep{Gratton2017,Dosenbach2010,Braver2000}.
-\textbf{The first key gap is how neural networks are represented during a task that requires cognitive control}.
-The current literature has found which brain regions are associated with cognitive control and what networks those regions participate in at rest ~\citep{Gratton2017a,Lerman-Sinkoff2017,Herd2006,Rizio2012,Cooper2015,AppelBaum2014,Dosenbach2007}.
-However, the crucial missing evidence is directly observing the networks during a task.
-The reason this evidence does not exist is because of the lack of available methods.
-By creating and sharing this method, we will provide more direct evidence for cognitive control networks.
+Several methods have been introduced to measure brain organization during a task,
+namely Beta Series Correlations (BSC) and Psychophysiological Interactions (PPI).
+Their purpose is to measure task modulated differences in connectivity between brain areas.
+In other words, they detect if the correlation between region A and B is different
+in context 1 versus context 2.
 
-\textbf{The second key gap is how cognitive control networks correlate with behavior}.
-Related to the first gap, researchers have correlated brain activation and networks at rest with behavior, but not networks during a task. ~\citep{nomura2010b,Egner2004,Gonthier2016a,Braver2010,Huang2017}
-The present research seeks to provide a more definitive connection between proposed cognitive control networks and behavior.
+Jesse Rissman :cite:`d-Rissman2004` was the first to publish on beta series
+correlations, describing their usage in a working memory task.
+In this task, participants saw a cue, a delay, and a probe, all occurring
+within a short time period.
+The cue was presented for one second, a delay occurred for seven seconds,
+and a probe was presented for one second.
+Given that the blood-oxygen-level-dependent (BOLD) response
+takes approximately six seconds to reach its peak, and generally takes over
+20 seconds to return to baseline, we can begin to see a problem.
+The events within the events occur too close to each other to discern what
+brain responses are related to encoding the cue, the delay, or the probe.
+To discern how the activated brain regions form networks, Rissman
+computed beta series correlations.
+Instead of having a single regressor to describe all the cue events,
+a single regressor for all the delay events, and a single regressor for all the
+probe events (as is done in traditional task analysis),
+there is an individual regressor for every event in the experiment.
+For example, if your experiment has 40 events, each with a cue, delay, and
+probe event, the model will have a total of 120 regressors, fitting a beta
+(i.e., parameter) estimate for each event.
+Once you calculate a beta estimate for each event of a given type
+(e.g., cue), you will have a four-dimensional dataset where each volume
+represents the beta estimates for a particular event.
 
-We've used driving as a behavior, but how is cognitive control measured in the lab?
-In the lab, we don't use cars and pedals, we use pictures.
-These pictures present conflicting information the viewer must discern given the context.
-A classic task in this domain is Stroop.
-In this task, the viewer must ignore the word (the automatic response) and report the color of the font (the controlled response).
-The conflict arises when the word is a different color than its font color (e.g., the word red colored in blue font).
-Thus, by looking at the reaction time difference between trials with  and without conflict, we can measure the cost to engage cognitive control in order to override an automatic response (however, there are alternative explanations) ~\citep{Hommel2011}. 
-We can establish a relationship between network connectivity and reaction time cost with the above measures, and connect the construct of cognitive control with anatomy ~\citep{Braver2008,Dosenbach2007}.
+Having one regressor per event in a single model is known as "least squares- all" (LSA).
+This method, however, has limitations in the context of fast event-related
+designs (e.g., designs where the events occur between 3-6
+seconds apart on average).
+Since each event has its own regressor, events that occur very close in time
+are collinear (e.g., are very overlapping).
 
-\section{History of Cognitive Control}
+Jeanette Mumford :cite:`d-Mumford2012` derived a solution for
+the high collinearity observed in least squares- all by using another
+type of regression known as "least squares- separate" (LSS).
+Instead of having one general linear model (GLM) with a regressor per event,
+least squares- separate implements a GLM per event with only two regressors:
+1) one for the event of interest, and 2) one for every other event in the
+experiment.
+This process reduces the collinearity of the regressors and creates a more valid
+estimate for each trial, but also combines all other conditions
+within the design matrix, which will reduce model fit.
 
-To understand cognitive control, we must first take a step back to understand the theories that connected an individual's environment with their responses, presumably through the 3 pound piece of pulsating meat between our ears.
-The 1960s were a tumultuous time of drugs, protests, and revolutions. 
-Not to be outdone by the social and political environments, psychology staged its own revolution, a cognitive revolution against a backdrop of behaviorism, although the concept of revolution may be romanticizing what actually happened ~\citep{Leahey1992}. 
-The gelatinous black box of the brain needed to be unveiled, and cognitive psychology was determined to pull back the curtain. 
+Benjamin Turner :cite:`d-Turner2012a` improved upon the LSS method by retaining
+the original conditions in the design matrix.
+In this updated version, the individual trial's design matrix is almost the same
+as the original design matrix, except that the trial is separated out into its
+own regressor.
 
-One of the first cognitive models to gain traction during the "revolution" was Sternberg's serial processing model.
-As the name suggests, Sternberg's serial processing model suggested people processed stimuli one at a time, serially, which gave psychology groundbreaking concepts such as the primacy and recency effects ~\citep{Sternberg1966}.
+Benjamin Turner :cite:`d-Turner2012a` also adapted the LSS method by combining
+it with finite impulse response (FIR) modeling, in which each of a set of
+temporal delays following each trial is modeled as an impulse function in order
+to characterize the shape of the BOLD response, as the
+finite BOLD response- separate (FS) model.
+The FS model showed promise as a method for decoding, as it does not make any
+assumptions about the shape of the BOLD response.
 
-However, as with all models, serial processing was inadequate in explaining the flexibility of human cognition.
-Namely, the deficit was the thought that human cognition was treated as an open loop system, where information was processed in stages and produced behavioral output. 
-While closed-loop systems were pervasive in the subfield of cybernetics, the idea did not really pierce the veil of psychology until 1970 when Gregory published about the distinction between top-down and bottom-up processing ~\citep{Gregory1970}.
-With the knowledge that people behave differently to the same stimulus depending on the context, psychologists concluded that in addition to feed-forward processing, there must also be a feedback mechanism to inform the appropriate response ~\citep{Gregory1970}.
-The seed of cognitive control was planted.
+NiBetaSeries can use the updated "least squares- separate" method,
+the "finite BOLD response- separate" method, or the original
+"least squares- all" method.
 
-Following this line of thought, Shriffrin \& Schneider differentiated the top-down and bottom-up processes, otherwise known as controlled and automatic processes by looking at processing speed, attentional load, and capacity ~\citep{Shiffrin1977}. 
-They derived three fundamental attributes of cognitive control.
-One, controlled processes are slower relative to automatic processes. 
-Two, controlled processes are in competition with automatic processes. 
-And three, controlled processes tap into a shared limited resource.
 
-The next major model of cognition that involved feedback (controlled processing) was Norman and Shallice's (1986) supervisory attentional system (SAS) ~\citep{Norman1986}. 
-The SAS encompasses slow, deliberate top-down processes when pursuing the habitual response is incorrect or inadequate.
-Around the same time Baddeley released a model of working memory which included a Central Executive where putative functions of cognitive control would be performed ~\citep{Baddeley1996}.
-However, as Baddeley noted himself, his concept of the central executive was too vague and could only "serve as little more than a ragbag" (p.6). 
-Researchers have found this ambiguous cloud of higher cognition within the central executive, but efforts to divide it up into useful chunks has evaded strong empirical scrutiny for years.
+PPI was 
 
-Miyake et al. (2000) tackles the central executive head on and began carving the construct into distinct components. 
-Their group found that executive function could be split into three categories:
-1) shifting between tasks or mental sets,
-2) updating and monitoring of working memory representations, and
-3) inhibition of dominant or prepotent responses ~\citep{Miyake2000}.
-This work was instrumental towards providing a stronger behavioral definition of cognitive control, and paved the way for well designed imaging studies to study cognitive control.
-Miyake provided an excellent first-pass into dividing up the central executive, but more detailed explanations are needed.
-For example, the congruency sequence effect (i.e. Gratton effect) would require monitoring of working memory representations and inhibition of a dominant response in favor of a less dominant response, but do these processes occur over the course of the task between stimulus presentations, or perhaps they are engaged when the stimulus is presented, or perhaps a mixture of both?
-
-Braver added a much needed explicitness and computational validity to cognitive control. With his detailed, testable models, Braver began to peer into the conceptual void of the central executive and its anatomical underpinnings ~\citep{Braver2001}. 
-He proposed a gating model, where phasic dopamine release in the prefrontal cortex (PFC) allowed for flexible updating of the active memories being held in place.
-
-To illustrate, imagine a color stroop task where the participant has to name the color of the font, and ignore the word that is printed.
-The foundation of the stroop task assumes that reading is an automatic process that requires little to no control, whereas naming the color is a controlled process that can act in opposition to reading if the printed word is also a color (e.g. the word blue colored in red font).
-The maintenance of the goal (name the font color, not the word) is held in working memory (in the PFC), and the ability to acquire and maintain this goal is hypothesized to be a result of phasic dopamine release. 
-If there was a long sequence of congruent trials (e.g. the word red with the font color red), the participant may take a shortcut and use the automatic process of naming the word.
-An incongruent trial may appear after this sequence of congruent trials, and then the participant has to engage the controlled process through phasic dopamine release into the PFC.
-Again, a common thread of these models does not lay with their accuracy to describe all of human cognition, but with their utility to frame our thoughts and describe particular aspects of human cognition. 
-
-% add section for conflict monitoring theory (CMT)
-\section{Conflict Monitoring Theory}
-TODO
-% add section for Prediction of Response-Outcome (PRO)
-\section{Prediction of Response-Outcome}
-TODO
-
-\section{Dual Mechanisms of Control}
-
-As mentioned in the previous section, an additional layer of nuance emerges when one asks exactly when is cognitive control engaged.
-Is cognitive control engaged when the stimulus/probe appears or is it maintained over the course of the task?
-Does it matter?
-Is it all a part of the same process?
-Braver has classified the above circumstances as different forms of cognitive control, reactive and proactive, and they form the Dual Mechanisms of Control (DMC) framework ~\citep{Braver2012}.
-A way to conceptualize proactive and reactive control is early selection and late correction, respectively ~\citep{Jacoby1999}.
-Early selection means the goal is held in working memory either for the duration of the task, and/or the period between a cue and a probe.
-Late correction, on the other hand, means the goal is not held in working memory, rather, the decision about whether the automatic or the controlled behavior set should drive behavior is not engaged until a probe or stimulus is seen.
-Braver found this behavioral distinction between proactive and reactive cognitive control while working on the AX version of the continuous performance task (AX-CPT) ~\citep{Paxton2008}.
-The AX-CPT is a task where participants are to respond to a particular cue-probe pair, namely A-X.
-All other cue-probe pairs (A-Y, B-X, B-Y) should be ignored and the participant should not respond to the probe on those trials.
-This task becomes difficult because the A-X trials occur with a high probability (e.g. 70\%) developing an expectancy to respond to this cue-probe pair.
-Following this built up expectancy, two other cue-pairs become interesting, A-Y and B-X.
-Participants may have built up an expectancy to respond to a probe after the target cue A, and/or built up an expectancy to respond to probe X even if it was preceded by a B cue.
-The B-Y trials act as a control because there is no bias present in the cue or the probe to tempt the participant to respond incorrectly.
-This task lends itself towards clear predictions of performance depending an individual is particularly engaging proactive or reactive cognitive control.
-Specifically, if a participant was using a more proactive strategy or in other words, were using strong goal maintenance, we would expect to see improved B-X performance, but a diminished A-Y performance.
-On the other hand, participants with impaired goal maintenance would be expected to perform reactively, showing poorer performance on the B-X trials relative to the A-Y trials ~\citep{Paxton2008}.
-
-What populations may have poor goal maintenance?
-One widely studied population, by Braver and others is healthy older adults.
-Through Braver's proposed mechanism of less reliable dopamine signaling and poorer frontal lobe performance, the consequence of impaired goal maintenance is an increased reliance on reactive cognitive control, even in circumstances where proactive control would lead to better performance.
-While this description of proactive and reactive cognitive control may lead one to believe that they are two ends on the same spectrum, the proposed separate neural architecture and recent behavioral evidence suggest they are semi-independent processes ~\citep{Gonthier2016}.
-The difficulty in demonstrating their independence lays within producing a double dissociation.
-Schizophrenia and aging provide excellent models of proactive control breaking down, but there is not currently a model for the break down of reactive control in behavior that preserves proactive cognitive control.
-Thus while one could theoretically use both proactive and reactive cognitive control, in practice the evidence suggests the engagement of proactive control results in a lesser need to engage reactive control ~\citep{Gonthier2016a}.
-Taking the perspective that control is costly in terms of effort and neural resources, using both reactive and proactive control mechanisms strongly is wasteful.
-
-\section{Neural Basis of Cognitive Control}
-
-Akin to Ralphie's excitement when he got his Red Ryder air rifle, the world of neuroscience was abuzz with the advent of fMRI in 1990 ~\citep{Ogawa1990}. 
-The ability to observe the inner machinations of the mind without costly surgeries and reliance on clinical populations greatly expanded the granularity of inquiry researchers were eager to ask. 
-This was a boon for cognitive control as well because of the theoretical ambiguities outlined in the previous sections about the central executive.
-Where is the center of control, could one point it out in a brain scan, or was it perhaps more complicated?
-Cognitive Control saw its first debut in fMRI in 1995 with D'Esposito's search for the Central Executive ~\citep{DEsposito1995}. 
-While Cognitive Control was not in the lexicon at the time of publishing, the markers for its existence were there in the prefrontal cortex.
-
-Parallel to Braver's work, Dosenbach released a theoretical framework of cognitive control named dual mechanisms of cognitive control ~\citep{Dosenbach2007}. 
-This model contained a quick/adaptive component and a longer sustained component.
-Sound familiar?
-Braver's conception of proactive and reactive cognitive control maps onto the slow sustained component and the quick/adaptive component, respectively ~\citep{Braver2012}.
-The proactive component is anchored by the dorsal anterior cingulate cortex and anterior insula in the cingulo-opercular network ~\citep{Dosenbach2008}.
-The reactive component is anchored by the lateral prefrontal cortex and the parietal cortex in the fronto-parietal network ~\citep{Dosenbach2008}.
-A double dissociation between the fronto-parietal and cingulo-opercular networks has been demonstrated in a lesion study, providing further evidence of the network separability ~\citep{nomura2010b}.
-While Braver has mentioned Dosenbach's analytical methods, serious inquiry mapping the relationship between proactive and reactive control with the fronto-parietal and cingulo-opercular networks has yet to be established ~\citep{Braver2006,Cooper2015}.
-
-\section{Intrinsic and Extrinsic Networks}
-
-In the past decade and currently, accumulating evidence suggests intrinsic activity (i.e. what goes on in your brain when you aren't performing a task) is more than physiological noise and contributes meaningfully to behavior ~\citep{Busch2010,Kenet2003,McCormick1999,Mateo2017}.
-This field of "resting state" imaging has established itself as a measure in the fMRI world that is likely not going away any time soon ~\citep{VandenHeuvel2010,Shen2015}.
-Resting state imaging measures the spontaneous blood flow that occurs in the brain in the absence of a task.
-Blood flow in some regions tend to co-occur with blood flow in spatially disparate regions, creating "functional" connectivity as measured through Pearson's Correlations or other connectivity measures.
-Connectivity measures between regions (or between multiple regions known as networks) have been correlated with traits and behaviors with success ~\citep{Dennis2011,Duchek2013}.
-Intervention studies have also seen changes in connectivity in relation to the behavior that was targeted ~\citep{Horowitz-Kraus2015}.
-Some researchers attribute the functional connections between regions to Hebbian mechanisms, in which a simple interpretation is that "regions that fire together wire together" ~\citep{Harmelech2013}.
-Thus if there is a long history of regions robustly communicating with each other, then we would be able to see that relationship represented in resting state.
-However, there are many other sources that may contribute to resting state signal, such as motion, heart rate, non-neuronal processes, etc. ~\citep{Winder2017,Murphy2013}.
-
-Given the multiple non-neurological sources of signals in resting state, another way to "boost" the signal of relevant networks is to observe them during a task ~\citep{Cole2014}.
-In Cole (2014) they found increased connectivity in the fronto-parietal network from the task data, however in their model, they did not remove the impact of trial-to-trial variability, suggesting that the increased fronto-parietal connectivity could have been due to stimulus evoked connectivity and not due to a general state difference between rest and task.
-The current study will use one regressor per trial to model residual connectivity, effectively removing the trial to trial variation the Cole (2014) modeling strategy left in.
-Residual connectivity will measure the intrinsic connectivity and the additional task demands that are not directly related to the stimulus such maintaining goal information.
-Thus residual connectivity represents both intrinsic and extrinsic network properties.
-
-beta series, which measures the trial-to-trial variation of the brain's response to stimuli, mainly represents the extrinsic network, that is, connectivity induced by stimuli. ~\citep{Rissman2004}.
-The trial-to-trial variance may also be influenced by intrinsic spontaneous fluctuations of the BOLD response that is ongoing throughout the task, and introduce correlations that are not directly related to seeing the stimulus ~\citep{He2013}.
-However, as the Cole (2014) study found, the stronger fronto-parietal intra-network connectivity is likely due to the trial-to-trial variations of the BOLD response to stimuli.
-The currently proposed study will interrogate this difference and provide a clearer contribution of stimulus evoked connectivity (beta series) and residual connectivity.
 
 
 %=============================================================================
@@ -294,7 +234,8 @@ This research will contribute to the ongoing conversation of the neural basis of
 \begin{figure}[H]%
 	\centering
 	\includegraphics[width=1\linewidth]{overall_thesis_pic}
-	\caption{Outline of my three aims. Aim 1 seeks to produce and validate software developed with nipype to perform beta series correlations. Aim 2 will profile beta series correlations and residual correlations on the same task datasets to derive differences and similarities between the methods and their relation to reaction time cost}
+	\caption{Outline of my three aims. Aim 1 seeks to produce and validate software developed with nipype to perform beta series correlations.
+	Aim 2 will profile beta series correlations and residual correlations on the same task datasets to derive differences and similarities between the methods and their relation to reaction time cost}
 	\label{fig:all_aims}
 \end{figure}
 
@@ -587,3 +528,19 @@ Talk all about Micheal Cole...
 \bibliography{thesis} 
 
 \end{document}
+
+% Thesis Comments
+% compare relative to PPI
+% split the results into two methods, here's my added value
+% add on participants for correlations to lss/lsa
+% beta versus PPI (AIM 2)
+% why we care about connectivity,
+% and why we care about task related connectivity
+% 
+Meeting Notes
+Discussion to change Aim's 1 and 2 for the pragmatic purpose
+of getting a paper submitted.
+Change Aim1:
+split dataset into two halves (compare LSS and LSA)
+Change Aim2:
+split dataset into two halves (compare LSS and PPI)
