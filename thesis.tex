@@ -101,6 +101,48 @@
 \chapter{Introduction}
 %=============================================================================
 
+\begin{itemize}
+	\item cognitive neuroscience draws line between brain/cognition
+	\item tasks are necessary to understand how brain networks organize
+	\item need to test methods that can measure brain organization
+	\item two general methods are Beta Series Correlations and PsychoPhysiological Interactions
+	\item Intro to BSC
+	\begin{itemize}
+		\item Jesse Rissman (2004): introduced LSA
+		\item Jeanette Mumford (2012): introduced LSS
+		\item introduce General Linear Model
+		\item Benjamin Turner (2012)
+		\item Abdulrahman (2016) compared LSA/LSS
+	\end{itemize}
+	\item Intro to PPI
+	\begin{itemize}
+		\item ppi's require three items in the model: psychological regressor, physiological regressor, and
+		      interaction term of psychological/physiological term.
+		\item 1997: Friston introduces ppi
+		\item 2003: Geitman introduces deconvolution
+		\item 2012: McLaren introduces gppi
+		\item 2017: Di says to center psychological variable if performing deconvolution
+		\item create psychological contrast of interest in the 2-condition experiment
+		\item convolve the task design with the hrf, then multiply with bold signal
+		\item for event related designs, deconvolve bold signal using basis functions,
+			then multiply "neural" signal with task design (unconvolved), then convolve
+			the neural ppi with the hrf
+		\item create separate ppi's for each condition instead of creating a
+		      new model for each contrast (gppi)
+		\item denoise the seed region (include covariates in the basis functions)
+		\item centering the psychological variable is necessary (or add deconvolve/reconvolved regressor)
+	\item previous work has compared LSA/LSS/PPI (Cisler 2014 and Xi 2020)
+	\item comparisons missing LSS/LSA/PPI using mixed event/block design
+	\item Intro to networks
+	\begin{itemize}
+		\item olaf sporns
+		\item edge
+		\item node
+		\item simple network measures
+	\end{itemize}
+	\item I compared LSS/LSA first
+	\item compare LSS/LSA relative to PPI
+\end{itemize}
 At the heart of any cognitive neuroscientist is the desire to relate the physical
 processes of the brain to cognition.
 The advent of functional Magnetic Resonance Imaging (fMRI) presented an amazing opportunity
@@ -194,8 +236,35 @@ the "finite BOLD response- separate" method, or the original
 "least squares- all" method.
 
 
-PPI was 
+Psychophysiological Interactions (PPIs) were first introduced by Friston and colleagues in 1997.
+The goal of PPI is to identify brain areas that are differentially functionally connected
+during specific contexts relative to others.
+For example, the hippocampus and motor cortices may be more functionally connected
+during maze exploration relative to maze recall.
+There are several necessary steps to perform a PPI analysis.
+You will need a task design and brain area of interest you would like to
+include in your model.
+With these two components we will create a design to 
+First, you must select the brain area you will extract the time series from
+to include into your model.
 
+
+Evolution of Psychophysiological Interactions
+\begin{itemize}
+	\item 1997: Friston conceptualizes PPI
+	\item 2003: Geitman introduces deconvolution
+	\item 2012: McLaren introduces gppi
+	\item 2017: Di says to center psychological variable if performing deconvolution
+	\item create psychological contrast of interest in the 2-condition experiment
+	\item convolve the task design with the hrf, then multiply with bold signal
+	\item for event related designs, deconvolve bold signal using basis functions,
+		  then multiply "neural" signal with task design (unconvolved), then convolve
+		  the neural ppi with the hrf
+	\item create separate ppi's for each condition instead of creating a new model for each contrast (gppi)
+	\item denoise the seed region (include covariates in the basis functions)
+	\item centering the psychological variable is necessary (or add deconvolve/reconvolved regressor)
+	       
+\end{itemize}
 
 
 %=============================================================================
@@ -239,7 +308,7 @@ This research will contribute to the ongoing conversation of the neural basis of
 	\label{fig:all_aims}
 \end{figure}
 
-\textbf{Specific Aim 1}: Create and validate NiBetaSeries to perform beta series correlations
+\textbf{Specific Aim 1}: Evaluate whether LSS or LSA is better at detecting context differences
 \newline
 \newline
 \textit{Rationale}: A beta in this context refers to the free varying parameter in the general linear model (GLM) that "fits" the data.
