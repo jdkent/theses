@@ -236,10 +236,40 @@ NiBetaSeries can use the updated "least squares- separate" method,
 the "finite BOLD response- separate" method, or the original
 "least squares- all" method.
 
-
-Psychophysiological Interactions (PPIs) were first introduced by Friston and colleagues in 1997.
-The goal of PPI is to identify brain areas that are differentially functionally connected
+Psychophysiological Interactions (PPIs) are designed to 
+identify brain areas that are differentially functionally connected
 during specific contexts relative to others.
+If this sounds like the same goal as BSC, you would be correct, although PPI
+analyses take a different approach.
+There are three necessary components to any PPI.
+The first is the psychological variable of interest, such as when the participant
+is responding to a congruent or incongruent event.
+The second is the physiological variable, such as the BOLD signal from
+the hippocampus.
+The third variable is the PPI itself, which represents a multiplication
+between the psychological variable and the physiological variable.
+If our dependent variable is the BOLD signal in the medial frontal gyrus,
+then we can answer the question if the hippocampus and medial frontal gyrus
+are differentially functionally connected during congruent events relative
+to incongruent events.
+
+There are a couple of nuances worth addressing in the simplistic example I gave above.
+First, there are likely multiple psychological conditions you would like to model.
+In my above example, there were already two psychological conditions (congruent and incongruent)
+to model.
+Each pyschological condition is their own variable in the model, which also
+means each condition has their own PPI.
+In the example scenerio, there would be a total of 5 variables in the model,
+two psychological variables for congruent and incongruent events,
+one physiological variable for the hippocampal BOLD signal,
+and two PPIs representing the multiplication between the hippocampal BOLD signal
+and congruent and incongruent events.
+
+The second nuance I would like to address is how the multiplication between
+the psychological and physiological variable occurs.
+Multiplying the physiological and psychological variables in BOLD space
+is mathematically equivalent to multiplication in neural space.
+
 For example, the hippocampus and motor cortices may be more functionally connected
 during maze exploration relative to maze recall.
 There are several necessary steps to perform a PPI analysis.
@@ -312,36 +342,9 @@ This research will contribute to the ongoing conversation of the neural basis of
 \textbf{Specific Aim 1}: Evaluate whether LSS or LSA is better
 \newline
 \newline
-\textit{Rationale}: Should researchers reach to the
-\begin{equation}
-	Y = X\beta + \epsilon 
-	\label{eq:1}
-\end{equation}
-Equation \ref{eq:1} is the classic GLM where $Y$ represents the time-series we are attempting to explain.
-The $\beta$ assumes any value that minimizes the squared error between the modeled data and the actual data. 
-$\epsilon$ refers to the error that is not captured by the model.
-\begin{equation} \label{eq:2}
-Y = X_{Ti}\beta + \epsilon
-\end{equation}
-Equation \ref{eq:2} describes the least squares separate (LSS) implementation of a GLM, where the major difference is in the design term $X_{Ti}\beta$.
-This notation represents that a particular ($Ti$) trial's $\beta$ is being estimated and not the average of all the trials.
-Another detail not explicitly noted in the equation is that all other trials of the same type are treated as a single nuisance regressor.
-The particular trial's $\beta$ will only account for the unique variance described by that trial.
-If there are other trial types, each unique trial type will be its own nuisance regressor containing all trials of that type.
-Thus we can account for the unique trial-to-trial variability of the $\beta$s.
-\begin{algorithm}
-	\caption{Beta Series Algorithm}\label{al:1}
-	\begin{algorithmic}[1]
-		\FOR{\texttt{Ti in Trials}}
-    		\STATE \texttt{$Y = X_{Ti}\beta + \epsilon$}
-		\ENDFOR
-	\end{algorithmic}
-\end{algorithm}
-The algorithm to calculate each trial's $\beta$ estimate will be iteratively performed across trials and depending on the trial's condition (e.g. congruent vs. incongruent), the $\beta$ value will be placed in its corresponding list (Algorithm ~\ref{al:1}).
-While programs exist to compute beta series correlations, there isn't one that utilizes least squares separate estimation, a modeling strategy that would help with deriving betas from fast event related designs with beta series correlations ~\citep{Mumford2012,Gottlich2015}. 
-The proposed software seeks to fill that gap (Figure ~\ref{fig:all_aims}).
-\newline
-\newline
+\textit{Rationale}: Should researchers reach to LSA for their analysis of condition specific differences
+or should they use the more computationally intensive LSS?
+
 \textit{Hypothesis}:
 The beta series software will capture brain response variability across trials to produce correlations that are different from resting state correlations.
 \newline
