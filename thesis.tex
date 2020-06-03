@@ -131,6 +131,7 @@
 		      new model for each contrast (gppi)
 		\item denoise the seed region (include covariates in the basis functions)
 		\item centering the psychological variable is necessary (or add deconvolve/reconvolved regressor)
+	\end{itemize}
 	\item previous work has compared LSA/LSS/PPI (Cisler 2014 and Xi 2020)
 	\item comparisons missing LSS/LSA/PPI using mixed event/block design
 	\item Intro to networks
@@ -308,10 +309,10 @@ This research will contribute to the ongoing conversation of the neural basis of
 	\label{fig:all_aims}
 \end{figure}
 
-\textbf{Specific Aim 1}: Evaluate whether LSS or LSA is better at detecting context differences
+\textbf{Specific Aim 1}: Evaluate whether LSS or LSA is better
 \newline
 \newline
-\textit{Rationale}: A beta in this context refers to the free varying parameter in the general linear model (GLM) that "fits" the data.
+\textit{Rationale}: Should researchers reach to the
 \begin{equation}
 	Y = X\beta + \epsilon 
 	\label{eq:1}
@@ -426,7 +427,7 @@ leveraging the full correlation matrix.
 Another option is to use graph theoretical measurements such as local or global efficiency to capture the state of overall network.
 \newline
 \newline
-\textbf{Specific Aim 2}: Characterize the relationship between beta series correlations (reactive) and residual correlations (proactive) during a flanker task.
+\textbf{Specific Aim 2}: Compare LSS/LSA to the standard method of PPI
 \newline
 \newline
 \textit{Rationale}: The dual mechanisms of control theory posits these networks should be differentially sensitive to the type of correlation method applied ~\citep{Dosenbach2007,Braver2006}.
@@ -504,9 +505,29 @@ If within network correlations from mixed effects regression do not adequately m
 \newline
 
 %=============================================================================
-\chapter{NiBetaSeries}
+\chapter{Comparing LSS/LSA}
 %=============================================================================
 
+\begin{itemize}
+	\item introduce beta series correlations again?
+	\item place Aim1 paper here
+	\item major takeaways
+	\begin{itemize}
+		\item Average condition matrices for LSS/LSA are highly correlated (0.91-0.94)
+		\item LSS/LSA have more positives from real data relative to null data,
+		      suggesting the methods do measure a meaningful change
+		\item Activation Driven ROIs did not detect a significant number of
+		      condition differences for either LSS/LSA for the event related contrast
+		\item CNR driven ROIs did not detect a significant number of condition differences for either
+			  LSS/LSA for the event related contrast
+		\item Schaefer Atlas did find significant number, but still a relatively small percentage
+			  of true positives assuming 5\% of the results are false positives (2.5\%)
+		\item LSA has a slight advantage for block contrasts
+		\item LSS had fewer than expected differences for the event related contrast
+		\item LSA has more false positives than LSS using the CNR driven ROIs
+		\item Agreement between LSS/LSA is dependent on how noisy the data are.
+	\end{itemize}
+\end{itemize}
 Beta series correlations appeared exciting when initially produced ~\citep{Rissman2004},
 but have been relegated to post-hoc analyses being used as almost an afterthought in many
 publications (add citations).
@@ -554,21 +575,33 @@ the ideal choice to test NiBetaSeries; another python application.
 \section{Real Data}
 
 %=============================================================================
-\chapter{Residual Correlations}
+\chapter{PPI versus BSC}
 %=============================================================================
-Talk all about Micheal Cole...
-
-%=============================================================================
-\chapter{Beta Series versus Residual Correlations}
-%=============================================================================
-
-\section{Residual Correlations}
+\begin{itemize}
+	\item introduce PPI again
+	\item main takeaways
+	\begin{itemize}
+		\item PPI has more positives than LSS/LSA for the block contrasts
+		\item PPI is better with the activation atlas, but is below LSA for the Schaefer atlas
+		      and performs similar to LSS/LSA with the CNR driven atlas.
+		\item PPI is more correlated with LSS than LSA
+		\item PPI also has more false positives according to the null model
+		\item partial agreement with Cisler (2014) and Xi (2020) 
+	\end{itemize}
+\end{itemize}
 
 
 %=============================================================================
 \chapter{General Discussion}
 %=============================================================================
-
+\begin{itemize}
+	\item PPI is still the raining champion
+	\item LSA/LSS still only choice to look at contexts in isolation (there is implicit contrast with PPI)
+	\item LSA/LSS could be used to choose potential regions of interest in a data driven way (CNR)
+	\item wholisitic network measures could be applied
+	\item LSA/LSS could be used to further parse the difference between "task" state and "task" evoked state.
+	\item Since LSS is more correlated with PPI, suggests they are measuring closer to the "same" thing
+\end{itemize}
 %=============================================================================
 \appendix
 %=============================================================================
