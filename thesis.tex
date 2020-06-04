@@ -267,7 +267,40 @@ and congruent and incongruent events.
 
 The second nuance I would like to address is the multiplication between
 the psychological and physiological variable.
-$sdfsd$
+The BOLD signal is the result of an underlying neural response convolved (i.e., smeared)
+with a HRF.
+\begin{equation}
+	BOLD = HRF \circledast neural
+\end{equation}
+In order to multiply the BOLD signal with the psychological variable,
+the psychological variable must go through the same convolution/smearing process.
+\begin{equation}
+	PSYCH_BOLD = HRF \circledast psych
+\end{equation}
+Brain-behavior interactions occur at the neural level, not at the
+BOLD response level, as represented above.
+Importantly, calculating the interaction at the BOLD level is not
+equivalent to calculating the interaction the neural level.
+\begin{equation}
+	(HRF \circledast neural) \cdot (HRF \circledast psych) \neq HRF \circledast (neural \cdot psych)
+\end{equation}
+To get the neural signal we need to deconvolve the BOLD signal.
+Deconvolution of the BOLD signal is not a well defined problem since
+we do not know the exact neural process that gave rise to the BOLD signal.
+Therefore we have to rely on regularized regression with an overcomplete
+basis set.
+Overcomplete meaning there are more columns (the basis set) than there
+are rows (the BOLD signal).
+Since the BOLD signal is noisy and assumed hemodynamic response function
+may be significantly mis-shapen, some software packages simply do not attempt
+deconvolution and swallow the error from multiplying the physiological and psychological
+variables at the BOLD level.
+Other software packages bite the bullet and attempt deconvolution.
+In block designs where contexts are not intermixed the difference between
+methods appears inconsequntial, but with rapid event-related designs,
+deconvolution is essential to separate the influence of intermixed contexts.
+
+
 Multiplying the physiological and psychological variables in BOLD space
 is not mathematically equivalent to multiplication in neural space.
 
