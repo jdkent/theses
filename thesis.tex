@@ -614,21 +614,383 @@ the ideal choice to test NiBetaSeries; another python application.
 		      and performs similar to LSS/LSA with the CNR driven atlas.
 		\item PPI is more correlated with LSS than LSA
 		\item PPI also has more false positives according to the null model
-		\item partial agreement with Cisler (2014) and Xi (2020) 
+		\item partial agreement with Din (2019) in that PPI shows more differences than LSS
+		\item partial agreement with Cisler showing PPI is better for block designs (and event related contrasts)
+		\item choice of ROIs critical still, (choosing "activation" ROIs versus "high CNR" ROIs)
 	\end{itemize}
 \end{itemize}
+
+
+Contextual functional connectivity is the future of cognitive neuroscience.
+Efforts relating resting state connectivity patterns to behavior has been fruitful,
+but the goal is to understand the organization of the brain during the cognitive task
+at hand.
+Methods to measure connectivity during a task have existed for years,
+but have not been extensively applied to understand large scale connectivity,
+and potentially for good reason, the existing methods are often low powered
+and unreliable.
+We want to compare beta series correlations and psychophysiological interactions.
+
+Through comparing PPI, LSS, and LSA, we aim to 1) identify the most sensitive method,
+2) identify the most specific method, and 3) meassuring agreement between methods.
+
+
+\section{methods}
+
+We follow comparison between regions
+
+\subsection*{Participant Data Validation}
+\label{methods:task-switch}
+
+To validate the betaseries simulations we used an unpublished dataset
+of older adults ($N$=61, 31 female, age=71.75$\pm$4.77, education=17.07$\pm$2.66)
+performing a mixed design task switching task.
+Numbers reported are mean$\pm$standard deviation.
+Prior to any experimentation, participants provided verbal and written consent
+to participate in the research presented in this manuscript, which was approved
+by the University of Iowa's Institutional Review Board.
+21 participants were excluded in the primary analysis for having over
+0.5mm of total movement (framewise displacement) in 100 volumes or more,
+resulting in a final $N$ of 40.
+We chose 100 volumes to keep the number of regressors in LSA
+(which already includes as many regressors as events) a reasonable size
+for single event beta estimation since we included each outlier volume
+as a regressor as well.
+Task switching was performed in a mixed block/event-related design containing
+5 blocks (2 single task blocks and 3 dual task blocks).
+There was a 30 second rest between each block.
+There were 30 events during each single event block,
+and for the 3 dual blocks there were 48 repeat events and 39 switch events total.
+The single tasks consisted of identifying a number between
+1 and 10 (excluding 5) as high/low or odd/even, using their left and right index fingers
+on a fiber optic response pad.
+Participants were cued to which task they were performing by the color of the square
+the number was presented on (blue or pink).
+Each stimulus was presented for 1.5 seconds, and participants were allowed
+to respond within 2.0 seconds of stimulus onset.
+The average IEI was 3.5 seconds following an exponential distribution.
+All stimuli were presented using E-Prime.
+Participants practiced an abridged version of this task in a mock scanner
+prior to the real scan and had 4 practice events in the real scanner immediately
+prior to performing the task to ensure proper finger placement and data acquisition.
+
+Participants' average accuracy and reaction time were:
+single, (92\%$\pm$27\%, 792ms$\pm$225ms); repeat, (89\%$\pm$31\%, 1001ms$\pm$278ms);
+and switch, (83\%$\pm$36.8\%, 1108ms$\pm$289ms).
+Due to data collection error, behavioral data were not collected for 3 participants
+(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/summarizeBehavior/summarize_behavior.ipynb}{see here for relevent code})
+
+The task switch bold \emph{fmriprep} output in MNI152NLin2009cAsym space
+was analyzed with \emph{Nistats} for first and second level analyses.
+We used mean white matter signal, mean cerebrospinal fluid signal,
+discrete cosine basis filter (high pass filter), framewise displacement, the first four non-steady volumes, and
+all identified motion outliers as regressors in the first level model for each participant
+in addition to event onsets convolved with a double gamma function~\cite{Glover1999}.
+Each image was smoothed with a 6mm full-wide half-max kernel.
+We derived 3 contrasts of interest: $switch - repeat$, $dual- single$, and $repeat - single$.
+The $dual$ condition is the weighted average of $switch$ and $repeat$ to represent the global cost~\cite{Wylie2000}.
+We ignored correctness of the participant's response since it was not essential to
+separate condition and error processing to validate BSC.
+
+Second level analyses were a summary of the first level results presenting which
+regions were robustly activated among participants.
+For each contrast, the alpha was set to 0.01 with a cluster threshold of 10 voxels using
+false discovery rate error control (Figure~\ref{fig:stat_maps}).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,height=0.8\paperheight,keepaspectratio]{contrast_summary}
+  \caption{
+    Univariate statistical maps of second level results representing
+    all contrasts of interest, $dual - single$, $repeat - single$, $switch - repeat$}
+  \label{fig:stat_maps}
+\end{figure}
+
+In addition to the task switching task, participants also completed
+two 8 minute resting state runs.
+We used the resting state runs as a null model for task switching as done
+in other reports validating analyses~\cite{Eklund2016,Olszowy2019}.
+While the task switch data had 471 volumes, each resting state run only had
+240 volumes.
+In order to match the length of the resting state data with the task data, we concatenated
+the two resting state runs while cutting off the first 10 volumes of the second run
+and interpolating 1 volume between the two runs, resulting in 471 volumes.
+The interpolation helps transition the bold series from one run to the next,
+analogous to interpolation performed when scrubbing high motion volumes~\cite{Power2014a}. 
+This null task data was treated equivalently to the task switching data for the
+beta series correlation analysis.
+(\href{https://github.com/jdkent/validateBetaSeries/tree/195ad5b4201971038dbbf8f73a3c537caf032743}{see relevant code here})
+
+\subsection*{Scanner Parameters}
+\label{methods:scanner}
+
+MRI data were collected on a 3T GE Discovery 750w using a 32 channel head coil.
+The anatomical T1w images were collected using a SPoiled Gradient-Recalled (SPGR) sequence
+sagittally with a flip angle of 8$^{\circ}$, echo time of 3.168ms,
+repetition time of 8.388ms, inversion time of 900ms, isometric voxel sizes of 1mm,
+[256x256] acquisition matrix with 196 slices, field of view 25.6cm x 25.6cm.
+The functional bold images were collected using a Gradient Echo sequence axially from
+the bottom up sequentially with a flip angle of 80$^{\circ}$, echo time of 30ms,
+repetition time of 2000ms, voxel sizes of 3.44x3.44x4.00mm on a [64x64] acquisition matrix
+with 37 slices, field of view 22cm x 22cm.
+
+\subsection*{Preparing fMRI}
+\label{methods:fmriprep}
+
+Results included in this manuscript come from preprocessing performed
+using \emph{fMRIPrep} 1.5.7 (\cite{fmriprep1}; \cite{fmriprep2}; RRID:SCR\_016216),
+which is based on \emph{Nipype} 1.4.0
+(\cite{nipype1}; \cite{nipype2}; RRID:SCR\_002502).
+
+
+\subsubsection*{Anatomical data preprocessing}
+\label{methods:anat}
+
+The T1-weighted (T1w) image was corrected for intensity non-uniformity
+(INU) with \texttt{N4BiasFieldCorrection} \cite{n4}, distributed with
+ANTs 2.2.0 \cite[RRID:SCR\_004757]{ants}, and used as T1w-reference
+throughout the workflow.
+The T1w-reference was then skull-stripped with a \emph{Nipype} implementation
+of the \texttt{antsBrainExtraction.sh} workflow (from ANTs), using OASIS30ANTs
+as target template.
+Brain tissue segmentation of cerebrospinal fluid (CSF), white-matter (WM) and
+gray-matter (GM) was performed on the brain-extracted T1w using
+\texttt{fast} \cite{fsl_fast} [FSL 5.0.9, RRID:SCR\_002823,][].
+Brain surfaces were reconstructed using \texttt{recon-all} \cite{fs_reconall},
+[FreeSurfer 6.0.1, RRID:SCR\_001847,][] and the brain mask estimated
+previously was refined with a custom variation of the method to
+reconcile ANTs-derived and FreeSurfer-derived segmentations of the
+cortical gray-matter of Mindboggle \cite[RRID:SCR\_002438,]{mindboggle}.
+Volume-based spatial normalization to standard space (MNI152NLin2009cAsym)
+was performed through nonlinear registration with \texttt{antsRegistration}
+(ANTs 2.2.0), using brain-extracted versions of both T1w reference and the T1w template.
+The following templates were selected for spatial normalization: \emph{ICBM 152 Nonlinear
+Asymmetrical template version 2009c} {[}\cite{mni152nlin2009casym},
+RRID:SCR\_008796; TemplateFlow ID: MNI152NLin2009cAsym{]}.
+
+\subsubsection*{Functional data preprocessing}
+\label{methods:func}
+
+For each of the two BOLD runs (task switch and null data) per subject,
+the following preprocessing was performed.
+First, a reference volume and its skull-stripped version were generated
+using a custom methodology of \emph{fMRIPrep}.
+Susceptibility distortion correction (SDC) was omitted.
+The BOLD reference was then co-registered to the T1w reference using \texttt{bbregister}
+(FreeSurfer) which implements boundary-based registration \cite{bbr}.
+Co-registration was configured with 6 degrees of freedom.
+Head-motion parameters with respect to the BOLD reference (transformation matrices,
+and 6 corresponding rotation and translation parameters) are estimated before any
+spatiotemporal filtering using \texttt{mcflirt} \cite[FSL 5.0.9,]{mcflirt}.
+The BOLD time-series were resampled into a standard space, correspondingly
+generating the following \emph{spatially-normalized, preprocessed BOLD runs}:
+MNI152NLin2009cAsym.
+Several confounding time-series were calculated based on the \emph{preprocessed BOLD}:
+% only used a subset of the confounding variables
+framewise displacement and two region-wise global signals.
+framewise displacement was calculated for each functional run, using its
+implementation in \emph{Nipype} following the definitions
+by Power et al. (2014)\cite{power_fd_dvars}.
+The two global signals were extracted within the
+cerebrospinal fluid and the white matter masks.
+High-pass filtering the \emph{preprocessed BOLD} time-series was done using
+a discrete cosine filter with 128s cut-off.
+The head-motion estimates calculated in
+the correction step were also placed within the corresponding confounds file. 
+Frames that exceeded a threshold of 0.5 mm framewise displacement or 1.5 standardised DVARS
+were annotated as motion outliers.
+An additional 4 frames at the beginning of each run were also
+annotated as outliers to allow the magnet to reach equilibrium.
+
+All resamplings were performed with \emph{a single interpolation step} by composing all the pertinent
+transformations (i.e.~head-motion transform matrices, co-registrations to anatomical
+and output spaces).
+Gridded (volumetric) resamplings were performed using \texttt{antsApplyTransforms} (ANTs),
+configured with Lanczos interpolation to minimize the smoothing effects of other kernels
+\cite{lanczos}.
+
+\subsection*{BetaSeries Correlations}
+\label{methods:bsc}
+
+\subsubsection*{Beta Series Modeling}
+\label{methods:bsc_model}
+
+The LSS models were generated for each event in
+the task following the method described in \cite[Turner (2012)]{Turner2012a}, using
+Nistats 0.0.1b2.\\
+Prior to modeling, preprocessed data were masked, and mean-scaled over
+time.
+Mean scaling was not applied when calculating CNR and AVNR so the
+beta estimates would be in the original BOLD units.
+For each event, preprocessed data were subjected to a GLM
+in which the event was modeled with its own regressor, while
+all other events from that condition were modeled in a second regressor,
+and other conditions were modeled in their own regressors.
+So if the task has 3 conditions, 
+a single GLM would have 4 event regressors, 1 for the target
+event, and 3 for the remaining conditions.
+
+The LSA model was generated following the method described in
+\cite[Rissman (2004)]{Rissman2004}, using Nistats 0.0.1b2.
+Each event was given its own regressor in a single GLM, such that
+if the experiment had 100 events, there would be 100 regressors in the GLM.
+
+Each event regressor was convolved with a glover hemodynamic response
+function~\cite{Glover1999}.
+In addition to event regressors, average white matter signal, average csf signal,
+cosine basis set high pass regressors, the initial four non steady-state volumes, 
+and motion outliers were included
+in the model as calculated in \nameref{methods:func}.
+AR(1) prewhitening was applied in each model to account
+for temporal autocorrelation.
+
+After fitting each model, the parameter estimate (i.e., beta) map
+associated with the target event's regressor was retained and
+concatenated into a 4D image with all other events from the same
+condition, resulting in a set of $X$ 4D images where $X$ refers to the
+number of conditions in the task.
+The number of volumes in each 4D beta series image
+represents the number of events in that condition.
+
+
+\subsubsection*{Psychophysiological Interaction Modeling}
+
+The computation of Psychophysiological interactions underwent multiple steps.
+1) The time series was extracted and cleaned from the deconvolution
+Namely, we used deconvolution, we modelled all experimental conditions, and centered
+each psychological variable during the PPI
+
+\subsubsection*{Atlas Correlation Analysis}
+\label{methods:atlas-corr-analysis}
+
+The 4D beta series image for each condition in the task was subjected to
+an ROI-to-ROI correlation analysis
+to produce condition-specific correlation matrices.
+For the simulation data, ROI-to-ROI correlations were calculated by
+treating each voxel as an ROI.
+In the participant data; two atlases were used to generate ROI-to-ROI correlation matrices.
+We created an activation atlas representing regions that were
+consistently activated across event conditions (see \nameref{methods:task-switch}).
+This atlas has coverage across several cortical and subcortical regions.
+The second atlas, Schaefer Atlas (400 parcels, 17 networks)\cite{Schaefer2017}, was
+used to comprehensively cover the cortex and test robustness of results.
+
+An activation atlas was generated based on an F-test across the switch, repeat, and single conditions
+to identify regions that were reliably activated for all participants (Table~\ref{table:clusters}).
+5mm spheres were drawn around each statistical peak (21 peaks total) (Figure~\ref{fig:methroimap}).
+
+\begin{table}[H]
+  \csvautotabular[separator=tab, no check column count]{./data/cluster_table.tsv}
+  \caption{
+    The peak MNI coordinates/Z-statistic identifying clusters/sub-clusters from the overall
+    response contrast.
+    These peaks were used to create regions of interest (ROIs) to form an atlas representative
+    of the most consistently activated regions across conditions.
+  }
+  \label{table:clusters}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{stat-map-overall_resp_with_rois}
+  \caption{
+    ROIs drawn from the peak Z-score table, placing a sphere with a 5mm radius
+    at each peak coordinate.
+    The clusters are identified in their approximate locations
+    with their ID.
+  }
+  \label{fig:methroimap}
+\end{figure}
+
+\begin{table}[H]
+  \csvautotabular[separator=tab]{./data/schaeferbest_rois.tsv}
+  \caption{
+    The top 20 ROIs from the Schaefer 400 (17 Network) identified with a highest CNR as measured by
+    both LSS and LSA.
+  }
+  \label{table:parcels}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{schaefer_high_cnr_rois}
+  \caption{
+    20 ROIs selected from the Schaefer 400 parcels; 17 network atlas for having the
+    highest CNR for both LSS and LSA.
+  }
+  \label{fig:schaefertopmap}
+\end{figure}
+
+In order to increase the likelihood of being able to detect a real result using the Schaefer atlas,
+we selected the top 25 ROIs with the highest CNR using LSA and LSS separately
+(see \nameref{methods:bsc-simulations} for how we calculated CNR).
+We then took the intersection of the two ROI sets resulting in 20 ROIs that have a high CNR
+as measured by LSA and LSS (Table~\ref{table:parcels},Figure~\ref{fig:schaefertopmap}).
+We refer this subset of ROIs as the SchaeferTop20 Atlas for the rest of the manuscript.
+(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/cnr_trial_variability.ipynb}{see here for relevant code}).
+The results for the entire 400 ROI altas are shown in the supplementals.
+
+Outlier beta estimate volumes were identified and discarded using a
+modified Nipype function for outlier detection
+(\href{https://github.com/HBClab/NiBetaSeries/blob/a45c0a1f/src/nibetaseries/interfaces/nilearn.py#L153}{see here}) \cite{Crosby1994}.
+The correlation coefficient estimator used for generating correlation matrices
+was empirical covariance, as implemented in Nilearn 0.4.2~\cite{Abraham2014}.
+Correlation coefficients were converted to normally-distributed z-values using
+Fisher's r-to-z conversion~\cite{Fisher1915}.
+
+In the participant data, BSC generated correlation matrices for each condition (dual, switch, repeat, single),
+each method, (LSA and LSS), each data type (real and null), and each participant (N=40).
+The first check performed was contrasting the real dual condition and null dual condition
+to ensure BSC from a task are different than BSC from null data.
+A paired t-test was run on each ROI-ROI pair for the activation atlas, totaling 210 comparisons
+between task and null.
+We next contrasted $dual - single$, $repeat - single$, and $switch - repeat$, for LSS/LSA in both
+real and null data.
+
+Since we do not have a ground truth for which ROI-ROI pairs should be different between conditions,
+we used a binomial test across all ROI-ROI pairs to discover if the number of observed significant ROI-ROI pairs was greater
+than 5\%.
+We did not use false discovery rate correction on the observed p-values since we were not interested in
+which specific ROI-ROI pair correlations were likely to be true positives, but rather if the number of positives
+observed would be expected by chance alone or if LSS/LSA likely detected an overall difference between event conditions.
+(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/beta_series_analysis.ipynb}{see here for relevant code})
+
+\subsection*{Software Dependencies}
+\label{methods:software-dependencies}
+
+The results in this manuscript are dependent on many open source
+libraries, while we have inevitably missed providing all due credit,
+we would like to acknowledge some of the main libraries used in 
+\emph{fMRIPrep} 1.5.7\cite{fmriprep1} and \emph{NiBetaSeries} 0.6.0\cite{Kent2018}.
+
+Many internal operations of \emph{fMRIPrep} use \emph{Nilearn} 0.6.1
+\cite[RRID:SCR\_001362]{nilearn}, mostly within the functional
+processing workflow. For more details of the pipeline, see
+\href{https://fmriprep.readthedocs.io/en/latest/workflows.html}{the
+section corresponding to workflows in \emph{fMRIPrep}'s documentation}.
+
+Additional libraries used in the \emph{NiBetaSeries} workflow include
+\emph{Pybids} 0.9.5 \cite{Yarkoni2019}, \emph{Niworkflows} 1.0.4,
+\emph{Nibabel} 2.4.1, \emph{Pandas} 0.24.2 \cite{McKinney2010}, and
+\emph{Numpy} 1.18.1 \cite{VanDerWalt2011, Oliphant2006}.
+
+In addition to the data analysis, visualization of results depended
+on matplotlib\cite{Hunter2007}, seaborn\cite{Waskom2020}, nilearn,
+jupyter notebooks\cite{Kluyver2016a}, and the packages they depend on.
 
 
 %=============================================================================
 \chapter{General Discussion}
 %=============================================================================
+
 \begin{itemize}
-	\item PPI is still the raining champion
+	\item PPI generally is more sensitive, but less specific (e.g., shows lots of postives)
 	\item LSA/LSS still only choice to look at contexts in isolation (there is implicit contrast with PPI)
 	\item LSA/LSS could be used to choose potential regions of interest in a data driven way (CNR)
 	\item wholisitic network measures could be applied
 	\item LSA/LSS could be used to further parse the difference between "task" state and "task" evoked state.
 	\item Since LSS is more correlated with PPI, suggests they are measuring closer to the "same" thing
+	\item Single event estimates between LSA/LSS are highly correlated
 \end{itemize}
 %=============================================================================
 \appendix
