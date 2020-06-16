@@ -47,7 +47,7 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 % path to figures
-\graphicspath{{notebooks/}{img/}{img/Aim1/}{img/Aim2/}{img/Aim3/}{img/CurrentStudy/}{img/GeneralDiscussion/}{img/GeneralMethods/}{img/Introduction/}}
+\graphicspath{{notebooks/}{img/}{img/Aim1/}{img/Aim2/}{img/Aim3/}{img/CurrentStudy/}{img/GeneralDiscussion/}{img/GeneralMethods/}{img/Introduction/}{./betaSeriesSimulations/outputs/}{./BetaSeriesRealDataAnalysis/nibsAnalysis/outputs/}{./BetaSeriesRealDataAnalysis/firstLevelAnalysis/outputs/}{./BetaSeriesRealDataAnalysis/introductionFigures/outputs/}}
 \usepackage{forloop} % for loops display images
 \usepackage{hyperref} % to insert hyperlinks
 \usepackage{textcomp} % to write degree symbols
@@ -55,6 +55,8 @@
 % for smaller captions
 \usepackage[labelfont=bf]{caption}
 \captionsetup{font=footnotesize}
+% for including csvs
+\usepackage{csvsimple}
 % https://tex.stackexchange.com/questions/370278/is-there-any-reason-to-use-inputenc
 \usepackage[utf8]{inputenc} % for non-ascii characters
 \newcommand{\comment}[1]{}
@@ -327,42 +329,18 @@ Evolution of Psychophysiological Interactions
 \chapter{Research Overview}
 %=============================================================================
 
-Advances in both fMRI analysis and theory of cognitive control have collided to produce ripe new areas to advance our understanding of cognitive control through fMRI ~\citep{Braver2012,Rissman2004,Mumford2012,Cisler2012}.
-We can find evidence of cognitive control in our daily lives, from switching between an email and a conversation to making a quick decision behind the wheel. 
-Specifically, cognitive control refers to the ability to use our context to inform our decisions. Cognitive control can be broken down into two modes, proactive and reactive ~\citep{Braver2012}. 
-Proactive cognitive control encompasses the conflict preparation processes that occur for the entire duration of a task, and/or the conflict preparation between a cue and a stimulus.
-
-In other words, the conflict processes that are not in direct response to a stimulus.
-Reactive cognitive control, on the other hand, refers to the conflict adaptation that happens directly in response to a stimulus.
-Two separable networks have been identified in proactive and reactive cognitive control, the cingulo-opercular (proactive) and fronto-parietal (reactive).
-However, to this author's knowledge, there does not exist any research demonstrating the connectivity of these networks during a cognitive control task in fMRI.
-Thus, the main thrust of this research is to establish these networks during a cognitive control task using two analytical methods theoretically sensitive to reactive or proactive cognitive control.
-
-\begin{figure}[H]%
+\begin{figure}[H]
     \centering
     \includegraphics[scale=0.25]{betaseries_correlation_illustration}
-    \caption{Setting up beta series Correlations. In the flanker task example above, betas (i.e. activation index) have been fit to every voxel per trial, and separated by condition (incongruent and congruent). This figure is only representing the incongruent trials, but both incongruent and congruent trial data can be collected.Regions of interest (ROIs) can be selected from these beta maps and all the voxels within the ROI are averaged. Once the betas are extracted from each ROI for each trial, the resulting lists of betas can be correlated with each other.}%
-    \label{fig:betaseries_correlation_illustration}%    
+    \caption{
+		Setting up beta series Correlations.
+		In the flanker task example above, betas (i.e. activation index) have been fit to every voxel per trial, and separated by condition (incongruent and congruent).
+		This figure is only representing the incongruent trials, but both incongruent and congruent trial data can be collected.
+		Regions of interest (ROIs) can be selected from these beta maps and all the voxels within the ROI are averaged.
+		Once the betas are extracted from each ROI for each trial, the resulting lists of betas can be correlated with each other.}
+    \label{fig:betaseries_correlation_illustration} 
 \end{figure}
 
-The first method is beta series correlations and is sensitive to the theoretical notion of reactive cognitive control (Figure ~\ref{fig:betaseries_correlation_illustration}). 
-beta series correlations model the response after a congruent or incongruent stimulus capturing the "on-the-fly" conflict adaptations, otherwise known as reactive cognitive control.
-Aim 1 will establish the use of this method due to its novel application to fast-event related designs of fMRI.
-
-The second method is residual correlations; the time-course of the brain's activity after regressing out the stimulus onset information ~\citep{Fair2007,Cole2014,Bolt2017}. 
-Residual correlations measure the theoretical notion of proactive cognitive control because proactive cognitive control represents the stable maintenance of goal-relevant task information throughout the performance of the task, which is what the time-series will represent.
-Behavioral measures of proactive and reactive cognitive control exist, however outside of the AX-CPT it is difficult to analyze purely proactive and reactive behavioral components. 
-Following the characterization of the purported reactive and proactive cognitive control networks, their relationship to existing behavioral measures will be established.
-This research will contribute to the ongoing conversation of the neural basis of cognitive control, and provide a more direct metric of these networks during a  cognitive control task.
-
-\section{Specific Aims}
-\begin{figure}[H]%
-	\centering
-	\includegraphics[width=1\linewidth]{overall_thesis_pic}
-	\caption{Outline of my three aims. Aim 1 seeks to produce and validate software developed with nipype to perform beta series correlations.
-	Aim 2 will profile beta series correlations and residual correlations on the same task datasets to derive differences and similarities between the methods and their relation to reaction time cost}
-	\label{fig:all_aims}
-\end{figure}
 
 \textbf{Specific Aim 1}: Evaluate whether LSS or LSA is better
 \newline
@@ -371,19 +349,10 @@ This research will contribute to the ongoing conversation of the neural basis of
 or should they use the more computationally intensive LSS?
 
 \textit{Hypothesis}:
-The beta series software will capture brain response variability across trials to produce correlations that are different from resting state correlations.
+LSS will have more sensitivity and more specificity for both block and event-related designs.
 \newline
 \newline
 \textit{Method}:
-Under the Nipype framework, I will use python to model data on a trial-by-trial basis ~\citep{Smith2004,Gorgolewski2017}. 
-Using a traditional GLM with a double gamma basis function, modeling will be completed by performing a GLM for each trial individually, with all other trials of the same type combined into a single term to form a regressor of non-interest ~\citep{Mumford2012}.
-Additionally, trials from other trial types will each get their own regressor.
-
-Validation of the beta series software will be shown in three steps progressively from simulations to real data.
-The first question I'm answering is \textbf{whether NiBetaSeries is able to capture BOLD response correlations.}
-Starting from simulations, two voxels will be simulated with a specified correlation of BOLD responses that I control.
-I will vary the correlation between the two voxels and inject different amounts of noise to ascertain how well nibetaseries recaptures the correlation I set between the two voxels.
-From these simulations I will be able to approximate power for subsequent analyses.
 
 \begin{figure}[H]%
 	\centering
@@ -855,10 +824,43 @@ represents the number of events in that condition.
 
 \subsubsection*{Psychophysiological Interaction Modeling}
 
-The computation of Psychophysiological interactions underwent multiple steps.
-1) The time series was extracted and cleaned from the deconvolution
-Namely, we used deconvolution, we modelled all experimental conditions, and centered
-each psychological variable during the PPI
+The computation of Psychophysiological interactions underwent multiple steps:
+1) extraction and cleaning of an ROI time series,
+2) deconvolution of an ROI time series,
+3) centering of the psychological variable,
+4) upsampling of both the deconconvoled ROI time series and psychological variable,
+5) multiplication of the deconvolved ROI time series and psychological variable, and
+6) convolution of the resulting multiplicative in step 5.
+% insert figure for this process
+Extraction and cleaning of the ROI time series was completed using nilearn,
+including white matter and cerebral spinal fluid signal, framewise displacement,
+motion outliers, a high pass filter (cosine basis set), and the first four non-steady state
+volumes as confounds regressed from the time series.
+We deconvolved the ROI timeseries using a fourier basis set convolved with
+SPM's hemodynamic response function as predictors using ridge regression.
+Ridge regression was implemented in Scikit-Learn seeting the alpha (regularization)
+parameter to 0.0001, but keeping all other parameters at their default values.
+Independently, we took each psychological condition of interest ($switch$, $repeat$, and $single$)
+represented as a stick function (i.e., 1's where the stimulus was "on" and 0's everywhere else)
+and mean centered each psychological condition separately.
+The stimuli were presented for less time than the acquisition of a volume
+(e.g., 1.5 seconds verus 2.0 seconds), thus to accurately represent the duration
+of the stimulus, each of the psychological conditions and deconvolved ROI time series were upsampled to
+a resolution of 0.1 seconds.
+Next, we multiplied each of the upsampled psychological conditions with the deconvolved/upsampled
+ROI time series creating a "neural" PPI for each of the
+psychological conditions.
+We downsampled the "neural" PPI back to a resolution of 2 seconds and convolved the signal with
+SPM's hemodynamic response function representing the PPI in the original BOLD timecourse.
+
+After all PPIs were created, the full regression model was represented as follows
+
+\begin{equation}
+	Y = \beta_intercept + \beta_switch X_switch + \beta_repeat X_repeat +
+		\beta_single X_single + \beta_firsttrial X_firsttrial + \beta_ROI X_ROI +
+		\beta_switch-ppi X_switch-ppi + \beta_repeat-ppi X_repeat-ppi +
+		\beta_single-ppi X_single-ppi + \epsilon
+\end{equation}
 
 \subsubsection*{Atlas Correlation Analysis}
 \label{methods:atlas-corr-analysis}
