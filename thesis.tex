@@ -47,7 +47,7 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 % path to figures
-\graphicspath{{notebooks/}{img/}{img/Aim1/}{img/Aim2/}{img/Aim3/}{img/CurrentStudy/}{img/GeneralDiscussion/}{img/GeneralMethods/}{img/Introduction/}{./betaSeriesSimulations/outputs/}{./BetaSeriesRealDataAnalysis/nibsAnalysis/outputs/}{./BetaSeriesRealDataAnalysis/firstLevelAnalysis/outputs/}{./BetaSeriesRealDataAnalysis/introductionFigures/outputs/}}
+\graphicspath{{notebooks/}{img/}{img/Aim1/}{img/Aim2/}{img/Aim3/}{img/CurrentStudy/}{img/GeneralDiscussion/}{img/GeneralMethods/}{img/Introduction/}{./betaSeriesSimulations/outputs/}{./BetaSeriesRealDataAnalysis/nibsAnalysis/outputs/}{./BetaSeriesRealDataAnalysis/firstLevelAnalysis/outputs/}{./BetaSeriesRealDataAnalysis/introductionFigures/outputs/}{./BetaSeriesRealDataAnalysis/PPITest/outputs/}}
 \usepackage{forloop} % for loops display images
 \usepackage{hyperref} % to insert hyperlinks
 \usepackage{textcomp} % to write degree symbols
@@ -58,6 +58,8 @@
 % for including csvs
 \usepackage{csvsimple}
 \usepackage{array}
+% multiline equations
+\usepackage{mathtools}
 % create "+" rule type for thick vertical lines
 \newcolumntype{+}{!{\vrule width 2pt}}
 
@@ -1926,11 +1928,40 @@ SPM's hemodynamic response function representing the PPI in the original BOLD ti
 After all PPIs were created, the full regression model was represented as follows
 
 \begin{equation}
-	Y = \beta_intercept + \beta_switch X_switch + \beta_repeat X_repeat +
-		\beta_single X_single + \beta_firsttrial X_firsttrial + \beta_ROI X_ROI +
-		\beta_switch-ppi X_switch-ppi + \beta_repeat-ppi X_repeat-ppi +
-		\beta_single-ppi X_single-ppi + \epsilon
+	\begin{multlined}[b]
+    Y = \beta_{intercept}X_{intercept} + \beta_{switch}X_{switch} + \beta_{repeat}X_{repeat} + \\
+	      \beta_{single}X_{single} + \beta_{firsttrial}X_{firsttrial} + \beta_{ROI}X_{ROI} + \\
+		\beta_{switch\_ppi}X_{switch\_ppi} + \beta_{repeat\_ppi}X_{repeat\_ppi} + \\
+		\beta_{single\_ppi} X_{single\_ppi} + \epsilon
+  \end{multlined}
 \end{equation}
+
+Where the $\beta$s represent the model estimates/coefficients and $X$ represents
+the design column.
+$Y$ represents the ROI BOLD signal we want to explain.
+$\beta_{intercept}$ refers to the baseline estimate (implicit rest) during the task,
+where $X_{intercept}$ is a column of ones.
+$\beta_{switch}$, $\beta_{repeat}$, $\beta_{single}$, and $\beta_{firsttrial}$
+are the coeficients representing the main effect of each of the event conditions.
+$X_{switch}$, $X_{repeat}$, $X_{single}$, and $X_{firsttrial}$ indicate the
+times when the events for condition occurred.
+$\beta_{ROI}$ is the coefficient representing the baseline connectivity between
+this particular ROI and the ROI BOLD signal we want to explain, and
+$X_{ROI}$ is the time series from the particular ROI.
+$\beta_{switch\_ppi}$, $\beta_{repeat\_ppi}$, and $\beta_{single\_ppi}$
+represent the context dependent functional connectivity estimates for
+each event condition.
+$X_{switch\_ppi}$, $X_{repeat\_ppi}$, and $X_{single\_ppi}$ represent
+the multiplicative between the ROI time series and each event condition.
+The contrasts of interests taken from this model were:
+$((switch\_ppi + repeat\_ppi) / 2) - single\_ppi$, $repeat\_ppi - single\_ppi$,
+and $switch\_ppi - repeat\_ppi$ to measure each contextual difference in functional connectivity. 
+This equation was run for every unique ROI-ROI pair in both directions
+(e.g., $Y$ and $X_{ROI}$ swap places) resulting in an
+asymmetrical correlation matrix for each of the mentioned contrasts.
+For reference, the first term in the first listed contrast ($((switch\_ppi + repeat\_ppi) / 2)$)
+is refered to as the $dual$ condition because it represents the functional connecitivty during the
+two-task blocks.
 
 \subsubsection*{Atlas Correlation Analysis}
 \label{methods:atlas-corr-analysis}
@@ -2010,7 +2041,7 @@ was empirical covariance, as implemented in Nilearn 0.4.2~\cite{Abraham2014}.
 Correlation coefficients were converted to normally-distributed z-values using
 Fisher's r-to-z conversion~\cite{Fisher1915}.
 
-In the participant data, BSC generated correlation matrices for each condition (dual, switch, repeat, single),
+BSC generated correlation matrices for each condition (dual, switch, repeat, single),
 each method, (LSA and LSS), each data type (real and null), and each participant (N=40).
 The first check performed was contrasting the real dual condition and null dual condition
 to ensure BSC from a task are different than BSC from null data.
@@ -2019,13 +2050,24 @@ between task and null.
 We next contrasted $dual - single$, $repeat - single$, and $switch - repeat$, for LSS/LSA in both
 real and null data.
 
+To create symmetric correlation matrices similar to BSC using PPI, the asymmetric matrices generated for
+each contrast were transposed, added to the original, and divided by two, as done in previous work~\cite{Di2019a}.
+The resulting symmetric matrices were comparable to the contrast matrices generated from BSC.
+
 Since we do not have a ground truth for which ROI-ROI pairs should be different between conditions,
 we used a binomial test across all ROI-ROI pairs to discover if the number of observed significant ROI-ROI pairs was greater
 than 5\%.
 We did not use false discovery rate correction on the observed p-values since we were not interested in
 which specific ROI-ROI pair correlations were likely to be true positives, but rather if the number of positives
 observed would be expected by chance alone or if LSS/LSA likely detected an overall difference between event conditions.
-(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/beta_series_analysis.ipynb}{see here for relevant code})
+(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/beta_series_analysis.ipynb}{see here for relevant code}).
+
+With three separate methods being compared, we also measured agreement through convergence by correlating the
+contextual differences across all unique ROI-ROI pairs for each of the contrasts.
+For example, we compared the estimated connectivity differences between $switch - repeat$ for each unique
+ROI-ROI pair for every method (LSA, LSS, and PPI).
+The difference estimates for PPI were correlated with the difference estimates for LSS and LSA, providing
+evidence whether LSS or LSA are more similar to PPI~\cite{Steiger1980}.
 
 \subsection*{Software Dependencies}
 \label{methods:software-dependencies}
@@ -2050,7 +2092,83 @@ In addition to the data analysis, visualization of results depended
 on matplotlib\cite{Hunter2007}, seaborn\cite{Waskom2020}, nilearn,
 jupyter notebooks\cite{Kluyver2016a}, and the packages they depend on.
 
+\section{Results}
 
+\begin{itemize}
+  \item list the 2x2 matrix of activation/cnr x real/null
+  \item list correlation results
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.49\linewidth]{
+    data-real_atlas-activation_participants-filtered_permutation_summary_ppi} 
+  \label{fig:real-activationppi}}
+  \hfill
+  \subfloat[][]{\includegraphics[width=0.49\linewidth]{
+    data-null_atlas-activation_participants-filtered_permutation_summary_ppi} 
+  \label{fig:null-activationppi}}
+  \vfill
+  \subfloat[][]{\includegraphics[width=0.49\linewidth]{
+    data-real_atlas-schaeferbest_participants-filtered_permutation_summary_ppi} 
+  \label{fig:real-schaeferbestppi}}
+  \hfill
+  \subfloat[][]{\includegraphics[width=0.49\linewidth]{
+    data-null_atlas-schaeferbest_participants-filtered_permutation_summary_ppi} 
+  \label{fig:null-schaeferbestppi}}
+  \caption{
+    Percentage of statistically significant ROI-ROI pairs found
+    in the contrasts $dual - single$, $repeat - single$, and
+    $switch - repeat$.
+    The red dotted line represents the expected 5\% false positive rate
+    and the shaded red region is the 95\% confidence interval.
+    Left panels \ref{fig:real-activationppi} and \ref{fig:real-schaeferbestppi}
+    are results from the real data with the contrast $task - null$ subtracting the
+    ROI-ROI correlation found in the null data from the ROI-ROI correlation found in the
+    real data for the $dual$ condition.
+    Right panels \ref{fig:null-activationppi} and \ref{fig:null-schaeferbestppi} are results
+    from the null data.
+    While in the Activation Atlas both LSS and LSA show similar performance;
+    in the SchaeferTop20 atlas, LSA has an increase in false positives
+    whereas LSS is closer to an expected number of false positives.
+  }
+\label{fig:main-resultppi}
+\end{figure}
+
+PPI correlated significantly more strongly with LSS relative to LSA
+for all contrasts ($dual - single$, $repeat - single$, and $switch - repeat$),
+atlases (activation atlas, SchaeferTop20 atlas, and the full Schaefer atlas),
+and the real and null data except the $switch - repeat$ contrast in the SchaeferTop20 Atlas,
+($p < 0.05$).
+The average correlation difference between LSS+PPI versus LSA+PPI is 0.26,
+suggesting a medium effect size.
+The similarity between LSS and PPI is stronger for the block contrasts relative
+to the event-related contrast, regardless of data (real/null) or atlas.
+
+
+\section{Discussion}
+We provided the first in-depth comparison between LSA, LSS, and PPI.
+We found while PPI generally found more results in the real data,
+PPI also found a large number of results in the null data as well.
+Given the greater agreement between LSS and PPI, we recommend using PPI
+for event-related contrasts, and either PPI or LSS for block contrasts.
+With LSS, you may have fewer results relative to PPI, but based on this dataset,
+you can be more confident with the results.
+
+\subsection{Limitations}
+
+There are a number of limitations 
+\begin{itemize}
+  \item LSS is more correlated with PPI than LSA
+  \item PPI is more sensitive, but less specific
+  \item the spatial profile of results appears to be different between real and null data
+  \item agrees with Xin Di's results
+  \item recommend to use PPI for event related contrasts
+  \item recommend to use LSS/PPI for block contrasts
+  \item improve implementation of PPI
+  \item choice of atlas matters
+  \item choosing high CNR regions
+\end{itemize}
 %=============================================================================
 \chapter{General Discussion}
 %=============================================================================
