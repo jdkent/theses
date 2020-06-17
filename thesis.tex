@@ -375,26 +375,6 @@ these methods
 \chapter{Comparing LSS/LSA}
 %=============================================================================
 
-\begin{itemize}
-	\item introduce beta series correlations again?
-	\item place Aim1 paper here
-	\item major takeaways
-	\begin{itemize}
-		\item Average condition matrices for LSS/LSA are highly correlated (0.91-0.94)
-		\item LSS/LSA have more positives from real data relative to null data,
-		      suggesting the methods do measure a meaningful change
-		\item Activation Driven ROIs did not detect a significant number of
-		      condition differences for either LSS/LSA for the event related contrast
-		\item CNR driven ROIs did not detect a significant number of condition differences for either
-			  LSS/LSA for the event related contrast
-		\item Schaefer Atlas did find significant number, but still a relatively small percentage
-			  of true positives assuming 5\% of the results are false positives (2.5\%)
-		\item LSA has a slight advantage for block contrasts
-		\item LSS had fewer than expected differences for the event related contrast
-		\item LSA has more false positives than LSS using the CNR driven ROIs
-		\item Agreement between LSS/LSA is dependent on how noisy the data are.
-	\end{itemize}
-\end{itemize}
 \section*{Introduction}
 \label{intro}
 
@@ -1101,8 +1081,6 @@ CNR or AVNR improve detection power.
 % add the numbers to say what the difference between CNR and AVNR
 For LSS, the 8 second IEI does not appear to greatly increase detection power beyond a 6 second IEI.
 
-
-
 \subsection*{Participant Data Beta Series Correlations}
 \label{results:bsc-taskswitch}
 
@@ -1632,58 +1610,94 @@ which analysis path they should take amid the forking paths of researcher degree
   \label{fig:significant-contrasts6}
 \end{figure}
 
-\section*{Acknowledgments}
-This work could not have been completed without the support of several persons/resources.
-First, the simulation analyses were supported in part through computational resources provided by The University of Iowa, Iowa City, Iowa.
-Second, providing the participant data was supported by Dr's. Hyun Kyu Lee (PI),
-Michelle Voss (site-PI), and Chandramallika Basak (site-PI)funded by grant NIH AG047722.
-Third, we thank Chris Oehler and Adriana-Rivera Dompencial for collecting the participant data used in the data analysis.
-
-\section*{Author Contributions}
-JK and MV conceptualized this work, CB and MV funded the study collecting the participant data,
-JK performed the analyses. JK wrote the manuscript. JK, MV, and CB revised the manuscript.
-
 %=============================================================================
 \chapter{PPI versus BSC}
 %=============================================================================
-\begin{itemize}
-	\item introduce PPI again
-	\item main takeaways
-	\begin{itemize}
-		\item PPI has more positives than LSS/LSA for the block contrasts
-		\item PPI is better with the activation atlas, but is below LSA for the Schaefer atlas
-		      and performs similar to LSS/LSA with the CNR driven atlas.
-		\item PPI is more correlated with LSS than LSA
-		\item PPI also has more false positives according to the null model
-		\item partial agreement with Din (2019) in that PPI shows more differences than LSS
-		\item partial agreement with Cisler showing PPI is better for block designs (and event related contrasts)
-		\item choice of ROIs critical still, (choosing "activation" ROIs versus "high CNR" ROIs)
-	\end{itemize}
-\end{itemize}
 
 
-Contextual functional connectivity is the future of cognitive neuroscience.
-Efforts relating resting state connectivity patterns to behavior has been fruitful,
-but the goal is to understand the organization of the brain during the cognitive task
-at hand.
-Methods to measure connectivity during a task have existed for years,
-but have not been extensively applied to understand large scale connectivity,
-and potentially for good reason, the existing methods are often low powered
-and unreliable.
-We want to compare beta series correlations and psychophysiological interactions.
+While BSC was originally created to detect contextual functional connectivity, there was another method
+that preceded BSC, named psychophysiological interaction (PPI) analysis ~\cite{Friston1997}. 
+PPIs are designed to identify brain areas that are differentially functionally connected
+during specific contexts relative to others.
+If this sounds like the same goal as BSC, you would be correct, although PPI
+analyses take a different approach.
+There are three necessary components to any PPI.
+The first is the psychological variable of interest, such as when a participant
+responds to a red square with a finger tap or green square with a toe tap.
+The second is the physiological variable, such as the BOLD signal from
+the motor cortex.
+The third variable is the PPI itself, which represents a multiplication
+between the psychological variable and the physiological variable.
+If our dependent variable is the BOLD signal in the medial frontal gyrus,
+then we can answer the question if the motor cortex and medial frontal gyrus
+are differentially functionally connected during finger tap events relative
+to toe tap events.
 
-Through comparing PPI, LSS, and LSA, we aim to 1) identify the most sensitive method,
-2) identify the most specific method, and 3) meassuring agreement between methods.
+There are a couple of nuances worth addressing in the simplistic example I gave above.
+First, there are likely multiple psychological conditions you would like to model.
+In my above example, there were already two psychological conditions (congruent and incongruent)
+to model.
+Each pyschological condition is their own variable in the model, which also
+means each condition has their own PPI.
+In the example scenerio, there would be a total of 5 variables in the model,
+two psychological variables for finger tapping and toe tapping events,
+one physiological variable for the motor cortex BOLD signal,
+and two PPIs representing the multiplication between the motor cortex BOLD signal
+and finger and toe tapping events.
 
+The second nuance I would like to address is the multiplication between
+the psychological and physiological variable.
+The BOLD signal is the result of an underlying neural response convolved (i.e., smeared)
+with a HRF~\ref{eq:convolve_neural}.
+\begin{equation}
+  BOLD = HRF \circledast neural
+  \label{eq:convolve_neural}
+\end{equation}
+In order to multiply the BOLD signal with the psychological variable,
+the psychological variable must go through the same convolution/smearing process~\ref{eq:convolve_psych}.
+\begin{equation}
+  PSYCH_BOLD = HRF \circledast psych
+  \label{eq:convolve_psych}
+\end{equation}
+Brain-behavior interactions occur at the neural level, not at the
+BOLD response level, as represented above.
+Importantly, calculating the interaction at the BOLD level is not
+equivalent to calculating the interaction the neural level~\cite{Gitelman2003}~\ref{eq:not_equiv}.
+\begin{equation}
+  (HRF \circledast neural) \cdot (HRF \circledast psych) \neq HRF \circledast (neural \cdot psych)
+  \label{eq:not_equiv}
+\end{equation}
+To get the neural signal we need to deconvolve the BOLD signal.
+Deconvolution of the BOLD signal is not a well defined problem since
+we do not know the exact neural process that gave rise to the BOLD signal.
+Therefore we have to rely on regularized regression with an overcomplete
+basis set.
+Overcomplete meaning there are more columns (the basis set) than there
+are rows (the BOLD signal).
+Since the BOLD signal is noisy and assumed hemodynamic response function
+may not match the biological BOLD response, some software packages simply do not attempt
+deconvolution and swallow the error from multiplying the physiological and psychological
+variables at the BOLD level.
+Other software packages bite the bullet and attempt deconvolution.
+In block designs where contexts are not intermixed the choice of
+deconvolution appears inconsequntial, but with rapid event-related designs,
+deconvolution is essential to separate the influence of intermixed contexts~\cite{Gitelman2003}.
+
+No previous work has to this author's knowledge has compared multiple methods to calculate BSC
+and PPI before.
+In this chapter we demonstrate:
+1) PPI is the most sensitive method,
+2) LSS is the most specific method, and
+3) PPI and LSS estimates correlate stronger than PPI and LSA.
 
 \section{methods}
 
 We follow comparison between regions
 
 \subsection*{Participant Data Validation}
-\label{methods:task-switch}
+\label{methods:task-switch2}
 
-To validate the betaseries simulations we used an unpublished dataset
+We used an unpublished dataset
 of older adults ($N$=61, 31 female, age=71.75$\pm$4.77, education=17.07$\pm$2.66)
 performing a mixed design task switching task.
 Numbers reported are mean$\pm$standard deviation.
@@ -1731,7 +1745,7 @@ Each image was smoothed with a 6mm full-wide half-max kernel.
 We derived 3 contrasts of interest: $switch - repeat$, $dual- single$, and $repeat - single$.
 The $dual$ condition is the weighted average of $switch$ and $repeat$ to represent the global cost~\cite{Wylie2000}.
 We ignored correctness of the participant's response since it was not essential to
-separate condition and error processing to validate BSC.
+separate condition and error processing to compare BSC with PPI.
 
 Second level analyses were a summary of the first level results presenting which
 regions were robustly activated among participants.
@@ -1744,7 +1758,7 @@ false discovery rate error control (Figure~\ref{fig:stat_maps}).
   \caption{
     Univariate statistical maps of second level results representing
     all contrasts of interest, $dual - single$, $repeat - single$, $switch - repeat$}
-  \label{fig:stat_maps}
+  \label{fig:stat_maps2}
 \end{figure}
 
 In addition to the task switching task, participants also completed
@@ -1763,7 +1777,7 @@ beta series correlation analysis.
 (\href{https://github.com/jdkent/validateBetaSeries/tree/195ad5b4201971038dbbf8f73a3c537caf032743}{see relevant code here})
 
 \subsection*{Scanner Parameters}
-\label{methods:scanner}
+\label{methods:scanner2}
 
 MRI data were collected on a 3T GE Discovery 750w using a 32 channel head coil.
 The anatomical T1w images were collected using a SPoiled Gradient-Recalled (SPGR) sequence
@@ -1776,7 +1790,7 @@ repetition time of 2000ms, voxel sizes of 3.44x3.44x4.00mm on a [64x64] acquisit
 with 37 slices, field of view 22cm x 22cm.
 
 \subsection*{Preparing fMRI}
-\label{methods:fmriprep}
+\label{methods:fmriprep2}
 
 Results included in this manuscript come from preprocessing performed
 using \emph{fMRIPrep} 1.5.7 (\cite{fmriprep1}; \cite{fmriprep2}; RRID:SCR\_016216),
@@ -1785,7 +1799,7 @@ which is based on \emph{Nipype} 1.4.0
 
 
 \subsubsection*{Anatomical data preprocessing}
-\label{methods:anat}
+\label{methods:anat2}
 
 The T1-weighted (T1w) image was corrected for intensity non-uniformity
 (INU) with \texttt{N4BiasFieldCorrection} \cite{n4}, distributed with
@@ -1810,7 +1824,7 @@ Asymmetrical template version 2009c} {[}\cite{mni152nlin2009casym},
 RRID:SCR\_008796; TemplateFlow ID: MNI152NLin2009cAsym{]}.
 
 \subsubsection*{Functional data preprocessing}
-\label{methods:func}
+\label{methods:func2}
 
 For each of the two BOLD runs (task switch and null data) per subject,
 the following preprocessing was performed.
@@ -1851,10 +1865,10 @@ configured with Lanczos interpolation to minimize the smoothing effects of other
 \cite{lanczos}.
 
 \subsection*{BetaSeries Correlations}
-\label{methods:bsc}
+\label{methods:bsc2}
 
 \subsubsection*{Beta Series Modeling}
-\label{methods:bsc_model}
+\label{methods:bsc_model2}
 
 The LSS models were generated for each event in
 the task following the method described in \cite[Turner (2012)]{Turner2012a}, using
@@ -1925,7 +1939,7 @@ psychological conditions.
 We downsampled the "neural" PPI back to a resolution of 2 seconds and convolved the signal with
 SPM's hemodynamic response function representing the PPI in the original BOLD timecourse.
 
-After all PPIs were created, the full regression model was represented as follows
+After all PPIs were created, the full regression model was represented in Equation~\ref{eq:full_ppi}
 
 \begin{equation}
 	\begin{multlined}[b]
@@ -1934,6 +1948,7 @@ After all PPIs were created, the full regression model was represented as follow
 		\beta_{switch\_ppi}X_{switch\_ppi} + \beta_{repeat\_ppi}X_{repeat\_ppi} + \\
 		\beta_{single\_ppi} X_{single\_ppi} + \epsilon
   \end{multlined}
+  \label{eq:full_ppi}
 \end{equation}
 
 Where the $\beta$s represent the model estimates/coefficients and $X$ represents
@@ -1964,7 +1979,7 @@ is refered to as the $dual$ condition because it represents the functional conne
 two-task blocks.
 
 \subsubsection*{Atlas Correlation Analysis}
-\label{methods:atlas-corr-analysis}
+\label{methods:atlas-corr-analysis2}
 
 The 4D beta series image for each condition in the task was subjected to
 an ROI-to-ROI correlation analysis
@@ -1990,7 +2005,7 @@ to identify regions that were reliably activated for all participants (Table~\re
     These peaks were used to create regions of interest (ROIs) to form an atlas representative
     of the most consistently activated regions across conditions.
   }
-  \label{table:clusters}
+  \label{table:clusters2}
 \end{table}
 
 \begin{figure}[H]
@@ -2002,7 +2017,7 @@ to identify regions that were reliably activated for all participants (Table~\re
     The clusters are identified in their approximate locations
     with their ID.
   }
-  \label{fig:methroimap}
+  \label{fig:methroimap2}
 \end{figure}
 
 \begin{table}[H]
@@ -2011,7 +2026,7 @@ to identify regions that were reliably activated for all participants (Table~\re
     The top 20 ROIs from the Schaefer 400 (17 Network) identified with a highest CNR as measured by
     both LSS and LSA.
   }
-  \label{table:parcels}
+  \label{table:parcels2}
 \end{table}
 
 \begin{figure}[H]
@@ -2021,14 +2036,14 @@ to identify regions that were reliably activated for all participants (Table~\re
     20 ROIs selected from the Schaefer 400 parcels; 17 network atlas for having the
     highest CNR for both LSS and LSA.
   }
-  \label{fig:schaefertopmap}
+  \label{fig:schaefertopmap2}
 \end{figure}
 
 In order to increase the likelihood of being able to detect a real result using the Schaefer atlas,
 we selected the top 25 ROIs with the highest CNR using LSA and LSS separately
 (see \nameref{methods:bsc-simulations} for how we calculated CNR).
 We then took the intersection of the two ROI sets resulting in 20 ROIs that have a high CNR
-as measured by LSA and LSS (Table~\ref{table:parcels},Figure~\ref{fig:schaefertopmap}).
+as measured by LSA and LSS (Table~\ref{table:parcels2},Figure~\ref{fig:schaefertopmap2}).
 We refer this subset of ROIs as the SchaeferTop20 Atlas for the rest of the manuscript.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/cnr_trial_variability.ipynb}{see here for relevant code}).
 The results for the entire 400 ROI altas are shown in the supplementals.
@@ -2059,8 +2074,14 @@ we used a binomial test across all ROI-ROI pairs to discover if the number of ob
 than 5\%.
 We did not use false discovery rate correction on the observed p-values since we were not interested in
 which specific ROI-ROI pair correlations were likely to be true positives, but rather if the number of positives
-observed would be expected by chance alone or if LSS/LSA likely detected an overall difference between event conditions.
-(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/beta_series_analysis.ipynb}{see here for relevant code}).
+observed would be expected by chance alone or if LSS/LSA/PPI likely detected an overall difference between event conditions.
+
+We provided a description of the number of significant ROI-ROI pairs with increased contextual functional connectivity and
+decreased contextual functional connectivity to identify if contextual connectivity tends to increase or decrease overall
+for the contrasts $dual - single$, $repeat - single$, and $switch - repeat$, and see if the pattern replicates
+in the null data. 
+The ratio of positive results will help identify whether biases for increased/decreased contextual functional connectivity
+in real data are also seen in null data.
 
 With three separate methods being compared, we also measured agreement through convergence by correlating the
 contextual differences across all unique ROI-ROI pairs for each of the contrasts.
@@ -2068,6 +2089,7 @@ For example, we compared the estimated connectivity differences between $switch 
 ROI-ROI pair for every method (LSA, LSS, and PPI).
 The difference estimates for PPI were correlated with the difference estimates for LSS and LSA, providing
 evidence whether LSS or LSA are more similar to PPI~\cite{Steiger1980}.
+(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/2e5d7d2443795133770383daaa401cf70cc03f29/PPITest/compare_bsc_ppi.ipynb}{see here for relevant code}).
 
 \subsection*{Software Dependencies}
 \label{methods:software-dependencies}
@@ -2093,11 +2115,11 @@ on matplotlib\cite{Hunter2007}, seaborn\cite{Waskom2020}, nilearn,
 jupyter notebooks\cite{Kluyver2016a}, and the packages they depend on.
 
 \section{Results}
-
-\begin{itemize}
-  \item list the 2x2 matrix of activation/cnr x real/null
-  \item list correlation results
-\end{itemize}
+We analyzed the data from three different perspectives:
+1) identifying whether each method found more significant results than expected,
+2) finding which method estimates are more closely related, and
+3) describing the pattern of increases and decreases of contextual functional connectivity
+   in the significant ROI-ROI pairs.
 
 \begin{figure}[H]
   \centering
@@ -2123,52 +2145,350 @@ jupyter notebooks\cite{Kluyver2016a}, and the packages they depend on.
     The red dotted line represents the expected 5\% false positive rate
     and the shaded red region is the 95\% confidence interval.
     Left panels \ref{fig:real-activationppi} and \ref{fig:real-schaeferbestppi}
-    are results from the real data with the contrast $task - null$ subtracting the
-    ROI-ROI correlation found in the null data from the ROI-ROI correlation found in the
-    real data for the $dual$ condition.
+    are results from the real data.
     Right panels \ref{fig:null-activationppi} and \ref{fig:null-schaeferbestppi} are results
     from the null data.
-    While in the Activation Atlas both LSS and LSA show similar performance;
-    in the SchaeferTop20 atlas, LSA has an increase in false positives
-    whereas LSS is closer to an expected number of false positives.
+    PPI consistently has a greater number of significant contextual differences between ROI-ROI pairs
+    than expected, except for the $switch - repeat$ contrast.
   }
 \label{fig:main-resultppi}
 \end{figure}
 
-PPI correlated significantly more strongly with LSS relative to LSA
-for all contrasts ($dual - single$, $repeat - single$, and $switch - repeat$),
-atlases (activation atlas, SchaeferTop20 atlas, and the full Schaefer atlas),
-and the real and null data except the $switch - repeat$ contrast in the SchaeferTop20 Atlas,
-($p < 0.05$).
-The average correlation difference between LSS+PPI versus LSA+PPI is 0.26,
-suggesting a medium effect size.
-The similarity between LSS and PPI is stronger for the block contrasts relative
-to the event-related contrast, regardless of data (real/null) or atlas.
+We found LSS, LSA, and PPI had a greater number of statistically significant ROI-ROI pairs than expected by chance
+for different contrasts in the activation atlas with real data: $dual - single$ (LSA: 4.29\%; $p = 0.727$,
+LSS: 9.05\%; $p < 0.010$, PPI: 10.48\%; $p = 0.001$),
+$repeat - single$ (LSA: 10.00\%; $p = 0.002$, LSS: 7.62\%; $p = 0.063$, PPI: 11.90\%; $p < 0.001$), and
+$switch - repeat$ (LSA: 7.14\%; $p = 0.106$, LSS: 2.86\%; $p = 0.954$, PPI: 8.57\%; $p = 0.019$) (Figure~\ref{fig:real-activationppi}).
 
+Within the activation atlas with null data, only PPI had significant results:
+$dual - single$ (LSA: 5.24\%; $p = 0.480$, LSS: 4.29\%; $p = 0.727$, PPI: 9.52\%; $p = 0.005$),
+$repeat - single$ (LSA: 4.76\%; $p = 0.607$, LSS: 5.71\%; $p = 0.360$, PPI: 11.49\%; $p < 0.001$), and
+$switch - repeat$ (LSA: 5.71\%; $p = 0.360$, LSS: 1.43\%; $p = 0.998$, PPI: 6.19\%; $p = 0.254$) (Figure~\ref{fig:null-activationppi}).
+
+Within the SchaeferTop20 atlas with real data, PPI analyses yielded an extraordinary number of results
+relative to LSS and LSA for the block contrasts:
+$dual - single$ (LSA: 7.89\%; $p = 0.055$, LSS: 10.53\%; $p = 0.001$, PPI: 26.84\%; $p < 0.001$),
+$repeat - single$ (LSA: 12.63\%; $p < 0.001$, LSS: 11.05\%; $p = 0.001$, PPI: 31.05\%; $p < 0.001$), and
+$switch - repeat$ (LSA: 4.21\%; $p = 0.738$, LSS: 4.21\%; $p = 0.738$, PPI: 6.84\%; $p = 0.158$) (Figure~\ref{fig:real-schaeferbestppi}).
+
+Within the SchaeferTop20 atlas with null data, both PPI and LSA had significant number of false positives:
+$dual - single$ (LSA: 8.94\%; $p = 0.015$, LSS: 3.68\%; $p = 0.842$, PPI: 13.68\%; $p < 0.001$),
+$repeat - single$ (LSA: 12.63\%; $p < 0.001$, LSS: 4.74\%; $p = 0.613$, PPI: 12.63\%; $p < 0.001$), and
+$switch - repeat$ (LSA: 15.79\%; $p < 0.001$, LSS: 3.16\%; $p = 0.917$, PPI: 5.26\%; $p = 0.480$) (Figure~\ref{fig:null-schaeferbestppi}).
+
+To find whether PPI was more similar to LSA or LSS, we correlated the contrast estimates for all of the contrasts
+($dual - single$, $repeat - single$, and $switch - repeat$), for all the atlases (activation atlas, SchaeferTop20 atlas, and the full Schaefer atlas), and
+for each of the data sources (real and null).
+PPI ROI-ROI contrast estimates significantly correlated more strongly with LSS relative to LSA
+for nearly all contrasts ($dual - single$, $repeat - single$, and $switch - repeat$),
+atlases (activation atlas, SchaeferTop20 atlas, and the full Schaefer atlas),
+and the real and null data ($p < 0.05$) except the $switch - repeat$
+contrast in the SchaeferTop20 Atlas (real: $p = 0.541$, null: $p = 0.064$).
+The overall average correlation between LSS and PPI is $r = 0.55$, LSA and PPI is $r = 0.29$,
+and LSS and LSA is $r = 0.34$.
+The overall average correlation difference between LSS+PPI versus LSA+PPI is $0.26$,
+indicating a medium effect size.
+The similarity between LSS and PPI is stronger for the block contrasts ($dual - single$ and $repeat - single$)
+relative to the event-related contrast ($switch - repeat$), regardless of data (real/null) or atlas.
+
+We measured the distribution of $positives / (positives + negatives)$ results from the significant ROI-ROI pairs~\ref{table_bias}.
+\begin{table}[H]
+  \centering
+  \caption{
+  {\bf Differences in positive bias between real and null data}}
+  \begin{tabular}{|l|l+l|l|}
+  \hline
+  Contrast & Estimator & Real Data & Null Data\\ \hline
+  $Dual - Single$ & $LSA$ & 0.04 & 0.24\\ \hline
+  $Dual - Single$ & $LSS$ & 0.27 & 0.51\\ \hline
+  $Dual - Single$ & $PPI$ & 0.10 & 0.44\\ \hline
+  $Repeat - Single$ & $LSA$ & 0.03 & 0.22\\ \hline
+  $Repeat - Single$ & $LSS$ & 0.24 & 0.46\\ \hline
+  $Repeat - Single$ & $PPI$ & 0.09 & 0.41\\ \hline
+  $Switch - Repeat$ & $LSA$ & 0.91 & 0.72\\ \hline
+  $Switch - Repeat$ & $LSS$ & 0.71 & 0.75\\ \hline
+  $Switch - Repeat$ & $PPI$ & 0.79 & 0.81\\ \hline
+  \end{tabular}
+
+  A description of the positive bias for the results $positives / (positives + negatives)$.
+  The block contrasts ($Dual - Single$ and $Repeat - Single$) have a strong negative
+  bias in the real data and a smaller negative bias in the null data.
+  The event-related contrast ($Switch - Repeat$) positivity ratio is
+  similar between the real and null data for LSS and PPI, while LSA
+  has a larger positivity bias in the real data relative to the null.
+  \label{table_bias}
+\end{table}
 
 \section{Discussion}
 We provided the first in-depth comparison between LSA, LSS, and PPI.
-We found while PPI generally found more results in the real data,
+We showed while PPI generally found more results relative to LSA and LSS in the real data,
 PPI also found a large number of results in the null data as well.
 Given the greater agreement between LSS and PPI, we recommend using PPI
 for event-related contrasts, and either PPI or LSS for block contrasts.
 With LSS, you may have fewer results relative to PPI, but based on this dataset,
-you can be more confident with the results.
+LSS is less prone towards finding spurious results relative to both LSA and PPI.
+
+The choice of atlas
+
 
 \subsection{Limitations}
+This work is subject to a number of limitations.
+The implementation of PPI used in this manuscript is based on
+home-grown analysis pipeline and has not been vigorously tested
+as other tools in existance (SPM's \href{https://www.nitrc.org/projects/gppi}{gPPI toolbox}
+and AFNI's \href{https://afni.nimh.nih.gov/CD-CorrAna}{Context Dependant Correlation Analysis}).
+In support of the homegrown pipeline, we did find a similar correlation between LSS and PPI as
+other work ~\cite{Di2019a}.
+Future work could compare SPM, AFNI, and python implementations of PPI to measure the similarity
+between the pipelines.
 
-There are a number of limitations 
-\begin{itemize}
-  \item LSS is more correlated with PPI than LSA
-  \item PPI is more sensitive, but less specific
-  \item the spatial profile of results appears to be different between real and null data
-  \item agrees with Xin Di's results
-  \item recommend to use PPI for event related contrasts
-  \item recommend to use LSS/PPI for block contrasts
-  \item improve implementation of PPI
-  \item choice of atlas matters
-  \item choosing high CNR regions
-\end{itemize}
+Due to the high levels of motion several participants were removed from this analysis.
+According the LSA/LSS power analysis, our results were moderately underpowered for the BSC analysis,
+increasing the difficulty to compare LSA, LSS, and PPI.
+However, even with the smaller sample size, several striking patterns emerged in our data.
+Future should attempt to replicate our findings in an independent dataset.
+
+It could be argued the resting state data does not provide an adequate null model
+to compare to the real task data because there is presumably no BOLD response at any
+of the onset times.
+Trying to model the BOLD response with no expectation of a BOLD response existing could lead
+to large misfits and deviating beta estimates for BSC and to a lesser extent PPI.
+A proper null model would insert uniform BOLD responses across all onsets, such that
+the only contextual differences that could be detected would be driven by the
+resting state BOLD oscillations.
+
+While the data suggest that block contrasts are more likely to show results relative to event-related contrasts,
+we did not control for the cognitive effort difference between the conditions.
+We cannot rule out the possibility that the difference in cognitive effort for
+$switch$ and $repeat$ is less than the difference between $repeat$ and $single$.
+In fact, in the context of an older adult population like the one used here,
+age tends to impact global switch costs (i.e., $repeat - single$) more than local
+switch cost (i.e., $switch - repeat$), possibly resulting in greater difficulty to detect
+differences between the two conditions~\cite{Wasylyshyn2011}.
+Future work could incorporate a study with several runs of the same task, where
+the contrast would be calculated between events of the same run (e.g., $switch_{run1} - repeat_{run1}$
+and between the events in separate runs (e.g., $switch_{run1} - repeat_{run2}$).
+
+\subsection{Supplemental Material}
+
+\begin{figure}[H]
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-dualxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-dualxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the activation atlas
+      for the $Dual - Single$ contrast in the real data.
+      LSA has a total of 9 results, 2 overlapping with PPI,
+      LSS has a total of 19 results, 4 overlapping with PPI and
+      PPI has a total of 22 results.
+  }
+  \label{fig:data-real_type-brain_atlas-activation_contrast-dualxsingle}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-dualxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-dualxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the activation atlas
+      for the $Dual - Single$ contrast for null data.
+      LSA has a total of 11 results, 2 overlapping with PPI,
+      LSS has a total of 9 results, 4 overlapping with PPI,
+      and PPI has a total of 20 results.
+  }
+  \label{fig:data-null_type-brain_atlas-activation_contrast-dualxsingle}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-repeatxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-repeatxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the activation atlas
+      for the $Repeat - Single$ contrast for real data.
+      LSA has a total of 21 results, 4 overlapping with PPI,
+      LSS has a total of 16 results, 4 overlapping with PPI and
+      PPI has a total of 25 results.
+  }
+  \label{fig:data-real_type-brain_atlas-activation_contrast-repeatxsingle}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the activation atlas
+      for the contrasts $Repeat - Single$ contrast for null data.
+      LSA has a total of 10 results, 2 overlapping with PPI,
+      LSS has a total of 12 results, 5 overlapping with PPI,
+      and PPI has a total of 24 results.
+  }
+  \label{fig:data-null_type-brain_atlas-activation_contrast-repeatxsingle}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-switchxrepeat_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-switchxrepeat_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the activation atlas
+      for the $Switch - Repeat$ contrast for real data.
+      LSA has a total of 15 results, 2 overlapping with PPI,
+      LSS has a total of 6 results, 1 overlapping with PPI and
+      PPI has a total of 18 results.
+  }
+  \label{fig:data-real_type-brain_atlas-activation_contrast-switchxrepeat}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the activation atlas
+      for the contrasts $Switch - Repeat$ contrast for null data.
+      LSA has a total of 12 results, 1 overlapping with PPI,
+      LSS has a total of 3 results, 1 overlapping with PPI,
+      and PPI has a total of 13 results.
+  }
+  \label{fig:data-null_type-brain_atlas-activation_contrast-switchxrepeat}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-dualxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-dualxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
+      for the $Dual - Single$ contrast in the real data.
+      LSA has a total of 15 results, 8 overlapping with PPI,
+      LSS has a total of 20 results, 10 overlapping with PPI and
+      PPI has a total of 51 results.
+  }
+  \label{fig:data-real_type-brain_atlas-schaeferbest_contrast-dualxsingle}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-dualxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-dualxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
+      for the $Dual - Single$ contrast for null data.
+      LSA has a total of 17 results, 3 overlapping with PPI,
+      LSS has a total of 7 results, 5 overlapping with PPI,
+      and PPI has a total of 26 results.
+  }
+  \label{fig:data-null_type-brain_atlas-schaeferbest_contrast-dualxsingle}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
+      for the $Repeat - Single$ contrast for real data.
+      LSA has a total of 24 results, 12 overlapping with PPI,
+      LSS has a total of 21 results, 10 overlapping with PPI and
+      PPI has a total of 59 results.
+  }
+  \label{fig:data-real_type-brain_atlas-schaeferbest_contrast-repeatxsingle}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
+      for the contrasts $Repeat - Single$ contrast for null data.
+      LSA has a total of 24 results, 2 overlapping with PPI,
+      LSS has a total of 9 results, 4 overlapping with PPI,
+      and PPI has a total of 24 results.
+  }
+  \label{fig:data-null_type-brain_atlas-schaeferbest_contrast-repeatxsingle}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-switchxrepeat_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-switchxrepeat_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
+      for the $Switch - Repeat$ contrast for real data.
+      LSA has a total of 8 results, 1 overlapping with PPI,
+      LSS has a total of 8 results, 1 overlapping with PPI and
+      PPI has a total of 13 results.
+  }
+  \label{fig:data-real_type-brain_atlas-schaeferbest_contrast-switchxrepeat}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \centering
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lsaxppi}}
+
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lssxppi}}
+
+  \caption{
+      The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
+      for the contrasts $Switch - Repeat$ contrast for null data.
+      LSA has a total of 30 results, 1 overlapping with PPI,
+      LSS has a total of 6 results, 1 overlapping with PPI,
+      and PPI has a total of 30 results.
+  }
+  \label{fig:data-null_type-brain_atlas-schaeferbest_contrast-switchxrepeat}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \subfloat{\includegraphics[width=0.7\textwidth]{data-real_atlas-schaefer_participants-filtered_permutation_summary_ppi}}
+
+  \subfloat{\includegraphics[width=0.7\textwidth]{data-null_atlas-schaefer_participants-filtered_permutation_summary_ppi}}
+
+  \caption{
+      The overall results for the full Schaefer Atlas.
+      Since there were 79800 unique ROI-ROI pairs, it became more likely
+      to see unexpected results.
+      Looking at magnitudes alone, PPI has more results in the real data
+      and the null data.
+  }
+  \label{fig:schaefer_binomial_ppi}
+\end{figure}
 %=============================================================================
 \chapter{General Discussion}
 %=============================================================================
