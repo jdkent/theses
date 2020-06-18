@@ -104,7 +104,7 @@
 \memberThree{Vincent Magnotta}
 \memberFour{Jatin Vaidya}
 \memberFive{Jan Wessel}
-\submitdate{May 2020}
+\submitdate{July 2020}
 \copyrightyear{2020}
 
 \Abstract{
@@ -174,8 +174,8 @@ The advent of functional Magnetic Resonance Imaging (fMRI) presented an amazing 
 to pursue the brain/cognition relationship like never before~\cite{ogawa1990}.
 The serendipitous connection between blood rushing to areas of the brain where neurons
 are working hardest provided the backdrop for discovering the large scale organization
-of the brain and discovering which brain areas are recruited for specific tasks.
-Another line of inquiry combines the previous questions to ask: How does the brain
+of the brain at rest and discovering which brain areas are recruited for specific tasks.
+A third line of inquiry combines the previous questions to ask: How does the brain
 organize to complete different tasks?
 Instead of observing the brain's organization while there is no explicit task or observing
 the whether a particular area is strongly recruited during a particular context,
@@ -188,96 +188,244 @@ we operate in daily life.
 What do I mean by organization?
 For the context of this thesis, brain organization refers to which brain areas are communicating
 with each other, which is measured by a statistical dependency between
-regions like a Pearson's correlation.
+regions like a Pearson's correlation~\cite{Uddin2019}.
 The eagerness to understand brain organization during tasks has outpaced the investigations
 of the methods to understand brain organization.
-I compared different methods to measure brain organization during a task
-and provide recommendations on which method to use.
 
-Several methods have been introduced to measure brain organization during a task,
-namely Beta Series Correlations (BSC) and Psychophysiological Interactions (PPI).
-Their purpose is to measure task modulated differences in connectivity between brain areas.
-In other words, they detect if the correlation between region A and B is different
-in context 1 versus context 2.
+Understanding and comparing the methods we use is critical to move the field of
+human neuroscience forward.
+There are innumerable choices in every step of the analysis process in
+fMRI within and between software packages~\cite{Bowring2019,Carp2012}.
+Even the choice of operating system can have a non-trivial impact on
+analysis outcomes~\cite{Glatard2015}.
+Analysis variability is not only theoretically concerning; it impacts
+results when researchers attempt to answer the same experimental questions.
+An enormous study by Botvinik-Nezer et al. (2020) asked 70 independent research teams
+to answer 9 scientific hypotheses when given the same dataset~\cite{Botvinik-Nezer2020}.
+They found consistency of results across teams were halfway between
+being completely consistant and completely random.
+While not necessarily reaching the level of crisis,
+analytical variability is cause for serious consideration.
+Methods that purportedly measure the same underlying biological process
+should be put to task to evaluate whether they are as similar
+as they imply.
 
-Jesse Rissman :cite:`d-Rissman2004` was the first to publish on beta series
-correlations, describing their usage in a working memory task.
+\textbf{In this thesis, I compared three different methods that measure brain organization during a task
+and provide recommendations on which method to use.}
+For consistency with existing literature, a "measure of brain organization during a task" will be
+investigated as \textit{context-dependent functional connectivity}, which refers to
+the statistical dependency between two or more brain areas during a specific context
+(i.e., reading a book, biking on a trail, tapping your finger, etc.)~\cite{Friston1997}.
+There are (at least) four classes of methods that measure context-dependent functional connectivity:
+sliding windows~\cite{Shine2015}, residual correlations~\cite{Cole2014a},
+Beta Series Correlations (BSC)~\cite{Rissman2004}, and Psycho-Physiological Interaction (PPI) analysis~\cite{Friston1997}.
+Of these classes of methods, only BSC and PPI analysis can purportedly measure the differences
+between interleaved contexts (e.g., rapidly switching between two tasks).
+Sliding window and residual correlation approaches can only detect contexts that are
+temporally separable and not interleaved with each other.
+A large swath of existing cognitive neuroscience literature contains interleaved
+contexts so the focus of this work will pertain to classes of methods
+that can in theory detect differences in these contexts.
+
+In order to understand BSC and PPI analyses, a gentle introduction to the
+General Linear Model (GLM) is required.
+GLMs are an extension of the more familiar linear regression.
+The main goal of both linear regression and GLMs is to take
+a series of observations ($X$) and scale the observations by
+multiplying them by numbers ($\beta$) that make the observations
+look like the outcome data ($Y$).
+Since it is often impossible for the observations to look exactly like
+the outcome data, there is some error $\epsilon$.
+The general form of the equation is shown in Equation~\ref{eq:glm}.
+\begin{equation}
+  Y = \beta X + \epsilon
+  \label{eq:glm}
+\end{equation}
+A difficulty in GLMs (and linear regression) is when separate observations are very similar to one another.
+For example, if someone always says "I love you" when and only when they give you a gift,
+It would be difficult to say what amount of your good feelings are due to the phrase,
+"I love you" and what amount are due to the gift.
+In fMRI, observations are similar when they occur close in time, so if you were to see
+an apple ($X_{apple}$) and an orange ($X_orange$) immediately after, it is difficult to say whether
+a brain area ($Y_{brain}$) is responding solely to the apple or if the brain area is responding solely to the orange.
+Thus there could be many possible numbers given to $\beta_{apple}$ and $\beta_{orange}$
+to multiply with $X_{apple}$ and $X_{orange}$ that would make a solution look similar to
+$Y_{brain}$.
+GLMs are central to the methods I discuss, and we will revisit this problem repeatedly.
+% For example, if I measured how many cats people owned
+% and their current stress level, I could have the following observations:
+% $PersonA(3 cats, 2 stress)$, $PersonB(1 cats, 5 stress)$, and
+% $PersonA(5 cats, 1 stress)$.
+% Now, if I wanted to predict stress ($Y_{stress}$) from the number
+% of cats a person owns ($X_{cats}$), I need to find some number
+% ($\beta_{cats}$) that when multiplied with the number of cats ($X_{cats}$),
+% looks most like that person's stress level ($Y_{stress}$).
+% In this example, the optimal $\beta_{cats}$ is $-1$,
+% suggesting for each additional cat acquired a person's stress
+% is predicted to go down by one level.
+
+% The GLM follows the same pattern, but instead of stress and cats,
+% we use the BOLD response and experimental designs
+% (and sometimes other BOLD responses).
+% The difference is the BOLD response is not linear, it oscillates
+% due to intrinsic patterns of activity and in response to external stimuli.
+% Luckily, we have an approximation of what the BOLD response looks like
+% in response to a stimulus~\cite{Glover1999}.
+% With the approximate shape of the BOLD response, we can transform our observations ($X$) to look
+% like the BOLD responses seen in the brain $Y$.
+% After the transformation, we can treat the problem similarly to linear regression, where
+% we are looking for a number ($\beta$) to multiply with our observations ($X$) to look
+% like our outcome BOLD data ($Y$)
+% For example, I have an experiment where I show participants multiple pictures of
+% 1 or 5 cats at varying times while I measure their brain activity through an fMRI scan.
+% I predict the BOLD response in the visual cortex when viewing 1 cat will be different than
+% viewing 5 cats.
+\subsection*{Beta Series Correlations}
+
+Jesse Rissman~\cite{Rissman2004} was the first to publish on BSC,
+describing their usage in a working memory task.
 In this task, participants saw a cue, a delay, and a probe, all occurring
-within a short time period.
+within a short time period (~9 seconds).
 The cue was presented for one second, a delay occurred for seven seconds,
 and a probe was presented for one second.
 Given that the blood-oxygen-level-dependent (BOLD) response
-takes approximately six seconds to reach its peak, and generally takes over
-20 seconds to return to baseline, we can begin to see a problem.
-The events within the events occur too close to each other to discern what
+takes approximately six seconds to reach its peak, and generally takes between
+16-32 seconds to return to baseline, we can begin to see a problem~\cite{Glover1999}.
+The events within the trial occur too close to each other to discern what
 brain responses are related to encoding the cue, the delay, or the probe.
-To discern how the activated brain regions form networks, Rissman
+To identify how the activated brain regions form networks, Rissman
 computed beta series correlations.
 Instead of having a single regressor to describe all the cue events,
 a single regressor for all the delay events, and a single regressor for all the
 probe events (as is done in traditional task analysis),
 there is an individual regressor for every event in the experiment.
 For example, if your experiment has 40 events, each with a cue, delay, and
-probe event, the model will have a total of 120 regressors, fitting a beta
+probe event, the model will have a total of 120 regressors, fitting a $\beta$
 (i.e., parameter) estimate for each event.
-Once you calculate a beta estimate for each event of a given type
-(e.g., cue), you will have a four-dimensional dataset where each volume
-represents the beta estimates for a particular event.
+Once you calculate a $\beta$ estimate for each event of a given type
+(e.g., cue), you will have a four-dimensional dataset where each BOLD volume
+represents the $\beta$ estimates for a particular cue event.
 
 Having one regressor per event in a single model is known as "least squares- all" (LSA).
 This method, however, has limitations in the context of fast event-related
-designs (e.g., designs where the events occur between 3-6
+designs (e.g., designs where the events occur less than 8
 seconds apart on average).
 Since each event has its own regressor, events that occur very close in time
 are collinear (e.g., are very overlapping).
 
-Jeanette Mumford :cite:`d-Mumford2012` derived a solution for
-the high collinearity observed in least squares- all by using another
+Jeanette Mumford's and Benjamin Turner's work~\cite{Turner2010,Mumford2012} derived a solution for
+the high collinearity observed in LSA by using another
 type of regression known as "least squares- separate" (LSS).
-Instead of having one general linear model (GLM) with a regressor per event,
-least squares- separate implements a GLM per event with only two regressors:
+Instead of having one GLM with a regressor per event,
+LSS implements a GLM per event with a minimum two regressors:
 1) one for the event of interest, and 2) one for every other event in the
 experiment.
-This process reduces the collinearity of the regressors and creates a more valid
-estimate for each trial, but also combines all other conditions
+In the above LSA example, instead of having 1 GLM with 120 regressors,
+LSS will create 120 GLMs with 2 regressors each.
+This process reduces the collinearity of the regressors and creates a more reliable
+estimate for each event, but also combines all other events into a single regressor
 within the design matrix, which will reduce model fit.
 
-Benjamin Turner :cite:`d-Turner2012a` improved upon the LSS method by retaining
-the original conditions in the design matrix.
-In this updated version, the individual trial's design matrix is almost the same
-as the original design matrix, except that the trial is separated out into its
-own regressor.
+Benjamin Turner's subsequent work~\cite{Turner2012a} improved LSS by retaining
+the original event conditions in the design matrix.
+In this updated version, the event of interest is given its own regressor, but all
+other events retain their position.
+Again, leveraging the above example with cue, delay, and probe events,
+this new LSS method would create 120 GLMs with 4 regressors each (event of interest, cue, delay, and probe).
+I am refering to the improved version of LSS throughout the remainder of the thesis.
 
-Benjamin Turner :cite:`d-Turner2012a` also adapted the LSS method by combining
-it with finite impulse response (FIR) modeling, in which each of a set of
-temporal delays following each trial is modeled as an impulse function in order
-to characterize the shape of the BOLD response, as the
-finite BOLD response- separate (FS) model.
-The FS model showed promise as a method for decoding, as it does not make any
-assumptions about the shape of the BOLD response.
+While LSS addresses the immediate problem of high colinearity between regressor, it does not come without cost.
+LSS $\beta$ estimates are influenced by adjacent events such that if an event in condition A
+was flanked by two events in condition B, the $\beta$ estimate for the event in condition A
+is likely biased (i.e., not orthogonal) to the adjacent events in condition B.
 
-NiBetaSeries can use the updated "least squares- separate" method,
-the "finite BOLD response- separate" method, or the original
-"least squares- all" method.
+\subsection*{Psycho-Physiological Interactions}
 
-Psychophysiological Interactions (PPIs) are designed to 
+Psychophysiological Interaction (PPI) analyses are designed to 
 identify brain areas that are differentially functionally connected
-during specific contexts relative to others.
+during specific contexts relative to others~\cite{Friston1997}.
 If this sounds like the same goal as BSC, you would be correct, although PPI
-analyses take a different approach.
+analyses take a much different approach.
 There are three necessary components to any PPI.
 The first is the psychological variable of interest, such as when the participant
-is responding to a congruent or incongruent event.
+is responding to a cue, delay, or probe as used in the above examples.
 The second is the physiological variable, such as the BOLD signal from
 the hippocampus.
 The third variable is the PPI itself, which represents a multiplication
 between the psychological variable and the physiological variable.
 If our dependent variable is the BOLD signal in the medial frontal gyrus,
 then we can answer the question if the hippocampus and medial frontal gyrus
-are differentially functionally connected during congruent events relative
-to incongruent events.
+are differentially functionally connected during the probe relative to the
+cue.
 
-There are a couple of nuances worth addressing in the simplistic example I gave above.
+PPI analyses have undergone several transformations since their inception in 1997 including:
+1) deconvolution~\cite{Gitelman2003}, 2) multi-conditional psychological variables~\cite{McLaren2012},
+and 3) correcting imperfect deconvolution~\cite{Di2017}.
+The necessity of deconvolution was investigated by Gitelman~\cite{Gitelman2003} who demonstrated
+that calculating a PPI at the BOLD level is not mathematically equivalent to calculating
+a PPI at the neural level.
+The BOLD signal is the result of an underlying neural response convolved (i.e., smeared)
+with a hemodynamic response function (HRF)(Equation~\ref{eq:intro_conv_bold}).
+\begin{equation}
+  BOLD = HRF \circledast neural
+  \label{eq:intro_conv_bold}
+\end{equation}
+An HRF 
+Thus to calculate a PPI, there are two options:
+1) deconvolve the BOLD signal to represent the neural signal
+2) convolve the psychological variable with an HRF to represent BOLD signal (Equation~\ref{eq:intro_conv_psych}).
+\begin{equation}
+  PSYCH_BOLD = HRF \circledast psych
+  \label{eq:intro_conv_psych}
+\end{equation}
+Brain-behavior interactions occur at the neural level, not at the
+BOLD response level, as represented in Equation~\ref{eq:intro_conv_psych}.
+Importantly, calculating the interaction at the BOLD level is not
+equivalent to calculating the interaction the neural level~\cite{Gitelman2003}.
+\begin{equation}
+	(HRF \circledast neural) \cdot (HRF \circledast psych) \neq HRF \circledast (neural \cdot psych)
+\end{equation}
+To get the neural signal we need to deconvolve the BOLD signal (option 1).
+Deconvolution of the BOLD signal is not a well defined problem since
+we do not know the exact neural process that gave rise to the BOLD signal.
+Therefore we have to rely on regularized regression with an overcomplete
+basis set.
+Overcomplete meaning there are more columns (the basis set) than there
+are rows (the BOLD signal).
+Since the BOLD signal is noisy and assumed hemodynamic response function
+may not match the data, some software packages simply do not attempt
+deconvolution and swallow the error from multiplying the physiological and psychological
+variables at the BOLD level.
+Other software packages bite the bullet and attempt deconvolution.
+In block designs where contexts are not intermixed the difference between
+methods appears inconsequntial, but with rapid event-related designs,
+deconvolution is essential to separate the influence of intermixed contexts.
+The implementation used in this thesis work does perform deconvolution.
+
+The second transformation of PPI analyses came from McLaren et al. (2012)~\cite{McLaren2012}.
+Their goal was to properly represent experiments with more than two experimental conditions, like
+the example in the BSC section where there were cue, delay, and probe event conditions.
+Traditionally, the psychological variable was actually a contrast between two event conditions, such as
+$probe - cue$ to create one PPI for analyses.
+McLaren et al. (2012) presented that instead of using a contrast, researchers could
+calculate a separate PPI for each psychological variable independently and then
+perform contrasts between the $\beta$ estimates to find differences in contextual functional connectivity.
+This method is known as generalized PPI (gPPI) analysis.
+The implentation used in this thesis work performs gPPI.
+
+The third transformation of PPI analyses to date is the necessity to account for imperfect deconvolution
+through centering the psychological variables or including the deconvolved/reconvolved physiological variable
+in the model~\ref{Di2017}.
+These solutions are needed because of the imperfections of the deconvolution process.
+Deconvolution is not an invertable process so the reconvolved PPIs regressors are not
+perfectly represented at the BOLD level.
+Not accounting for the imperfect deconvolution process results in the PPI regressors
+containing information about the baseline functional connectivity between brain areas, biasing
+PPI effects to detect regions are highly functionally connected at baseline.
+The implementation used in this thesis work demeans the psychological variables.
+
+
+
 First, there are likely multiple psychological conditions you would like to model.
 In my above example, there were already two psychological conditions (congruent and incongruent)
 to model.
@@ -288,62 +436,10 @@ two psychological variables for congruent and incongruent events,
 one physiological variable for the hippocampal BOLD signal,
 and two PPIs representing the multiplication between the hippocampal BOLD signal
 and congruent and incongruent events.
-
-The second nuance I would like to address is the multiplication between
-the psychological and physiological variable.
-The BOLD signal is the result of an underlying neural response convolved (i.e., smeared)
-with a HRF.
-\begin{equation}
-	BOLD = HRF \circledast neural
-\end{equation}
-In order to multiply the BOLD signal with the psychological variable,
-the psychological variable must go through the same convolution/smearing process.
-\begin{equation}
-	PSYCH_BOLD = HRF \circledast psych
-\end{equation}
-Brain-behavior interactions occur at the neural level, not at the
-BOLD response level, as represented above.
-Importantly, calculating the interaction at the BOLD level is not
-equivalent to calculating the interaction the neural level.
-\begin{equation}
-	(HRF \circledast neural) \cdot (HRF \circledast psych) \neq HRF \circledast (neural \cdot psych)
-\end{equation}
-To get the neural signal we need to deconvolve the BOLD signal.
-Deconvolution of the BOLD signal is not a well defined problem since
-we do not know the exact neural process that gave rise to the BOLD signal.
-Therefore we have to rely on regularized regression with an overcomplete
-basis set.
-Overcomplete meaning there are more columns (the basis set) than there
-are rows (the BOLD signal).
-Since the BOLD signal is noisy and assumed hemodynamic response function
-may be significantly mis-shapen, some software packages simply do not attempt
-deconvolution and swallow the error from multiplying the physiological and psychological
-variables at the BOLD level.
-Other software packages bite the bullet and attempt deconvolution.
-In block designs where contexts are not intermixed the difference between
-methods appears inconsequntial, but with rapid event-related designs,
-deconvolution is essential to separate the influence of intermixed contexts.
-
-
 Multiplying the physiological and psychological variables in BOLD space
 is not mathematically equivalent to multiplication in neural space.
 
-Evolution of Psychophysiological Interactions
-\begin{itemize}
-	\item 1997: Friston conceptualizes PPI
-	\item 2003: Geitman introduces deconvolution
-	\item 2012: McLaren introduces gppi
-	\item 2017: Di says to center psychological variable if performing deconvolution
-	\item create psychological contrast of interest in the 2-condition experiment
-	\item convolve the task design with the hrf, then multiply with bold signal
-	\item for event related designs, deconvolve bold signal using basis functions,
-		  then multiply "neural" signal with task design (unconvolved), then convolve
-		  the neural ppi with the hrf
-	\item create separate ppi's for each condition instead of creating a new model for each contrast (gppi)
-	\item denoise the seed region (include covariates in the basis functions)
-	\item centering the psychological variable is necessary (or add deconvolve/reconvolved regressor)
-	       
-\end{itemize}
+
 
 \textbf{Specific Aim 1}: Evaluate whether LSS or LSA is better
 \newline
