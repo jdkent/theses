@@ -1915,6 +1915,23 @@ The computation of Psychophysiological interactions underwent multiple steps:
 4) upsampling of both the deconconvoled ROI time series and psychological variable,
 5) multiplication of the deconvolved ROI time series and psychological variable, and
 6) convolution of the resulting multiplicative in step 5.
+A simplified visualization of this process is in Figure~\ref{fig:ppi_method_overview}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{ppi_method_overview}
+  \caption{
+    The overall process of generating a PPI.
+    First, the BOLD time series is deconvolved to represent the theoretical
+    neuronal timecourse.
+    Next, the neuronal time series is then multiplied with each of the psychological
+    conditions, generating neural PPIs.
+    Finally, each neural PPI is convolved with a hemodynamic response function
+    to represent the contextual BOLD signal.
+  }
+  \label{fig:ppi_method_overview}
+\end{figure}
+
 % insert figure for this process
 Extraction and cleaning of the ROI time series was completed using nilearn,
 including white matter and cerebral spinal fluid signal, framewise displacement,
@@ -1966,7 +1983,21 @@ represent the context dependent functional connectivity estimates for
 each event condition.
 $X_{switch\_ppi}$, $X_{repeat\_ppi}$, and $X_{single\_ppi}$ represent
 the multiplicative between the ROI time series and each event condition.
-The contrasts of interests taken from this model were:
+An example design matrix is illustrated in Figure~\ref{fig:example_ppi_design}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{example_ppi_design}
+  \caption{
+    An example PPI design.
+    The event type $firsttrial$ was not of interest in the contrasts,
+    but included in the model for completeness.
+    The $constant$ column can also be refered to as the intercept.
+  }
+  \label{fig:example_ppi_design}
+\end{figure}
+
+The contrasts of interests taken from this model were:\\
 $((switch\_ppi + repeat\_ppi) / 2) - single\_ppi$, $repeat\_ppi - single\_ppi$,
 and $switch\_ppi - repeat\_ppi$ to measure each contextual difference in functional connectivity. 
 This equation was run for every unique ROI-ROI pair in both directions
