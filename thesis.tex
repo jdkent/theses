@@ -1594,9 +1594,9 @@ which analysis path they should take amid the forking paths of researcher degree
 
 \begin{figure}[H]
   \centering
-  \subfloat{\includegraphics[width=\textwidth]{data-real_atlas-schaefer_participants-filtered_permutation_summary}}
+  \subfloat{\includegraphics[width=0.7\textwidth]{data-real_atlas-schaefer_participants-filtered_permutation_summary}}
 
-  \subfloat{\includegraphics[width=\textwidth]{data-null_atlas-schaefer_participants-filtered_permutation_summary}}
+  \subfloat{\includegraphics[width=0.7\textwidth]{data-null_atlas-schaefer_participants-filtered_permutation_summary}}
 
   \caption{
       The overall results for the full Schaefer Atlas.
@@ -1635,7 +1635,7 @@ to toe tap events.
 
 There are a couple of nuances worth addressing in the simplistic example I gave above.
 First, there are likely multiple psychological conditions you would like to model.
-In my above example, there were already two psychological conditions (congruent and incongruent)
+In my above example, there were already two psychological conditions (finger taps and toe taps)
 to model.
 Each pyschological condition is their own variable in the model, which also
 means each condition has their own PPI.
@@ -1643,7 +1643,7 @@ In the example scenerio, there would be a total of 5 variables in the model,
 two psychological variables for finger tapping and toe tapping events,
 one physiological variable for the motor cortex BOLD signal,
 and two PPIs representing the multiplication between the motor cortex BOLD signal
-and finger and toe tapping events.
+and finger and toe tapping events~\cite{McLaren2012}.
 
 The second nuance I would like to address is the multiplication between
 the psychological and physiological variable.
@@ -1692,9 +1692,7 @@ In this chapter we demonstrate:
 
 \section{methods}
 
-We follow comparison between regions
-
-\subsection*{Participant Data Validation}
+\subsection*{Participant Data}
 \label{methods:task-switch2}
 
 We used an unpublished dataset
@@ -1912,8 +1910,8 @@ represents the number of events in that condition.
 
 The computation of Psychophysiological interactions underwent multiple steps:
 1) extraction and cleaning of an ROI time series,
-2) deconvolution of an ROI time series,
-3) centering of the psychological variable,
+2) deconvolution of an ROI time series~\cite{Gitelman2003},
+3) centering of the psychological variable~\cite{Di2017},
 4) upsampling of both the deconconvoled ROI time series and psychological variable,
 5) multiplication of the deconvolved ROI time series and psychological variable, and
 6) convolution of the resulting multiplicative in step 5.
@@ -1935,7 +1933,7 @@ of the stimulus, each of the psychological conditions and deconvolved ROI time s
 a resolution of 0.1 seconds.
 Next, we multiplied each of the upsampled psychological conditions with the deconvolved/upsampled
 ROI time series creating a "neural" PPI for each of the
-psychological conditions.
+psychological conditions~\cite{McLaren2012}.
 We downsampled the "neural" PPI back to a resolution of 2 seconds and convolved the signal with
 SPM's hemodynamic response function representing the PPI in the original BOLD timecourse.
 
@@ -1994,8 +1992,8 @@ The second atlas, Schaefer Atlas (400 parcels, 17 networks)\cite{Schaefer2017}, 
 used to comprehensively cover the cortex and test robustness of results.
 
 An activation atlas was generated based on an F-test across the switch, repeat, and single conditions
-to identify regions that were reliably activated for all participants (Table~\ref{table:clusters}).
-5mm spheres were drawn around each statistical peak (21 peaks total) (Figure~\ref{fig:methroimap}).
+to identify regions that were reliably activated for all participants (Table~\ref{table:clusters2}).
+5mm spheres were drawn around each statistical peak (21 peaks total) (Figure~\ref{fig:methroimap2}).
 
 \begin{table}[H]
   \csvautotabular[separator=tab, no check column count]{./data/cluster_table.tsv}
@@ -2175,6 +2173,7 @@ Within the SchaeferTop20 atlas with null data, both PPI and LSA had significant 
 $dual - single$ (LSA: 8.94\%; $p = 0.015$, LSS: 3.68\%; $p = 0.842$, PPI: 13.68\%; $p < 0.001$),
 $repeat - single$ (LSA: 12.63\%; $p < 0.001$, LSS: 4.74\%; $p = 0.613$, PPI: 12.63\%; $p < 0.001$), and
 $switch - repeat$ (LSA: 15.79\%; $p < 0.001$, LSS: 3.16\%; $p = 0.917$, PPI: 5.26\%; $p = 0.480$) (Figure~\ref{fig:null-schaeferbestppi}).
+These results are qualitatively similar to the full Schaefer atlas (Supplemental Figure~\ref{fig:schaefer_binomial_ppi})
 
 To find whether PPI was more similar to LSA or LSS, we correlated the contrast estimates for all of the contrasts
 ($dual - single$, $repeat - single$, and $switch - repeat$), for all the atlases (activation atlas, SchaeferTop20 atlas, and the full Schaefer atlas), and
@@ -2228,8 +2227,43 @@ for event-related contrasts, and either PPI or LSS for block contrasts.
 With LSS, you may have fewer results relative to PPI, but based on this dataset,
 LSS is less prone towards finding spurious results relative to both LSA and PPI.
 
-The choice of atlas
+The choice of atlas did not have a strong impact on LSS's and LSA's relationship with
+the PPI analysis.
+LSS was almost always more correlated with PPI than LSA was correlated with PPI indicating
+LSS and PPI are more related than LSA and PPI.
+However, the higher correlation between LSS and PPI analyses estimates
+did not translate to a large agreement of which ROI-ROI pairs were found
+significant between LSS and PPI (Figure ~\ref{fig:data-null_type-brain_atlas-activation_contrast-dualxsingle}).
+Thus, there is still significant variance between LSA/LSS/PPI producing unique results,
+depending on which method is chosen.
 
+An intriguing result is the large percentage of significant ROI-ROI pairs found by
+PPI analysis in Figure~\ref{fig:real-schaeferbestppi}.
+The top CNR regions were chosen using LSA and LSS, with no influence from PPI.
+This suggests LSS/LSA could be used as a data driven approach to select ROIs
+for PPI analyses, as opposed to the traditional method of selecting
+highly activated regions.
+The derivation of CNR does not select for ROIs that have contextual
+connectivity differences so this strategy does not suffer from
+double-dipping~\cite{Kriegeskorte2009}.
+This strategy did not help with the event-related contrast ($Switch - Repeat$)
+suggesting CNR is not the only factor at play to increase sensitivity of
+the tests.
+
+The decrease of contextual functional connectivity seen in the contrasts
+$Dual - Single$ and $Repeat - Single$ for the real data agrees with previous
+work looking at contextual functional connectivity during various task states~cite{Cole2014a,Spadone2015}.
+The SchaeferTop20 atlas is overrepresented with ROIs from the visual cortex, which have been shown
+to reduce their functional connectivity in response to a task~\cite{Spadone2015}.
+
+PPI may arguably be the better method for detecting contextual functional connectivity
+differences, and as such could be extended to include spatiotemporal relationship as BSC methods
+have been expanded~\cite{Turner2012a}.
+Specifically, PPIs could be calculated using a finite impulse response (FIR) model, where instead of assuming
+a hemodynamic response function shape, there is a separate regressor for each time point peri-stimulus.
+This analysis strategy would require significant data per person since the number of regressors would be
+$2 * (\#FIRs * \#conditions) + 1_{physio}$, where FIRs could reasonbly go up to 8 and number of conditions could
+be 3, resulting 49 regressors in the model related to the task.
 
 \subsection{Limitations}
 This work is subject to a number of limitations.
@@ -2268,6 +2302,13 @@ differences between the two conditions~\cite{Wasylyshyn2011}.
 Future work could incorporate a study with several runs of the same task, where
 the contrast would be calculated between events of the same run (e.g., $switch_{run1} - repeat_{run1}$
 and between the events in separate runs (e.g., $switch_{run1} - repeat_{run2}$).
+
+\subsection{Conclusions}
+Overall we have 3 main conclusions from this work:
+1) PPI is the most sensitive, but least specific method,
+2) LSS is more closely related to PPI than LSA,
+3) contrasts from events between blocks detect more results than contrasts
+from interleaved events (whether there is a change or not)
 
 \subsection{Supplemental Material}
 
@@ -2489,6 +2530,7 @@ and between the events in separate runs (e.g., $switch_{run1} - repeat_{run2}$).
   }
   \label{fig:schaefer_binomial_ppi}
 \end{figure}
+
 %=============================================================================
 \chapter{General Discussion}
 %=============================================================================
@@ -2507,20 +2549,10 @@ and between the events in separate runs (e.g., $switch_{run1} - repeat_{run2}$).
 %=============================================================================
 
 %=============================================================================
-\chapter{Sample Appendix}
+\chapter{Appendix}
 
 \section{Appendix One}
-\blindtext
-
-\section{Appendix Two}
-\blindtext
-
-%=============================================================================
-\chapter{Another Appendix}
-
-\section{Appendix Three}
-\blindtext
-
+Should I use this?
 
 %=============================================================================
 % bibliography
@@ -2539,10 +2571,10 @@ and between the events in separate runs (e.g., $switch_{run1} - repeat_{run2}$).
 % why we care about connectivity,
 % and why we care about task related connectivity
 % 
-Meeting Notes
-Discussion to change Aim's 1 and 2 for the pragmatic purpose
-of getting a paper submitted.
-Change Aim1:
-split dataset into two halves (compare LSS and LSA)
-Change Aim2:
-split dataset into two halves (compare LSS and PPI)
+%Meeting Notes
+%Discussion to change Aim's 1 and 2 for the pragmatic purpose
+%of getting a paper submitted.
+%Change Aim1:
+%split dataset into two halves (compare LSS and LSA)
+%Change Aim2:
+%split dataset into two halves (compare LSS and PPI)
