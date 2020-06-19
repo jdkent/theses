@@ -125,49 +125,6 @@
 \chapter{Introduction}
 %=============================================================================
 
-\begin{itemize}
-	\item cognitive neuroscience draws line between brain/cognition
-	\item tasks are necessary to understand how brain networks organize
-	\item need to test methods that can measure brain organization
-	\item two general methods are Beta Series Correlations and PsychoPhysiological Interactions
-	\item Intro to BSC
-	\begin{itemize}
-		\item Jesse Rissman (2004): introduced LSA
-		\item Jeanette Mumford (2012): introduced LSS
-		\item introduce General Linear Model
-		\item Benjamin Turner (2012)
-		\item Abdulrahman (2016) compared LSA/LSS
-	\end{itemize}
-	\item Intro to PPI
-	\begin{itemize}
-		\item ppi's require three items in the model: psychological regressor, physiological regressor, and
-		      interaction term of psychological/physiological term.
-		\item 1997: Friston introduces ppi
-		\item 2003: Geitman introduces deconvolution
-		\item 2012: McLaren introduces gppi
-		\item 2017: Di says to center psychological variable if performing deconvolution
-		\item create psychological contrast of interest in the 2-condition experiment
-		\item convolve the task design with the hrf, then multiply with bold signal
-		\item for event related designs, deconvolve bold signal using basis functions,
-			then multiply "neural" signal with task design (unconvolved), then convolve
-			the neural ppi with the hrf
-		\item create separate ppi's for each condition instead of creating a
-		      new model for each contrast (gppi)
-		\item denoise the seed region (include covariates in the basis functions)
-		\item centering the psychological variable is necessary (or add deconvolve/reconvolved regressor)
-	\end{itemize}
-	\item previous work has compared LSA/LSS/PPI (Cisler 2014 and Xi 2020)
-	\item comparisons missing LSS/LSA/PPI using mixed event/block design
-	\item Intro to networks
-	\begin{itemize}
-		\item olaf sporns
-		\item edge
-		\item node
-		\item simple network measures
-	\end{itemize}
-	\item I compared LSS/LSA first
-	\item compare LSS/LSA relative to PPI
-\end{itemize}
 At the heart of any cognitive neuroscientist is the desire to relate the physical
 processes of the brain to cognition.
 The advent of functional Magnetic Resonance Imaging (fMRI) presented an amazing opportunity
@@ -210,7 +167,7 @@ Methods that purportedly measure the same underlying biological process
 should be put to task to evaluate whether they are as similar
 as they imply.
 
-\textbf{In this thesis, I compared three different methods that measure brain organization during a task
+\textbf{I compared three different methods that measure brain organization during a task
 and provide recommendations on which method to use.}
 For consistency with existing literature, a "measure of brain organization during a task" will be
 investigated as \textit{context-dependent functional connectivity}, which refers to
@@ -334,7 +291,8 @@ Again, leveraging the above example with cue, delay, and probe events,
 this new LSS method would create 120 GLMs with 4 regressors each (event of interest, cue, delay, and probe).
 I am refering to the improved version of LSS throughout the remainder of the thesis.
 
-While LSS addresses the immediate problem of high colinearity between regressor, it does not come without cost.
+While LSS addresses the immediate problem of high colinearity between regressors,
+it does not come without cost.
 LSS $\beta$ estimates are influenced by adjacent events such that if an event in condition A
 was flanked by two events in condition B, the $\beta$ estimate for the event in condition A
 is likely biased (i.e., not orthogonal) to the adjacent events in condition B.
@@ -375,7 +333,7 @@ Thus to calculate a PPI, there are two options:
 1) deconvolve the BOLD signal to represent the neural signal
 2) convolve the psychological variable with an HRF to represent BOLD signal (Equation~\ref{eq:intro_conv_psych}).
 \begin{equation}
-  PSYCH_BOLD = HRF \circledast psych
+  PSYCH_{BOLD} = HRF \circledast psych
   \label{eq:intro_conv_psych}
 \end{equation}
 Brain-behavior interactions occur at the neural level, not at the
@@ -415,7 +373,7 @@ The implentation used in this thesis work performs gPPI.
 
 The third transformation of PPI analyses to date is the necessity to account for imperfect deconvolution
 through centering the psychological variables or including the deconvolved/reconvolved physiological variable
-in the model~\ref{Di2017}.
+in the model~\cite{Di2017}.
 These solutions are needed because of the imperfections of the deconvolution process.
 Deconvolution is not an invertable process so the reconvolved PPIs regressors are not
 perfectly represented at the BOLD level.
@@ -424,28 +382,73 @@ containing information about the baseline functional connectivity between brain 
 PPI effects to detect regions are highly functionally connected at baseline.
 The implementation used in this thesis work demeans the psychological variables.
 
+\section*{Event/Block Designs}
 
+BSC and PPI analyses are applied to experimental data where participants had to respond
+to stimuli in a certain order at certain time intervals.
+The chosen order and timing of stimuli has a drastic impact on how well BSC and PPI analyses
+can perform.
+In the fMRI literature, there are two primary ways to organize your stimuli,
+either by placing all stimuli that belong to the same event condition together
+in a block or interleaving the stimuli belonging to different event conditions
+within a block~\cite{Friston1995b,Buckner1996}.
+The designs are called block and event-related respectively.
+While block designs are more powerful to detect BOLD magnitude differences
+between conditions, the cognitive process under investigation may not work with
+such a design~\cite{Friston1999}.
+Some cognitive processes require subversion of expectations, and if "unexpected"
+stimuli are grouped together they are less unexpected.
+Many cognitive control tasks fit under this paradigm such as the
+Stroop task~\cite{Stroop1935}, Flanker task~\cite{Eriksen1974a}, Stop-signal task~\cite{Logan1982},
+Simon task~\cite{Simon1963}, and others.
+In order to investigate the neural underpinnings engaged in these tasks, the unexpected events
+need to be interleaved with the expected events.
+The necessity of event-related designs means that BSC and PPI analyses must be able to
+detect differences in contextual functional connectivity when events from different conditions
+are interleaved.
+Thus in my investigations, I will include both block and event-related contrasts
+to ascertain if the advantage of one method over another is dependent on the type of experimental design.
 
-First, there are likely multiple psychological conditions you would like to model.
-In my above example, there were already two psychological conditions (congruent and incongruent)
-to model.
-Each pyschological condition is their own variable in the model, which also
-means each condition has their own PPI.
-In the example scenerio, there would be a total of 5 variables in the model,
-two psychological variables for congruent and incongruent events,
-one physiological variable for the hippocampal BOLD signal,
-and two PPIs representing the multiplication between the hippocampal BOLD signal
-and congruent and incongruent events.
-Multiplying the physiological and psychological variables in BOLD space
-is not mathematically equivalent to multiplication in neural space.
+\section*{Overall Research Aims}
+There are at least two points of difference between BSC and PPI analyses.
+1) BSC correlates $\beta$ estimates from the same condition, whereas PPI analyses define
+the interaction between condition and BOLD responses within the $\beta$ estimate.
+2) Correlations are different than changes in regression slopes~\cite{Di2019}.
 
+The first difference presents a potential advantage of PPI analyses creating more reliable
+estimates of contextual functional connectivity because when contrasting the $\beta$ estimates
+within the PPI framework, the standard errors of the $\beta$ estimates provide the level of
+confidence in the $\beta$ estimate.
+BSC on the other hand do not typically incorporate the standard error of the $\beta$ estimate
+when calculating correlations potentially leading to unreliable and high variance $\beta$
+estimates.
 
+The second difference acknowledges that correlation is different from regression.
+This is relevant if one event condition has a higher variance than the other event condition,
+which would impact the correlation, but not the regression slope.
 
-\textbf{Specific Aim 1}: Evaluate whether LSS or LSA is better
+With the differences between the BSC methods (LSA and LSS) and PPI, it is difficult to ascertain whether
+they will all produce very similar outcomes or divergent results, and if they 
+diverge, it is unknown which method should I have more confidence in.
+Thus, I compared LSS, LSA, and PPI to discover to what extent the methods converge and provide
+recommendations on which method is potentially more sensitive to detect
+differences in contextual functional connectivity.
+
+\textbf{Specific Aim 1}: Evaluate whether LSS or LSA has more power to detect
+difference in contextual functional connectivity.
 \newline
 \newline
 \textit{Rationale}: Should researchers reach to LSA for their analysis of condition specific differences
 or should they use the more computationally intensive LSS?
+Previous literature suggests LSS performs better on machine learning applications, and giving
+more precise correlations relative to LSA in certain contexts~\cite{Abdulrahman2016,Mumford2012,Turner2012a,Cisler2012}.
+However, multivariate machine learning measures and precision of correlations do not translate to
+univeriate correlation differences.
+Machine learning identifies the unique fingerprint of an event condition, which may not be related
+to a correlation between two brain areas.
+Correlations that are systematically biased may not be precise, but if both event conditions are
+impacted similarly, the precision of the correlation is independent of its ability to
+detect differences between event conditions.
 
 \textit{Hypothesis}:
 LSS will have more sensitivity and more specificity for both block and event-related designs.
@@ -529,7 +532,7 @@ To understand how LSA and LSS differ in their restrictions of orthagonality in s
 it is necessary to introduce the General Linear Model (GLM).
 GLMs are a mainstay in the neuroimaging literature, allowing researchers to model
 a curve that approximates the BOLD response shape and linearly scale the curve
-to best match the data~\cite{Friston1995}.
+to best match the data~\cite{Friston1995a}.
 The multiplicative that linearly scales the model BOLD response is known as a beta,
 and provides the namesake for beta series.
 This beta is often interpreted as the amplitude of the response, which is true when the
@@ -543,7 +546,7 @@ active relative to some baseline or another condition (Figure~\ref{fig:introGLM}
   \centering
   \includegraphics[width=0.2\textwidth]{introduction-normalGLM}
   \caption{
-    An example of a design matrix seen in a traditional GLM used in fMRI~\cite{Friston1995}.
+    An example of a design matrix seen in a traditional GLM used in fMRI~\cite{Friston1995a}.
     There is a single column for each condition, resulting in two columns (intercept column ignored for clarity).
     With this design you can answer questions about which voxels are more or less active in one condition
     versus another, but you cannot see which voxels vary together over stimulus presentations.
@@ -1752,7 +1755,7 @@ with a HRF~\ref{eq:convolve_neural}.
 In order to multiply the BOLD signal with the psychological variable,
 the psychological variable must go through the same convolution/smearing process~\ref{eq:convolve_psych}.
 \begin{equation}
-  PSYCH_BOLD = HRF \circledast psych
+  PSYCH_{BOLD} = HRF \circledast psych
   \label{eq:convolve_psych}
 \end{equation}
 Brain-behavior interactions occur at the neural level, not at the
@@ -2663,6 +2666,9 @@ from interleaved events (whether there is a change or not)
 %=============================================================================
 
 \begin{itemize}
+  \item could add a deconvolved/reconvolved physiological regressor to PPI model
+  \item The above suggestion may allow one use network analysis methods on PPI
+  \item could try deconvolving the LSA/LSS estimates to see if the results are better in neural spaces
 	\item PPI generally is more sensitive, but less specific (e.g., shows lots of postives)
 	\item LSA/LSS still only choice to look at contexts in isolation (there is implicit contrast with PPI)
 	\item LSA/LSS could be used to choose potential regions of interest in a data driven way (CNR)
