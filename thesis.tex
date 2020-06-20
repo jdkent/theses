@@ -1833,12 +1833,25 @@ containing information about the baseline functional connectivity between brain 
 PPI effects to detect regions are highly functionally connected at baseline.
 The implementation used in this thesis work demeans the psychological variables.
 
-No previous work to this author's knowledge has compared multiple methods to calculate BSC
-and PPI before.
-In this chapter we demonstrate:
-1) PPI is the most sensitive method,
-2) LSS is the most specific method, and
-3) PPI and LSS estimates correlate stronger than PPI and LSA.
+Previous work has compared BSC methods to PPI analyses~\cite{Cisler2012,Di2019}.
+Cisler et al. (2012) found BSC to be more powerful in event related designs
+and PPI to be more powerful in block designs, whereas Di et al. (2019)
+found PPI to be more powerful in both block and event-related designs,
+thus it remains an open question whether PPI is more powerful in
+event-related designs.
+Additionally, previous work only used the LSS implementation of BSC.
+Since LSA and LSS have largely non-overlapping results, it will be informative
+to identify which BSC method is most correlated with PPI analyses.
+Finally, previous work used different quantative measures
+(i.e., number of detected clusters from a seed region analysis)
+and did not include null data to compare their results against, so it is
+difficult to measure whether the measure is likely to give false positives
+using real data.
+
+In this chapter we ask:
+1) whether BSC methods or PPI analysis are more senstive
+2) whether BSC methods or PPI analysis are more specific, and
+3) which BSC method correlates more with PPI.
 
 \section{methods}
 
@@ -2012,10 +2025,7 @@ Gridded (volumetric) resamplings were performed using \texttt{antsApplyTransform
 configured with Lanczos interpolation to minimize the smoothing effects of other kernels
 \cite{lanczos}.
 
-\subsection*{BetaSeries Correlations}
-\label{methods:bsc2}
-
-\subsubsection*{Beta Series Modeling}
+\subsection*{Beta Series Modeling}
 \label{methods:bsc_model2}
 
 The LSS models were generated for each event in
@@ -2056,7 +2066,7 @@ The number of volumes in each 4D beta series image
 represents the number of events in that condition.
 
 
-\subsubsection*{Psychophysiological Interaction Modeling}
+\subsection*{Psychophysiological Interaction Modeling}
 
 The computation of Psychophysiological interactions underwent multiple steps:
 1) extraction and cleaning of an ROI time series,
@@ -2082,7 +2092,6 @@ A simplified visualization of this process is in Figure~\ref{fig:ppi_method_over
   \label{fig:ppi_method_overview}
 \end{figure}
 
-% insert figure for this process
 Extraction and cleaning of the ROI time series was completed using nilearn,
 including white matter and cerebral spinal fluid signal, framewise displacement,
 motion outliers, a high pass filter (cosine basis set), and the first four non-steady state
@@ -2157,24 +2166,19 @@ For reference, the first term in the first listed contrast ($((switch\_ppi + rep
 is refered to as the $dual$ condition because it represents the functional connecitivty during the
 two-task blocks.
 
-\subsubsection*{Atlas Correlation Analysis}
+\subsection*{Atlas Generation}
 \label{methods:atlas-corr-analysis2}
 
-The 4D beta series image for each condition in the task was subjected to
-an ROI-to-ROI correlation analysis
-to produce condition-specific correlation matrices.
-For the simulation data, ROI-to-ROI correlations were calculated by
-treating each voxel as an ROI.
 In the participant data; two atlases were used to generate ROI-to-ROI correlation matrices.
 We created an activation atlas representing regions that were
 consistently activated across event conditions (see \nameref{methods:task-switch}).
+The activation atlas was generated based on an F-test across the switch, repeat, and single conditions
+to identify regions that were reliably activated for all participants (Table~\ref{table:clusters2}).
+5mm spheres were drawn around each statistical peak (21 peaks total) (Figure~\ref{fig:methroimap2}).
 This atlas has coverage across several cortical and subcortical regions.
 The second atlas, Schaefer Atlas (400 parcels, 17 networks)\cite{Schaefer2017}, was
 used to comprehensively cover the cortex and test robustness of results.
 
-An activation atlas was generated based on an F-test across the switch, repeat, and single conditions
-to identify regions that were reliably activated for all participants (Table~\ref{table:clusters2}).
-5mm spheres were drawn around each statistical peak (21 peaks total) (Figure~\ref{fig:methroimap2}).
 
 \begin{table}[H]
   \csvautotabular[separator=tab, no check column count]{./data/cluster_table.tsv}
@@ -2227,6 +2231,8 @@ We refer this subset of ROIs as the SchaeferTop20 Atlas for the rest of the manu
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/cnr_trial_variability.ipynb}{see here for relevant code}).
 The results for the entire 400 ROI altas are shown in the supplementals.
 
+\subsection*{BSC Analysis}
+
 Outlier beta estimate volumes were identified and discarded using a
 modified Nipype function for outlier detection
 (\href{https://github.com/HBClab/NiBetaSeries/blob/a45c0a1f/src/nibetaseries/interfaces/nilearn.py#L153}{see here}) \cite{Crosby1994}.
@@ -2237,16 +2243,18 @@ Fisher's r-to-z conversion~\cite{Fisher1915}.
 
 BSC generated correlation matrices for each condition (dual, switch, repeat, single),
 each method, (LSA and LSS), each data type (real and null), and each participant (N=40).
-The first check performed was contrasting the real dual condition and null dual condition
-to ensure BSC from a task are different than BSC from null data.
 A paired t-test was run on each ROI-ROI pair for the activation atlas, totaling 210 comparisons
 between task and null.
-We next contrasted $dual - single$, $repeat - single$, and $switch - repeat$, for LSS/LSA in both
+We contrasted $dual - single$, $repeat - single$, and $switch - repeat$, for LSS/LSA in both
 real and null data.
+
+\subsection*{PPI Analysis}
 
 To create symmetric correlation matrices similar to BSC using PPI, the asymmetric matrices generated for
 each contrast were transposed, added to the original, and divided by two, as done in previous work~\cite{Di2019a}.
 The resulting symmetric matrices were comparable to the contrast matrices generated from BSC.
+
+\subsection*{BSC and PPI Comparison}
 
 Since we do not have a ground truth for which ROI-ROI pairs should be different between conditions,
 we used a binomial test across all ROI-ROI pairs to discover if the number of observed significant ROI-ROI pairs was greater
@@ -2259,6 +2267,8 @@ We provided a description of the number of significant ROI-ROI pairs with increa
 decreased contextual functional connectivity to identify if contextual connectivity tends to increase or decrease overall
 for the contrasts $dual - single$, $repeat - single$, and $switch - repeat$, and see if the pattern replicates
 in the null data. 
+Within the null data, there is no expectation of context-dependent functional connectivity changing, so false
+positives should be equally distributed between increases and decreases in correlations.
 The ratio of positive results will help identify whether biases for increased/decreased contextual functional connectivity
 in real data are also seen in null data.
 
@@ -2271,7 +2281,7 @@ evidence whether LSS or LSA are more similar to PPI~\cite{Steiger1980}.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/2e5d7d2443795133770383daaa401cf70cc03f29/PPITest/compare_bsc_ppi.ipynb}{see here for relevant code}).
 
 \subsection*{Software Dependencies}
-\label{methods:software-dependencies}
+\label{methods:software-dependencies2}
 
 The results in this manuscript are dependent on many open source
 libraries, while we have inevitably missed providing all due credit,
