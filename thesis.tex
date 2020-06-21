@@ -2414,12 +2414,21 @@ contrast in the SchaeferTop20 Atlas (real: $p = 0.541$, null: $p = 0.064$)
 (Figures~\ref{fig:atlas-activation_correlations}~\ref{fig:atlas-schaeferbest_correlations}~\ref{fig:atlas-schaefer_correlations}).
 The overall average correlation between LSS and PPI is $r = 0.55$, LSA and PPI is $r = 0.29$,
 and LSS and LSA is $r = 0.34$.
-The overall average correlation difference between LSS+PPI versus LSA+PPI is $0.26$,
-indicating a medium effect size.
+The overall average correlation difference between $Corr(LSS, PPI)$ versus $Corr(LSA, PPI)$ is $0.26$,
+indicating a medium effect size of the correlation between LSS and PPI is stronger than the
+correlation between LSA and PPI.
 The similarity between LSS and PPI is stronger for the block contrasts ($dual - single$ and $repeat - single$)
 relative to the event-related contrast ($switch - repeat$), regardless of data (real/null) or atlas.
 
-We measured the distribution of $positives / (positives + negatives)$ results from the significant ROI-ROI pairs~\ref{table_bias}.
+Another descriptive variable we tracked was the proportion of significant ROI-ROI pairs
+that demonstrated increased context-dependent functional connectivity.
+In the null data, we would expect the the false positives to be 50/50 for
+increasing (positive) context-dependent functional connectivity differences
+and decreasing (negative) context-dependent functional connectivity differences,
+whereas the real data may show a distinct bias towards either more ROI-ROI pairs
+increasing or decreasing their context-dependent functional connectivity.
+The specific measure I used was $positives / (positives + negatives)$ from the significant ROI-ROI pairs~\ref{table_bias}.
+
 \begin{table}[H]
   \centering
   \caption{
@@ -2452,7 +2461,7 @@ We provided the first in-depth comparison between LSA, LSS, and PPI.
 We showed while PPI generally found more results relative to LSA and LSS in the real data,
 PPI also found a large number of results in the null data as well.
 Given the greater agreement between LSS and PPI, we recommend using PPI
-for event-related contrasts, and either PPI or LSS for block contrasts.
+for event-related contrasts, and either PPI or LSS for mixed event-related/block contrasts.
 With LSS, you may have fewer results relative to PPI, but based on this data-set,
 LSS is less prone towards finding spurious results relative to both LSA and PPI.
 
@@ -2460,6 +2469,11 @@ The choice of atlas did not have a strong impact on LSS's and LSA's relationship
 the PPI analysis.
 LSS was almost always more correlated with PPI than LSA was correlated with PPI indicating
 LSS and PPI are more related than LSA and PPI.
+The stronger relationship between LSS and PPI could be due to both methods being biased by adjacent
+events since the deconvolution of the BOLD signal does not remove the event to event
+variances of adjacent events similarly to LSS.
+Whereas LSA only keeps the unique event variance and any shared variance with adjacent events
+is not given to any event.
 However, the higher correlation between LSS and PPI analyses estimates
 did not translate to a large agreement of which ROI-ROI pairs were found
 significant between LSS and PPI (Figure ~\ref{fig:data-null_type-brain_atlas-activation_contrast-dualxsingle}).
