@@ -2082,12 +2082,14 @@ A simplified visualization of this process is in Figure~\ref{fig:ppi_method_over
   \includegraphics[width=\textwidth]{ppi_method_overview}
   \caption{
     The overall process of generating a PPI.
-    First, the BOLD time series is deconvolved to represent the theoretical
-    neuronal timecourse.
+    The $\circledast$ symbol between plots represents convolution.
+    First, the BOLD time series is deconvolved (inverse of convolution)
+    to represent the theoretical neuronal timecourse.
     Next, the neuronal time series is then multiplied with each of the psychological
-    conditions, generating neural PPIs.
+    conditions, generating neural PPIs seen in the middle row.
     Finally, each neural PPI is convolved with a hemodynamic response function
-    to represent the contextual BOLD signal.
+    to represent the contextual BOLD signal for their respective psychological
+    condition.
   }
   \label{fig:ppi_method_overview}
 \end{figure}
@@ -2149,6 +2151,7 @@ An example design matrix is illustrated in Figure~\ref{fig:example_ppi_design}.
   \includegraphics[width=\textwidth]{example_ppi_design}
   \caption{
     An example PPI design.
+    The $physio$ column represents BOLD signal from an ROI.
     The event type $firsttrial$ was not of interest in the contrasts,
     but included in the model for completeness.
     The $constant$ column can also be refered to as the intercept.
@@ -2366,14 +2369,48 @@ $repeat - single$ (LSA: 12.63\%; $p < 0.001$, LSS: 4.74\%; $p = 0.613$, PPI: 12.
 $switch - repeat$ (LSA: 15.79\%; $p < 0.001$, LSS: 3.16\%; $p = 0.917$, PPI: 5.26\%; $p = 0.480$) (Figure~\ref{fig:null-schaeferbestppi}).
 These results are qualitatively similar to the full Schaefer atlas (Supplemental Figure~\ref{fig:schaefer_binomial_ppi})
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{atlas-activation_estimate_correlations}
+  \caption{
+    Correlations of LSS/LSA context-dependent functional correlation difference estimates with
+    estimates from PPI from the activation atlas
+  }
+  \label{fig:atlas-activation_correlations}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{atlas-schaeferbest_estimate_correlations}
+  \caption{
+    Correlations of LSS/LSA context-dependent functional correlation difference estimates with
+    estimates from PPI from the SchaeferTop20 atlas.
+  }
+  \label{fig:atlas-schaeferbest_correlations}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{atlas-schaefer_estimate_correlations}
+  \caption{
+    Correlations of LSS/LSA context-dependent functional correlation difference estimates with
+    estimates from PPI from the Schaefer atlas.
+    \textbf{NOTE}: the scatter plot points were binned to reduce figure size, but
+    this does not impact the slopes of the regression lines.
+  }
+  \label{fig:atlas-schaefer_correlations}
+\end{figure}
+
 To find whether PPI was more similar to LSA or LSS, we correlated the contrast estimates for all of the contrasts
-($dual - single$, $repeat - single$, and $switch - repeat$), for all the atlases (activation atlas, SchaeferTop20 atlas, and the full Schaefer atlas), and
+($dual - single$, $repeat - single$, and $switch - repeat$),
+for all the atlases (activation atlas, SchaeferTop20 atlas, and the full Schaefer atlas), and
 for each of the data sources (real and null).
 PPI ROI-ROI contrast estimates significantly correlated more strongly with LSS relative to LSA
 for nearly all contrasts ($dual - single$, $repeat - single$, and $switch - repeat$),
 atlases (activation atlas, SchaeferTop20 atlas, and the full Schaefer atlas),
 and the real and null data ($p < 0.05$) except the $switch - repeat$
-contrast in the SchaeferTop20 Atlas (real: $p = 0.541$, null: $p = 0.064$).
+contrast in the SchaeferTop20 Atlas (real: $p = 0.541$, null: $p = 0.064$)
+(Figures~\ref{fig:atlas-activation_correlations}~\ref{fig:atlas-schaeferbest_correlations}~\ref{fig:atlas-schaefer_correlations}).
 The overall average correlation between LSS and PPI is $r = 0.55$, LSA and PPI is $r = 0.29$,
 and LSS and LSA is $r = 0.34$.
 The overall average correlation difference between LSS+PPI versus LSA+PPI is $0.26$,
