@@ -2474,6 +2474,8 @@ events since the deconvolution of the BOLD signal does not remove the event to e
 variances of adjacent events similarly to LSS.
 Whereas LSA only keeps the unique event variance and any shared variance with adjacent events
 is not given to any event.
+This does not explain why LSS would have poor performance with event-related contrasts
+and why PPI would perform relatively well. 
 However, the higher correlation between LSS and PPI analyses estimates
 did not translate to a large agreement of which ROI-ROI pairs were found
 significant between LSS and PPI (Figure ~\ref{fig:data-null_type-brain_atlas-activation_contrast-dualxsingle}).
@@ -2508,7 +2510,7 @@ This analysis strategy would require significant data per person since the numbe
 $2 * (\#FIRs * \#conditions) + 1_{physio}$, where FIRs could reasonably go up to 8 and number of conditions could
 be 3, resulting 49 regressors in the model related to the task.
 
-\subsection{Limitations}
+\subsection{Limitations and Future Directions}
 This work is subject to a number of limitations.
 The implementation of PPI used in this manuscript is based on
 home-grown analysis pipeline and has not been vigorously tested
@@ -2644,9 +2646,9 @@ from interleaved events (whether there is a change or not)
 \begin{figure}[H]
   \ContinuedFloat
   \centering
-  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatxsingle_compare-lsaxppi}}
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-switchxrepeat_compare-lsaxppi}}
 
-  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatxsingle_compare-lssxppi}}
+  \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-switchxrepeat_compare-lssxppi}}
 
   \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the activation atlas
