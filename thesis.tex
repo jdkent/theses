@@ -133,7 +133,7 @@ Ogawa et al. observed the ratio of oxygenated blood to the de-oxygenated blood c
 relaxation time ($T_2$) of the MRI signal~\cite{ogawa1990}.
 The change in MR signal due to the ratio of oxygenated to de-oxygenated blood was named the
 Blood Oxygen Level-Dependent (BOLD) contrast. 
-Moreoever, Ogawa et al. found the BOLD contrast in
+Moreover, Ogawa et al. found the BOLD contrast in
 relation to external stimuli with regional specificity, laying the path for fMRI as a non-invasive tool
 to indirectly observe activity in the brain~\cite{Ogawa1992}.
 The signal measured through the BOLD contrast is more correlated to the inputs of brain
@@ -165,7 +165,7 @@ which are connected to each other via a physical or statistical dependency (name
 fMRI enables the study of the entire brain simultaneously with regional specificity (creating nodes),
 and measures the BOLD contrast over time which can be compared between nodes by a Pearson's correlation (creating edges).
 From our understanding of the BOLD contrast, we can measure which brain areas
-typically recieve inputs and/or locally process information within a similar time frame.
+typically receive inputs and/or locally process information within a similar time frame.
 Instead of comparing the overall activation of brain areas separately, the network perspective
 gives a more mechanistic description of which brain areas are either directly/indirectly
 communicating during task performance.
@@ -174,7 +174,7 @@ which brain regions are working together versus working independently while enga
 in a cognitive process of interest.
 
 While it is exciting to understand brain organization during tasks,
-the excitment has outpaced the investigations of the methods to understand brain organization.
+the excitement has outpaced the investigations of the methods to understand brain organization.
 Understanding and comparing the methods we use is critical to move the field of
 human neuroscience forward.
 There are innumerable choices in every step of the analysis process in
@@ -184,9 +184,9 @@ analysis outcomes~\cite{Glatard2015}.
 Analysis variability is not only theoretically concerning; it impacts
 results when researchers attempt to answer the same experimental questions.
 An enormous study by Botvinik-Nezer et al. (2020) asked 70 independent research teams
-to answer 9 scientific hypotheses when given the same dataset~\cite{Botvinik-Nezer2020}.
+to answer 9 scientific hypotheses when given the same data-set~\cite{Botvinik-Nezer2020}.
 They found consistency of results across teams were halfway between
-being completely consistant and completely random.
+being completely consistent and completely random.
 While not necessarily reaching the level of crisis,
 analytical variability is cause for serious consideration.
 Methods that purportedly measure the same underlying biological process
@@ -267,7 +267,7 @@ GLMs are central to the methods I discuss, and we will revisit this problem repe
 \section*{Psycho-Physiological Interactions}
 
 Psychophysiological Interaction (PPI) analyses are designed to 
-identify brain areas that are differentially functionally connected
+identify brain areas that are differently functionally connected
 during specific contexts relative to others~\cite{Friston1997}.
 The motivating question Friston et al. (1997) answered was whether
 two areas in the visual cortex were more functionally connected during a state
@@ -281,7 +281,7 @@ The third variable is the PPI itself, which represents a multiplication
 between the psychological variable and the physiological variable.
 If our dependent variable is the BOLD signal in the medial frontal gyrus,
 then we can answer the question if the hippocampus and medial frontal gyrus
-are differentially functionally connected during the probe relative to the
+are differently functionally connected during the probe relative to the
 cue.
 
 PPI analyses have undergone several transformations since their inception in 1997 including:
@@ -292,11 +292,11 @@ that calculating a PPI at the BOLD level is not equivalent to calculating
 a PPI at the neural level.
 The interaction of interest occurs at the neural level, not at the level of the BOLD signal
 which peaks 6 seconds after the stimulus, resulting in certain task designs being
-disportionately impacted.
-For tasks where events in one condition all occur together and are temporally seperable
+disproportionately impacted.
+For tasks where events in one condition all occur together and are temporally separable
 from other conditions, the difference appears inconsequential, but when the events
 from different conditions are interleaved, the difference is substantial~\cite{Gitelman2003}.
-If different cogntive processes where occuring in close proximity such as visually encoding
+If different cognitive processes where occurring in close proximity such as visually encoding
 a stimulus (cue), holding the stimulus in working memory (delay), and comparing another stimulus to the one
 in memory (probe), deconvolution of the BOLD signal is essential.
 
@@ -311,7 +311,7 @@ McLaren et al. (2012) presented that instead of using a contrast, researchers co
 calculate a separate PPI for each psychological variable independently and then
 perform contrasts between the $\beta$ estimates to find differences in contextual functional connectivity.
 This method is known as generalized PPI (gPPI) analysis.
-The implentation used in this thesis work performs gPPI.
+The implementation used in this thesis work performs gPPI.
 
 The third transformation of PPI analyses to date is the necessity to account for imperfect deconvolution
 through centering the psychological variables or including the deconvolved/reconvolved physiological variable
@@ -348,7 +348,7 @@ For example, if your experiment has 40 events, each with a cue, delay, and
 probe event, the model will have a total of 120 regressors, fitting a $\beta$
 (i.e., parameter) estimate for each event.
 Once you calculate a $\beta$ estimate for each event of a given type
-(e.g., cue), you will have a four-dimensional dataset where each BOLD volume
+(e.g., cue), you will have a four-dimensional data-set where each BOLD volume
 represents the $\beta$ estimates for a particular cue event.
 
 Having one regressor per event in a single model is known as "least squares- all" (LSA).
@@ -377,16 +377,16 @@ In this updated version, the event of interest is given its own regressor, but a
 other events retain their position.
 Again, leveraging the above example with cue, delay, and probe events,
 this new LSS method would create 120 GLMs with 4 regressors each (event of interest, cue, delay, and probe).
-I am refering to the improved version of LSS throughout the remainder of the thesis.
+I am referring to the improved version of LSS throughout the remainder of the thesis.
 
-While LSS addresses the immediate problem of high colinearity between regressors,
+While LSS addresses the immediate problem of high collinearity between regressors,
 it does not come without cost.
 LSS $\beta$ estimates are influenced by adjacent events such that if an event in condition A
 was flanked by two events in condition B, the $\beta$ estimate for the event in condition A
 is likely biased (i.e., not orthogonal) to the adjacent events in condition B.
 BSC methods have primarily been tested with multivariate approaches in mind, univariate
 differences in contextual correlations have been relatively ignored.
-THe present work seeks to further validate BSC as PPI analyses have already had
+The present work seeks to further validate BSC as PPI analyses have already had
 extensive validation.
 
 \section*{Event/Block Designs}
@@ -451,7 +451,7 @@ or should they use the more computationally intensive LSS?
 Previous literature suggests LSS performs better on machine learning applications, and giving
 more precise correlations relative to LSA in certain contexts~\cite{Abdulrahman2016,Mumford2012,Turner2012a,Cisler2012}.
 However, multivariate machine learning measures and precision of correlations do not translate to
-univeriate correlation differences.
+univariate correlation differences.
 Machine learning identifies the unique fingerprint of an event condition, which may not be related
 to a correlation between two brain areas.
 Correlations that are systematically biased may not be precise, but if both event conditions are
@@ -564,7 +564,7 @@ LSA and LSS approach this problem differently.
 LSA ignores this problem by calculating a high variance, but low bias measure by enforcing orthogonality
 between events,
 whereas LSS calculates a lower variance, but more biased measure, relaxing the orthogonality restriction.
-To understand how LSA and LSS differ in their restrictions of orthagonality in single event estimation,
+To understand how LSA and LSS differ in their restrictions of orthogonality in single event estimation,
 it is necessary to introduce the General Linear Model (GLM).
 GLMs are a mainstay in the neuroimaging literature, allowing researchers to model
 a curve that approximates the BOLD response shape and linearly scale the curve
@@ -610,7 +610,7 @@ estimate for a group of events, each event gets its own beta estimate in a singl
     are events.
     We can combine those beta estimates to create a beta series (Right) for each condition.
     In this example we measured beta series for 2 voxels, allowing us to
-    correlate the betaseries from one voxel to another.
+    correlate the beta series from one voxel to another.
     We can perform the correlation for the 2 conditions (Condition 0 and Condition 1).
     The arrows on the design matrix (left) correspond to the beta estimates of those events
     on the shaded regions (right).
@@ -637,7 +637,7 @@ We will refer to LSS-N as LSS for the remainder of the manuscript.
     are events.
     We can combine those beta estimates to create a beta series (Right) for each condition.
     In this example we measured a beta series for 2 voxels, allowing us to
-    correlate the betaseries from one voxel to another.
+    correlate the beta series from one voxel to another.
     We can perform the correlation for the 2 conditions.
     The arrows on the design matrix (left) correspond to the beta estimates of those events
     on the shaded regions (right).
@@ -646,14 +646,14 @@ We will refer to LSS-N as LSS for the remainder of the manuscript.
 \end{figure}
 
 The target event estimate from each GLM is taken to form a beta series.
-Harkening back to the sluggish BOLD response, LSA suffers when the events are close together,
+Hearkening back to the sluggish BOLD response, LSA suffers when the events are close together,
 since the GLM cannot reliably attribute which BOLD response should correspond to which event (Figure~\ref{fig:introGLM}).
 LSS attempts to reduce the model confusion by having one event estimate per model,
 so the non-target events have their beta estimate influenced by multiple observations, loosening the
 constraint that adjacent events to the target event need to be orthogonal (i.e., independent) from each other.
 While previous work has simulated beta series and evaluated beta series on participant data,
 several key gaps remain~\cite{Mumford2014a,Mumford2012,Turner2012a,Abdulrahman2016,Cisler2012,Arco2018}.
-One, simulations have not taken into account realistic noise structure of fMRI data such as autocorrelations, movement, and phsyiological noise.
+One, simulations have not taken into account realistic noise structure of fMRI data such as autocorrelations, movement, and physiological noise.
 Two, simulations have not used optimized fast event-related designs, only randomly selected designs. 
 Three, empirical selections of signal to noise ratios have not been considered,
 ratios were chosen without justification in previous work~\cite{Abdulrahman2016,Mumford2012}.
@@ -730,7 +730,7 @@ To distinguish the measure from our use of CNR,
 we've decided to rename it as Activation Variance to Noise Ratio (AVNR).
 
 To generate realistic numbers for simulating time-series at varying CNRs and AVNRs
-we used an unpublished dataset on task switching in older adults (N=40).
+we used an unpublished data-set on task switching in older adults (N=40).
 We ran LSS/LSA to get both event estimates of activation (i.e., betas)
 as well as residuals from the model.
 To calculate CNR, several steps were taken.
@@ -750,7 +750,7 @@ First, we calculated the standard deviation of the beta estimates, then we follo
 on the standard deviation of the beta estimates (as opposed to the amplitude).
 Based on these calculations used on participant data, we chose to move forward using CNR and
 AVNR values of 1 and 2 as reasonable representative values (Table~\ref{table1}).
-We performed subsequent analyses in parallel using all combinations of these representive values to probe the relative importance of AVNR and CNR
+We performed subsequent analyses in parallel using all combinations of these representative values to probe the relative importance of AVNR and CNR
 in influencing the power of beta series correlations.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/cnr_trial_variability.ipynb}{see here for the relevant code})
 
@@ -837,7 +837,7 @@ False positive rate and power were evaluated using the same procedure as the oth
 \subsection*{Participant Data Validation}
 \label{methods:task-switch}
 
-To validate the betaseries simulations we used an unpublished dataset
+To validate the beta series simulations we used an unpublished data-set
 of older adults ($N$=61, 31 female, age=71.75$\pm$4.77, education=17.07$\pm$2.66)
 performing a mixed design task switching task.
 Numbers reported are mean$\pm$standard deviation.
@@ -873,7 +873,7 @@ Participants' average accuracy and reaction time were:
 single, (92\%$\pm$27\%, 792ms$\pm$225ms); repeat, (89\%$\pm$31\%, 1001ms$\pm$278ms);
 and switch, (83\%$\pm$36.8\%, 1108ms$\pm$289ms).
 Due to data collection error, behavioral data were not collected for 3 participants
-(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/summarizeBehavior/summarize_behavior.ipynb}{see here for relevent code})
+(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/summarizeBehavior/summarize_behavior.ipynb}{see here for relevant code})
 
 The task switch bold \emph{fmriprep} output in MNI152NLin2009cAsym space
 was analyzed with \emph{Nistats} for first and second level analyses.
@@ -992,7 +992,7 @@ High-pass filtering the \emph{preprocessed BOLD} time-series was done using
 a discrete cosine filter with 128s cut-off.
 The head-motion estimates calculated in
 the correction step were also placed within the corresponding confounds file. 
-Frames that exceeded a threshold of 0.5 mm framewise displacement or 1.5 standardised DVARS
+Frames that exceeded a threshold of 0.5 mm framewise displacement or 1.5 standardized DVARS
 were annotated as motion outliers.
 An additional 4 frames at the beginning of each run were also
 annotated as outliers to allow the magnet to reach equilibrium.
@@ -1004,7 +1004,7 @@ Gridded (volumetric) resamplings were performed using \texttt{antsApplyTransform
 configured with Lanczos interpolation to minimize the smoothing effects of other kernels
 \cite{lanczos}.
 
-\subsection*{BetaSeries Correlations}
+\subsection*{Beta Series Correlations}
 \label{methods:bsc}
 
 \subsubsection*{Beta Series Modeling}
@@ -1030,9 +1030,9 @@ The LSA model was generated following the method described in
 Each event was given its own regressor in a single GLM, such that
 if the experiment had 100 events, there would be 100 regressors in the GLM.
 
-Each event regressor was convolved with a glover hemodynamic response
+Each event regressor was convolved with a Glover hemodynamic response
 function~\cite{Glover1999}.
-In addition to event regressors, average white matter signal, average csf signal,
+In addition to event regressors, average white matter signal, average CSF signal,
 cosine basis set high pass regressors, the initial four non steady-state volumes, 
 and motion outliers were included
 in the model as calculated in \nameref{methods:func}.
@@ -1115,7 +1115,7 @@ We then took the intersection of the two ROI sets resulting in 20 ROIs that have
 as measured by LSA and LSS (Table~\ref{table:parcels},Figure~\ref{fig:schaefertopmap}).
 We refer this subset of ROIs as the SchaeferTop20 Atlas for the rest of the manuscript.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/cnr_trial_variability.ipynb}{see here for relevant code}).
-The results for the entire 400 ROI altas are shown in the supplementals.
+The results for the entire 400 ROI atlas are shown in the supplementals.
 
 Outlier beta estimate volumes were identified and discarded using a
 modified Nipype function for outlier detection
@@ -1196,7 +1196,7 @@ correlation difference of 0.1 was across all parameters.
     LSS at least marginally outperforms LSA in most simulated experimental
     designs, with a large difference in power when IEI is 4 seconds and
     CNR is high.
-    LSS appears to have an advantage in low CNR scenerios across the longer IEIs
+    LSS appears to have an advantage in low CNR scenarios across the longer IEIs
     when AVNR is high.
     Each bar represents a sample of 50 pairs of correlations
     randomly pulled from a distribution of correlations 10,000 times.
@@ -1204,7 +1204,7 @@ correlation difference of 0.1 was across all parameters.
   \label{fig:res_sim_smalldiff}
 \end{figure}
 
-At an IEI of 2 seconds, there is no discernable difference between LSS and LSA.
+At an IEI of 2 seconds, there is no discernible difference between LSS and LSA.
 Since the simulated data were sampled at 2 second intervals, the result
 corresponds to effectively presenting a stimulus during each frame.
 With such overlapping simulated BOLD responses detecting a difference between conditions
@@ -1226,7 +1226,7 @@ To achieve 80\% power assuming a CNR of 2 and AVNR of 2, 50 participants were su
 % say what percent power 
 did not approach 80\% power within our tested range of 5-60 participants.
 However, it is important to note that the present analysis only included 40 participants with adequate data,
-indicating all subsequent analyses will be moderately underpowered.
+indicating all subsequent analyses will be moderately under powered.
 
 \begin{figure}[H]
   \includegraphics[width=\textwidth]{taskswitch-switchXrepeat_smalldiffparticipants}
@@ -1249,9 +1249,9 @@ using null data to measure the specificity of each method.
 
 We found both LSS and LSA had a greater number of statistically significant ROI-ROI pairs than expected by chance
 for the contrasts in the activation atlas $task - null$ (LSS: 12.86\%; p $<$ 0.001, LSA: 11.90\%; p = 0.001).
-LSS had a greater number of statistically significiant ROI-ROI pairs than expected by chance within the 
+LSS had a greater number of statistically significant ROI-ROI pairs than expected by chance within the 
 $dual - single$ contrast (LSS: 9.05\%; p = 0.010, LSA: 4.29\%; p = 0.727).
-LSA had a greater number of statisically significant ROI-ROI pairs than expected by chance for the
+LSA had a greater number of statistically significant ROI-ROI pairs than expected by chance for the
 $repeat - single$ contrast (LSS: 7.62\%; p = 0.063, LSA: 10.00\%, p = 0.002) (Figure~\ref{fig:main-result}).
 Surprisingly, LSS found fewer significant ROI-ROI pairs than expected by chance
 for the contrast $switch - repeat$ in both the real data and null data. 
@@ -1335,7 +1335,7 @@ the significant ROI-ROI pairs found with LSS are largely non-overlapping with LS
 
 We provide here the first in-depth comparison between LSS and LSA to detect 
 ROI-ROI correlation differences between conditions.
-We compared LSA and LSS through realistic simulations and a participant dataset.
+We compared LSA and LSS through realistic simulations and a participant data-set.
 While the simulations suggested LSS is a more powerful method,
 the results from the participant data do not show whether LSS or LSA is the more powerful method.
 We detail the conclusions from the simulations and the participant data, and provide
@@ -1377,7 +1377,7 @@ LSS significantly outperformed LSA for our measure of detection power with IEIs 
 Theoretically when AVNR is 1, LSS and LSA would perform similarly, but in our simulations,
 LSS still had more power to detect a difference between conditions.
 The difference in conclusions may be due to our different measures (i.e., precision of sample correlations versus condition difference)
-or simulation methods (i.e., guassian noise with random designs versus autocorrelated noise with optimized designs).
+or simulation methods (i.e., Gaussian noise with random designs versus autocorrelated noise with optimized designs).
 
 Signal and noise coherency did not impact results as they did in the work of \cite[Abdulrahman \& Henson (2016)]{Abdulrahman2016}.
 When scan noise is more coherent across voxels than event variability,
@@ -1410,7 +1410,7 @@ which is not represented in our simulations~\cite{Abdulrahman2016}.
 We also did not simulate variations in BOLD response onset, which is likely to occur
 as all BOLD responses to a stimulus do not occur at the time of stimulus onset~\cite{DEsposito2003}.
 Model mismatch through variations has been found to be detrimental to beta estimation, 
-but there is no reason to believe that LSA would be differentially impacted relative to LSS~\cite{Turner2012a}.
+but there is no reason to believe that LSA would be differently impacted relative to LSS~\cite{Turner2012a}.
 Future work could investigate variable BOLD responses and include derivatives for each regressor to account for
 the variable BOLD responses.
 Including derivatives could make LSA unsolvable as every event would have at least two regressors, necessitating
@@ -1442,7 +1442,7 @@ which should caution researchers to perform power analyses to determine an adequ
 Contrary to the simulations where LSS was found to be more powerful,
 for both the Activation Atlas and the SchaeferTop20 atlas LSS and LSA performed similarly.
 LSA was prone to a higher rate of false positives as determined by the analyses performed on the null data within the SchaeferTop20 atlas.
-However, LSS appeared to have a greater magnitude of false positives than LSA when using the entire schaefer atlas.
+However, LSS appeared to have a greater magnitude of false positives than LSA when using the entire Schaefer atlas.
 Furthermore, there is some evidence of LSS having fewer statistically significant ROI-ROI pairs than expected through chance alone
 for the contrast $switch - repeat$.
 This pattern can be seen for both the real and null data, suggesting there is a property inherent to LSS
@@ -1454,7 +1454,7 @@ This is likely the source of the poor performance of LSS in event-related contra
 
 Surprisingly, LSA and LSS results did not have much overlap between significant
 ROI-ROI pair correlation differences between conditions.
-The lack of overlap is suprising because both LSS and LSA are purported to
+The lack of overlap is surprising because both LSS and LSA are purported to
 measure the same underlying process of task related connectivity.
 To investigate their differences further, we correlated the beta series of LSA with LSS and plotted their relationship with
 average framewise displacement and temporal signal to noise (TSNR) for all participants ($N$=61) (Figure~\ref{fig:lss_lsa_correlation}).
@@ -1463,7 +1463,7 @@ decreases, the agreement between LSS and LSA decreases.
 In other words, as noise in the data increases, the more divergent LSS and LSA become.
 This suggests one reason for the disagreement is the noise present in the included
 data.
-There appears to be a cluster of particpants with an average framewise displacement of
+There appears to be a cluster of participants with an average framewise displacement of
 less than 0.2mm that have a high correlation between LSS and LSA.
 The simulation results would suggest when LSS and LSA disagree, the estimate for LSS should be
 trusted, but since we observed a significant number of condition modulated ROI-ROI pair correlations for both
@@ -1536,23 +1536,23 @@ There are several immediate next steps that could be taken to provide a more con
 on when one should use LSA or LSS when looking at ROI-ROI pair correlation differences between event
 conditions.
 
-With the publically available NiBetaSeries package, researchers could replicate the
+With the publicly available NiBetaSeries package, researchers could replicate the
 results on their own data using the same methods in this paper.
 Furthermore, there are several analytical choices that could be varied using NiBetaSeries such as:
 using a t-statistic instead of a raw beta estimate, including derivatives of the hemodynamic response function,
 and performing a spatial-temporal analysis using finite impulse responses.
 The benefit of using a t-statistic is the added stability of the estimates.
-The t-tstatistic will divide outlier beta estimates by their uncertainty giving more stability
+The t-statistic will divide outlier beta estimates by their uncertainty giving more stability
 towards the beta series estimates.
 Since LSA is more likely to produce high variance beta estimates, using a t-statistic would likely impact
 how well LSA performs.
-No other tool has the option to calculate the t-statistic instead of the raw beta estimate to the knowlege
+No other tool has the option to calculate the t-statistic instead of the raw beta estimate to the knowledge
 of the authors.
 Another straight-forward addition would be adding temporal and/or dispersion derivatives to each beta
 estimate to account for potential BOLD response delays~\cite{Calhoun2004,Gottlich2015}.
 This strategy may work well for populations with variable BOLD responses or when the onset of the BOLD
 response is not precisely known.
-Including derivates would also likely impact LSA more than LSS since there would be either twice or
+Including derivatives would also likely impact LSA more than LSS since there would be either twice or
 three times the number of regressors included in the LSA model, which in a fast event-related design
 would heavily impact the degrees of freedom in the model.
 Finally, a more complex but potentially fruitful option is to use the finite impulse response model.
@@ -1581,7 +1581,7 @@ Overall, our work leads to four main conclusions:
 2) simulations suggest LSS has more power than LSA to detect differences between conditions (between blocks),
 3) participant data suggests LSS and LSA perform comparably but results are dependent on which atlas is selected,
 4) LSA may have a slight advantage for event-related contrasts,
-but it is difficult for both LSS and LSA to detect condition differences when events are interleaved instead of occuring in separate blocks.
+but it is difficult for both LSS and LSA to detect condition differences when events are interleaved instead of occurring in separate blocks.
 This work guides and cautions cognitive neuroscience researchers as they design their tasks and decide
 which analysis path they should take amid the forking paths of researcher degrees of freedom.
 
@@ -1613,7 +1613,7 @@ which analysis path they should take amid the forking paths of researcher degree
    The statistically significant ROI-ROI pairs in the activation atlas for the contrasts $task - null$, $dual - single$,
    and $repeat - single$ in the real data.
    The glass brains show the anatomical locations of each ROI,
-   labelled with its identifying number.
+   labeled with its identifying number.
    The edges between ROIs represent significant correlation differences
    between conditions for LSA (blue), LSS (orange), or both (pink).
    The contrast $task - null$ has 25 statistically significant ROI-ROI
@@ -1751,7 +1751,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
 While BSC was originally created to detect contextual functional connectivity, there was another method
 that preceded BSC, named psychophysiological interaction (PPI) analysis ~\cite{Friston1997}. 
-PPIs are designed to identify brain areas that are differentially functionally connected
+PPIs are designed to identify brain areas that are differently functionally connected
 during specific contexts relative to others.
 If this sounds like the same goal as BSC, you would be correct, although PPI
 analyses take a different approach.
@@ -1764,7 +1764,7 @@ The third variable is the PPI itself, which represents a multiplication
 between the psychological variable and the physiological variable.
 If our dependent variable is the BOLD signal in the medial frontal gyrus,
 then we can answer the question if the motor cortex and medial frontal gyrus
-are differentially functionally connected during finger tap events relative
+are differently functionally connected during finger tap events relative
 to toe tap events.
 
 PPI analyses have undergone several transformations since their inception in 1997 including:
@@ -1797,9 +1797,9 @@ equivalent to calculating the interaction the neural level~\cite{Gitelman2003}.
 To get the neural signal we need to deconvolve the BOLD signal (option 1).
 Deconvolution of the BOLD signal is not a well defined problem since
 we do not know the exact neural process that gave rise to the BOLD signal.
-Therefore we have to rely on regularized regression with an overcomplete
+Therefore we have to rely on regularized regression with an over-complete
 basis set.
-Overcomplete meaning there are more columns (the basis set) than there
+Over-complete meaning there are more columns (the basis set) than there
 are rows (the BOLD signal).
 Since the BOLD signal is noisy and assumed hemodynamic response function
 may not match the data, some software packages simply do not attempt
@@ -1807,7 +1807,7 @@ deconvolution and swallow the error from multiplying the physiological and psych
 variables at the BOLD level.
 Other software packages bite the bullet and attempt deconvolution.
 In block designs where contexts are not intermixed the difference between
-methods appears inconsequntial, but with rapid event-related designs,
+methods appears inconsequential, but with rapid event-related designs,
 deconvolution is essential to separate the influence of intermixed contexts.
 The implementation used in this thesis work does perform deconvolution.
 
@@ -1820,13 +1820,13 @@ McLaren et al. (2012) presented that instead of using a contrast, researchers co
 calculate a separate PPI for each psychological variable independently and then
 perform contrasts between the $\beta$ estimates to find differences in contextual functional connectivity.
 This method is known as generalized PPI (gPPI) analysis.
-The implentation used in this thesis work performs gPPI.
+The implementation used in this thesis work performs gPPI.
 
 The third transformation of PPI analyses to date is the necessity to account for imperfect deconvolution
 through centering the psychological variables or including the deconvolved/reconvolved physiological variable
 in the model~\cite{Di2017}.
 These solutions are needed because of the imperfections of the deconvolution process.
-Deconvolution is not an invertable process so the reconvolved PPIs regressors are not
+Deconvolution is not an invert-able process so the reconvolved PPIs regressors are not
 perfectly represented at the BOLD level.
 Not accounting for the imperfect deconvolution process results in the PPI regressors
 containing information about the baseline functional connectivity between brain areas, biasing
@@ -1842,14 +1842,14 @@ event-related designs.
 Additionally, previous work only used the LSS implementation of BSC.
 Since LSA and LSS have largely non-overlapping results, it will be informative
 to identify which BSC method is most correlated with PPI analyses.
-Finally, previous work used different quantative measures
+Finally, previous work used different quantitative measures
 (i.e., number of detected clusters from a seed region analysis)
 and did not include null data to compare their results against, so it is
 difficult to measure whether the measure is likely to give false positives
 using real data.
 
 In this chapter we ask:
-1) whether BSC methods or PPI analysis are more senstive
+1) whether BSC methods or PPI analysis are more sensitive
 2) whether BSC methods or PPI analysis are more specific, and
 3) which BSC method correlates more with PPI.
 
@@ -1858,7 +1858,7 @@ In this chapter we ask:
 \subsection*{Participant Data}
 \label{methods:task-switch2}
 
-We used an unpublished dataset
+We used an unpublished data-set
 of older adults ($N$=61, 31 female, age=71.75$\pm$4.77, education=17.07$\pm$2.66)
 performing a mixed design task switching task.
 Numbers reported are mean$\pm$standard deviation.
@@ -1894,7 +1894,7 @@ Participants' average accuracy and reaction time were:
 single, (92\%$\pm$27\%, 792ms$\pm$225ms); repeat, (89\%$\pm$31\%, 1001ms$\pm$278ms);
 and switch, (83\%$\pm$36.8\%, 1108ms$\pm$289ms).
 Due to data collection error, behavioral data were not collected for 3 participants
-(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/summarizeBehavior/summarize_behavior.ipynb}{see here for relevent code})
+(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/summarizeBehavior/summarize_behavior.ipynb}{see here for relevant code})
 
 The task switch bold \emph{fmriprep} output in MNI152NLin2009cAsym space
 was analyzed with \emph{Nistats} for first and second level analyses.
@@ -2013,7 +2013,7 @@ High-pass filtering the \emph{preprocessed BOLD} time-series was done using
 a discrete cosine filter with 128s cut-off.
 The head-motion estimates calculated in
 the correction step were also placed within the corresponding confounds file. 
-Frames that exceeded a threshold of 0.5 mm framewise displacement or 1.5 standardised DVARS
+Frames that exceeded a threshold of 0.5 mm framewise displacement or 1.5 standardized DVARS
 were annotated as motion outliers.
 An additional 4 frames at the beginning of each run were also
 annotated as outliers to allow the magnet to reach equilibrium.
@@ -2048,9 +2048,9 @@ The LSA model was generated following the method described in
 Each event was given its own regressor in a single GLM, such that
 if the experiment had 100 events, there would be 100 regressors in the GLM.
 
-Each event regressor was convolved with a glover hemodynamic response
+Each event regressor was convolved with a Glover hemodynamic response
 function~\cite{Glover1999}.
-In addition to event regressors, average white matter signal, average csf signal,
+In addition to event regressors, average white matter signal, average CSF signal,
 cosine basis set high pass regressors, the initial four non steady-state volumes, 
 and motion outliers were included
 in the model as calculated in \nameref{methods:func}.
@@ -2072,7 +2072,7 @@ The computation of Psychophysiological interactions underwent multiple steps:
 1) extraction and cleaning of an ROI time series,
 2) deconvolution of an ROI time series~\cite{Gitelman2003},
 3) centering of the psychological variable~\cite{Di2017},
-4) upsampling of both the deconconvoled ROI time series and psychological variable,
+4) up-sampling of both the deconconvoled ROI time series and psychological variable,
 5) multiplication of the deconvolved ROI time series and psychological variable, and
 6) convolution of the resulting multiplicative in step 5.
 A simplified visualization of this process is in Figure~\ref{fig:ppi_method_overview}.
@@ -2084,7 +2084,7 @@ A simplified visualization of this process is in Figure~\ref{fig:ppi_method_over
     The overall process of generating a PPI.
     The $\circledast$ symbol between plots represents convolution.
     First, the BOLD time series is deconvolved (inverse of convolution)
-    to represent the theoretical neuronal timecourse.
+    to represent the theoretical neuronal time course.
     Next, the neuronal time series is then multiplied with each of the psychological
     conditions, generating neural PPIs seen in the middle row.
     Finally, each neural PPI is convolved with a hemodynamic response function
@@ -2098,7 +2098,7 @@ Extraction and cleaning of the ROI time series was completed using nilearn,
 including white matter and cerebral spinal fluid signal, framewise displacement,
 motion outliers, a high pass filter (cosine basis set), and the first four non-steady state
 volumes as confounds regressed from the time series.
-We deconvolved the ROI timeseries using a fourier basis set convolved with
+We deconvolved the ROI time series using a Fourier basis set convolved with
 SPM's hemodynamic response function as predictors using ridge regression.
 Ridge regression was implemented in Scikit-Learn setting the alpha (regularization)
 parameter to 0.0001, but keeping all other parameters at their default values.
@@ -2106,14 +2106,14 @@ Independently, we took each psychological condition of interest ($switch$, $repe
 represented as a stick function (i.e., 1's where the stimulus was "on" and 0's everywhere else)
 and mean centered each psychological condition separately.
 The stimuli were presented for less time than the acquisition of a volume
-(e.g., 1.5 seconds verus 2.0 seconds), thus to accurately represent the duration
-of the stimulus, each of the psychological conditions and deconvolved ROI time series were upsampled to
+(e.g., 1.5 seconds versus 2.0 seconds), thus to accurately represent the duration
+of the stimulus, each of the psychological conditions and deconvolved ROI time series were up-sampled to
 a resolution of 0.1 seconds.
-Next, we multiplied each of the upsampled psychological conditions with the deconvolved/upsampled
+Next, we multiplied each of the up-sampled psychological conditions with the deconvolved/up-sampled
 ROI time series creating a "neural" PPI for each of the
 psychological conditions~\cite{McLaren2012}.
-We downsampled the "neural" PPI back to a resolution of 2 seconds and convolved the signal with
-SPM's hemodynamic response function representing the PPI in the original BOLD timecourse.
+We down-sampled the "neural" PPI back to a resolution of 2 seconds and convolved the signal with
+SPM's hemodynamic response function representing the PPI in the original BOLD time-course.
 
 After all PPIs were created, the full regression model was represented in Equation~\ref{eq:full_ppi}
 
@@ -2133,7 +2133,7 @@ $Y$ represents the ROI BOLD signal we want to explain.
 $\beta_{intercept}$ refers to the baseline estimate (implicit rest) during the task,
 where $X_{intercept}$ is a column of ones.
 $\beta_{switch}$, $\beta_{repeat}$, $\beta_{single}$, and $\beta_{firsttrial}$
-are the coeficients representing the main effect of each of the event conditions.
+are the coefficients representing the main effect of each of the event conditions.
 $X_{switch}$, $X_{repeat}$, $X_{single}$, and $X_{firsttrial}$ indicate the
 times when the events for condition occurred.
 $\beta_{ROI}$ is the coefficient representing the baseline connectivity between
@@ -2154,7 +2154,7 @@ An example design matrix is illustrated in Figure~\ref{fig:example_ppi_design}.
     The $physio$ column represents BOLD signal from an ROI.
     The event type $firsttrial$ was not of interest in the contrasts,
     but included in the model for completeness.
-    The $constant$ column can also be refered to as the intercept.
+    The $constant$ column can also be refereed to as the intercept.
   }
   \label{fig:example_ppi_design}
 \end{figure}
@@ -2166,7 +2166,7 @@ This equation was run for every unique ROI-ROI pair in both directions
 (e.g., $Y$ and $X_{ROI}$ swap places) resulting in an
 asymmetrical correlation matrix for each of the mentioned contrasts.
 For reference, the first term in the first listed contrast ($((switch\_ppi + repeat\_ppi) / 2)$)
-is refered to as the $dual$ condition because it represents the functional connecitivty during the
+is referred to as the $dual$ condition because it represents the functional connectivity during the
 two-task blocks.
 
 \subsection*{Atlas Generation}
@@ -2232,7 +2232,7 @@ We then took the intersection of the two ROI sets resulting in 20 ROIs that have
 as measured by LSA and LSS (Table~\ref{table:parcels2},Figure~\ref{fig:schaefertopmap2}).
 We refer this subset of ROIs as the SchaeferTop20 Atlas for the rest of the manuscript.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/cnr_trial_variability.ipynb}{see here for relevant code}).
-The results for the entire 400 ROI altas are shown in the supplementals.
+The results for the entire 400 ROI atlas are shown in the supplementals.
 
 \subsection*{BSC Analysis}
 
@@ -2452,7 +2452,7 @@ We showed while PPI generally found more results relative to LSA and LSS in the 
 PPI also found a large number of results in the null data as well.
 Given the greater agreement between LSS and PPI, we recommend using PPI
 for event-related contrasts, and either PPI or LSS for block contrasts.
-With LSS, you may have fewer results relative to PPI, but based on this dataset,
+With LSS, you may have fewer results relative to PPI, but based on this data-set,
 LSS is less prone towards finding spurious results relative to both LSA and PPI.
 
 The choice of atlas did not have a strong impact on LSS's and LSA's relationship with
@@ -2481,7 +2481,7 @@ the tests.
 The decrease of contextual functional connectivity seen in the contrasts
 $Dual - Single$ and $Repeat - Single$ for the real data agrees with previous
 work looking at contextual functional connectivity during various task states~\cite{Cole2014a,Spadone2015}.
-The SchaeferTop20 atlas is overrepresented with ROIs from the visual cortex, which have been shown
+The SchaeferTop20 atlas is over-represented with ROIs from the visual cortex, which have been shown
 to reduce their functional connectivity in response to a task~\cite{Spadone2015}.
 
 PPI may arguably be the better method for detecting contextual functional connectivity
@@ -2490,14 +2490,14 @@ have been expanded~\cite{Turner2012a}.
 Specifically, PPIs could be calculated using a finite impulse response (FIR) model, where instead of assuming
 a hemodynamic response function shape, there is a separate regressor for each time point peri-stimulus.
 This analysis strategy would require significant data per person since the number of regressors would be
-$2 * (\#FIRs * \#conditions) + 1_{physio}$, where FIRs could reasonbly go up to 8 and number of conditions could
+$2 * (\#FIRs * \#conditions) + 1_{physio}$, where FIRs could reasonably go up to 8 and number of conditions could
 be 3, resulting 49 regressors in the model related to the task.
 
 \subsection{Limitations}
 This work is subject to a number of limitations.
 The implementation of PPI used in this manuscript is based on
 home-grown analysis pipeline and has not been vigorously tested
-as other tools in existance (SPM's \href{https://www.nitrc.org/projects/gppi}{gPPI toolbox}
+as other tools in existence (SPM's \href{https://www.nitrc.org/projects/gppi}{gPPI toolbox}
 and AFNI's \href{https://afni.nimh.nih.gov/CD-CorrAna}{Context Dependant Correlation Analysis}).
 In support of the homegrown pipeline, we did find a similar correlation between LSS and PPI as
 other work ~\cite{Di2019a}.
@@ -2505,10 +2505,10 @@ Future work could compare SPM, AFNI, and python implementations of PPI to measur
 between the pipelines.
 
 Due to the high levels of motion several participants were removed from this analysis.
-According the LSA/LSS power analysis, our results were moderately underpowered for the BSC analysis,
+According the LSA/LSS power analysis, our results were moderately under powered for the BSC analysis,
 increasing the difficulty to compare LSA, LSS, and PPI.
 However, even with the smaller sample size, several striking patterns emerged in our data.
-Future work should attempt to replicate our findings in an independent dataset.
+Future work should attempt to replicate our findings in an independent data-set.
 
 It could be argued the resting state data does not provide an adequate null model
 to compare to the real task data because there is presumably no BOLD response at any
@@ -2769,10 +2769,10 @@ from interleaved events (whether there is a change or not)
   \item could add a deconvolved/reconvolved physiological regressor to PPI model
   \item The above suggestion may allow one use network analysis methods on PPI
   \item could try deconvolving the LSA/LSS estimates to see if the results are better in neural spaces
-	\item PPI generally is more sensitive, but less specific (e.g., shows lots of postives)
+	\item PPI generally is more sensitive, but less specific (e.g., shows lots of positives)
 	\item LSA/LSS still only choice to look at contexts in isolation (there is implicit contrast with PPI)
 	\item LSA/LSS could be used to choose potential regions of interest in a data driven way (CNR)
-	\item wholisitic network measures could be applied
+	\item holistic network measures could be applied
 	\item LSA/LSS could be used to further parse the difference between "task" state and "task" evoked state.
 	\item Since LSS is more correlated with PPI, suggests they are measuring closer to the "same" thing
 	\item Single event estimates between LSA/LSS are highly correlated
