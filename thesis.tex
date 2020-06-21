@@ -544,10 +544,9 @@ used in cognitive neuroscience.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{introduction-hrf}
-  \caption{
+  \caption[Model of the Hemodynamic Response Function (HRF)]{
     Model of the Hemodynamic Response Function (HRF)~\cite{Glover1999} at a
-    typical resolution of an fMRI scan (2 seconds).
-    The x-axis represents time in seconds and the y-axis is arbitrary units.
+    typical resolution of an fMRI scan (2 seconds). The x-axis represents time in seconds and the y-axis is arbitrary units.
     Fast event-related designs with inter event intervals (IEIs) at or faster than time to peak
     response (e.g., 4-6 seconds), need to account for the overlapping signals.
   }
@@ -581,7 +580,7 @@ active relative to some baseline or another condition (Figure~\ref{fig:introGLM}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.2\textwidth]{introduction-normalGLM}
-  \caption{
+  \caption[Example GLM design matrix]{
     An example of a design matrix seen in a traditional GLM used in fMRI~\cite{Friston1995a}.
     There is a single column for each condition, resulting in two columns (intercept column ignored for clarity).
     With this design you can answer questions about which voxels are more or less active in one condition
@@ -604,7 +603,7 @@ estimate for a group of events, each event gets its own beta estimate in a singl
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{introduction-lsa}
-  \caption{
+  \caption[Example LSA design matrix and analysis]{
     Left shows an example design matrix for LSA where each event gets its own column.
     Since we receive a beta estimate per column, we end up with as many beta estimates as there
     are events.
@@ -627,7 +626,7 @@ We will refer to LSS-N as LSS for the remainder of the manuscript.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{introduction-lss}
-  \caption{
+  \caption[Example LSS design matrix and analysis]{
     Left shows an example design matrix for LSS where each event gets its own model
     (intercept excluded for clarity).
     The target event (outlined in red) comes from either condition 0 or 1.
@@ -711,7 +710,7 @@ Noise features were all weighted equally in the simulations.
 \begin{figure}[H]
   \centering
   \includegraphics{methods-simulation_example}
-  \caption{
+  \caption[Illustration of simulated data]{
     Example of predicted BOLD from a task design (thick grey line), real BOLD
     from a participant (see \nameref{methods:task-switch}), and simulated BOLD
     from fmrisim~\cite{Ellis2020}.
@@ -895,7 +894,7 @@ false discovery rate error control (Figure~\ref{fig:stat_maps}).
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth,height=0.8\paperheight,keepaspectratio]{contrast_summary}
-  \caption{
+  \caption[Univariate statisitcal maps]{
     Univariate statistical maps of second level results representing
     all contrasts of interest, $dual - single$, $repeat - single$, $switch - repeat$}
   \label{fig:stat_maps}
@@ -1080,7 +1079,7 @@ to identify regions that were reliably activated for all participants (Table~\re
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{stat-map-overall_resp_with_rois}
-  \caption{
+  \caption[Activation Atlas]{
     ROIs drawn from the peak Z-score table, placing a sphere with a 5mm radius
     at each peak coordinate.
     The clusters are identified in their approximate locations
@@ -1101,7 +1100,7 @@ to identify regions that were reliably activated for all participants (Table~\re
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{schaefer_high_cnr_rois}
-  \caption{
+  \caption[Schaefer Top 20 ROIs Atlas]{
     20 ROIs selected from the Schaefer 400 parcels; 17 network atlas for having the
     highest CNR for both LSS and LSA.
   }
@@ -1191,7 +1190,7 @@ correlation difference of 0.1 was across all parameters.
 
   \subfloat{\includegraphics[width=\textwidth]{avnr-2_smalldiff}}
 
-  \caption{
+  \caption[Simulation results for LSA/LSS]{
     Detection power of a small difference between conditions (r=0.1).
     LSS at least marginally outperforms LSA in most simulated experimental
     designs, with a large difference in power when IEI is 4 seconds and
@@ -1230,7 +1229,7 @@ indicating all subsequent analyses will be moderately under powered.
 
 \begin{figure}[H]
   \includegraphics[width=\textwidth]{taskswitch-switchXrepeat_smalldiffparticipants}
-  \caption{
+  \caption[Simulation power analysis using real task design]{
     Simulations from the task design used to collect the real data.
     LSS achieves 80\% power when N=50, but LSA only achieves \~60\% power at N=60.
     CNR and AVNR were set to 2, meaning this is an optimistic power analysis
@@ -1295,7 +1294,7 @@ but LSS did not (see supplementary figures).
   \subfloat[][]{\includegraphics[width=0.49\linewidth]{
     data-null_atlas-schaeferbest_participants-filtered_permutation_summary} 
   \label{fig:null-schaeferbest}}
-  \caption{
+  \caption[Comparison of LSS/LSA in participant data]{
     Percentage of statistically significant ROI-ROI pairs found
     in the contrasts $task - null$, $dual - single$, $repeat - single$, and
     $switch - repeat$.
@@ -1318,7 +1317,7 @@ but LSS did not (see supplementary figures).
   \centering
   \includegraphics[width=\linewidth]{
     data-real_type-brain_atlas-schaeferbest_contrast-repeatXsingle}
-  \caption{
+  \caption[SchaeferTop20 atlas, real data, repeat - single]{
     Visualization of the significant ROI-ROI pairs detected in Figure \ref{fig:real-schaeferbest}
     for the contrast $repeat - single$.
     While LSA detected 21 significant ROI-ROI pairs and LSS detected 18 significant
@@ -1472,7 +1471,7 @@ LSS and LSA, it is difficult to say whether LSA or LSS would be "correct".
 \begin{figure}[H]
   \centering
   \includegraphics{lss_lsa_noise_relationship}
-  \caption{
+  \caption[LSS/LSA noise correlation]{
     The average correlation between LSA/LSS beta series across
     all ROIs in the activation atlas.
     Orange dots represent 21 participants that were not included
@@ -1593,7 +1592,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
   \subfloat{\includegraphics[width=\textwidth]{avnr-2_fpr}}
 
-  \caption{
+  \caption[Simulations of false positive rate for LSS/LSA]{
     LSA/LSS both show a \%5 false positive rate for all conditions.
     Each bar represents a sample of 50 pairs of correlations (with no true difference)
     randomly pulled from a distribution of correlations 10,000 times.
@@ -1609,7 +1608,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
   \subfloat{\includegraphics[width=\textwidth]{data-task_type-brain_atlas-activation_contrast-repeatXsingle}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data...]{
    The statistically significant ROI-ROI pairs in the activation atlas for the contrasts $task - null$, $dual - single$,
    and $repeat - single$ in the real data.
    The glass brains show the anatomical locations of each ROI,
@@ -1638,7 +1637,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatXsingle}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data continued...]{
       The statistically significant ROI-ROI pairs in the activation atlas for the contrasts
       $switch - repeat$ in the real data, and the contrasts $dual - single$ and $repeat - single$
       in the null data.
@@ -1664,7 +1663,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
   \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-dualxsingle}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data continued...]{
       The statistically significant ROI-ROI pairs in the activation atlas for the contrasts
       $switch - repeat$ in the null data and the SchaeferTop20 atlas
       contrasts $task - null$ and $dual - single$ in the real data.
@@ -1690,7 +1689,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-dualxsingle}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data continued...]{
       The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
       for the contrasts $repeat - single$ and $switch - repeat$ in the real data and
       the contrast $dual - single$ in the null data.
@@ -1714,7 +1713,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-switchxrepeat}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data continued...]{
       The statistically significant ROI-ROI pairs in the top SchaeferTop20 atlas
       for the contrasts $repeat - single$ and $switch - repeat$ in the null data.
       The contrast $repeat - single$ has 24 statistically significant ROI-ROI
@@ -1733,7 +1732,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
   \subfloat{\includegraphics[width=0.7\textwidth]{data-null_atlas-schaefer_participants-filtered_permutation_summary}}
 
-  \caption{
+  \caption[LSS/LSA comparison using real data in the full Schaefer Atlas]{
       The overall results for the full Schaefer Atlas.
       Since there were 79800 unique ROI-ROI pairs, it became more likely
       to see unexpected results.
@@ -1916,7 +1915,7 @@ false discovery rate error control (Figure~\ref{fig:stat_maps}).
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth,height=0.8\paperheight,keepaspectratio]{contrast_summary}
-  \caption{
+  \caption[Univariate statistical maps]{
     Univariate statistical maps of second level results representing
     all contrasts of interest, $dual - single$, $repeat - single$, $switch - repeat$}
   \label{fig:stat_maps2}
@@ -2080,7 +2079,7 @@ A simplified visualization of this process is in Figure~\ref{fig:ppi_method_over
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{ppi_method_overview}
-  \caption{
+  \caption[Example computation of several PPIs]{
     The overall process of generating a PPI.
     The $\circledast$ symbol between plots represents convolution.
     First, the BOLD time series is deconvolved (inverse of convolution)
@@ -2149,8 +2148,8 @@ An example design matrix is illustrated in Figure~\ref{fig:example_ppi_design}.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{example_ppi_design}
-  \caption{
-    An example PPI design.
+  \caption[An example PPI analysis design]{
+    An example PPI analysis design.
     The $physio$ column represents BOLD signal from an ROI.
     The event type $firsttrial$ was not of interest in the contrasts,
     but included in the model for completeness.
@@ -2197,7 +2196,7 @@ used to comprehensively cover the cortex and test robustness of results.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{stat-map-overall_resp_with_rois}
-  \caption{
+  \caption[Activation Atlas]{
     ROIs drawn from the peak Z-score table, placing a sphere with a 5mm radius
     at each peak coordinate.
     The clusters are identified in their approximate locations
@@ -2218,7 +2217,7 @@ used to comprehensively cover the cortex and test robustness of results.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{schaefer_high_cnr_rois}
-  \caption{
+  \caption[SchaeferTop20 Atlas]{
     20 ROIs selected from the Schaefer 400 parcels; 17 network atlas for having the
     highest CNR for both LSS and LSA.
   }
@@ -2330,7 +2329,7 @@ We analyzed the data from three different perspectives:
   \subfloat[][]{\includegraphics[width=0.49\linewidth]{
     data-null_atlas-schaeferbest_participants-filtered_permutation_summary_ppi} 
   \label{fig:null-schaeferbestppi}}
-  \caption{
+  \caption[Comparison of LSA/LSS/PPI using participant data]{
     Percentage of statistically significant ROI-ROI pairs found
     in the contrasts $dual - single$, $repeat - single$, and
     $switch - repeat$.
@@ -2372,7 +2371,7 @@ These results are qualitatively similar to the full Schaefer atlas (Supplemental
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{atlas-activation_estimate_correlations}
-  \caption{
+  \caption[Correlation between LSA/LSS and PPI in the activation atlas]{
     Correlations of LSS/LSA context-dependent functional correlation difference estimates with
     estimates from PPI from the activation atlas
   }
@@ -2382,7 +2381,7 @@ These results are qualitatively similar to the full Schaefer atlas (Supplemental
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{atlas-schaeferbest_estimate_correlations}
-  \caption{
+  \caption[Correlation between LSA/LSS and PPI in the SchaeferTop20 atlas]{
     Correlations of LSS/LSA context-dependent functional correlation difference estimates with
     estimates from PPI from the SchaeferTop20 atlas.
   }
@@ -2392,7 +2391,7 @@ These results are qualitatively similar to the full Schaefer atlas (Supplemental
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{atlas-schaefer_estimate_correlations}
-  \caption{
+  \caption[Correlation between LSA/LSS and PPI in the Schaefer atlas]{
     Correlations of LSS/LSA context-dependent functional correlation difference estimates with
     estimates from PPI from the Schaefer atlas.
     \textbf{NOTE}: the scatter plot points were binned to reduce figure size, but
@@ -2548,7 +2547,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-dualxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI]{
       The statistically significant ROI-ROI pairs in the activation atlas
       for the $Dual - Single$ contrast in the real data.
       LSA has a total of 9 results, 2 overlapping with PPI,
@@ -2565,7 +2564,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-dualxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the activation atlas
       for the $Dual - Single$ contrast for null data.
       LSA has a total of 11 results, 2 overlapping with PPI,
@@ -2582,7 +2581,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-repeatxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the activation atlas
       for the $Repeat - Single$ contrast for real data.
       LSA has a total of 21 results, 4 overlapping with PPI,
@@ -2599,7 +2598,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the activation atlas
       for the contrasts $Repeat - Single$ contrast for null data.
       LSA has a total of 10 results, 2 overlapping with PPI,
@@ -2616,7 +2615,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-activation_contrast-switchxrepeat_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the activation atlas
       for the $Switch - Repeat$ contrast for real data.
       LSA has a total of 15 results, 2 overlapping with PPI,
@@ -2633,7 +2632,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-activation_contrast-repeatxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the activation atlas
       for the contrasts $Switch - Repeat$ contrast for null data.
       LSA has a total of 12 results, 1 overlapping with PPI,
@@ -2650,7 +2649,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-dualxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
       for the $Dual - Single$ contrast in the real data.
       LSA has a total of 15 results, 8 overlapping with PPI,
@@ -2667,7 +2666,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-dualxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
       for the $Dual - Single$ contrast for null data.
       LSA has a total of 17 results, 3 overlapping with PPI,
@@ -2684,7 +2683,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
       for the $Repeat - Single$ contrast for real data.
       LSA has a total of 24 results, 12 overlapping with PPI,
@@ -2701,7 +2700,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
       for the contrasts $Repeat - Single$ contrast for null data.
       LSA has a total of 24 results, 2 overlapping with PPI,
@@ -2718,7 +2717,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-real_type-brain_atlas-schaeferbest_contrast-switchxrepeat_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
       for the $Switch - Repeat$ contrast for real data.
       LSA has a total of 8 results, 1 overlapping with PPI,
@@ -2735,7 +2734,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=\textwidth]{data-null_type-brain_atlas-schaeferbest_contrast-repeatxsingle_compare-lssxppi}}
 
-  \caption{
+  \caption[All contrasts for all atlases for all data for LSA/LSS versus PPI continued...]{
       The statistically significant ROI-ROI pairs in the SchaeferTop20 atlas
       for the contrasts $Switch - Repeat$ contrast for null data.
       LSA has a total of 30 results, 1 overlapping with PPI,
@@ -2751,7 +2750,7 @@ from interleaved events (whether there is a change or not)
 
   \subfloat{\includegraphics[width=0.7\textwidth]{data-null_atlas-schaefer_participants-filtered_permutation_summary_ppi}}
 
-  \caption{
+  \caption[Comparison of LSA/LSS/PPI using participant data and the Schaefer atlas]{
       The overall results for the full Schaefer Atlas.
       Since there were 79800 unique ROI-ROI pairs, it became more likely
       to see unexpected results.
