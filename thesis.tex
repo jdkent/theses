@@ -843,7 +843,7 @@ Numbers reported are mean$\pm$standard deviation.
 Prior to any experimentation, participants provided verbal and written consent
 to participate in the research presented in this manuscript, which was approved
 by the University of Iowa's Institutional Review Board.
-21 participants were excluded in the primary analysis for having over
+N=21 participants were excluded in the primary analysis for having over
 0.5mm of total movement (framewise displacement) in 100 volumes or more,
 resulting in a final $N$ of 40.
 We chose 100 volumes to keep the number of regressors in LSA
@@ -1864,7 +1864,7 @@ Numbers reported are mean$\pm$standard deviation.
 Prior to any experimentation, participants provided verbal and written consent
 to participate in the research presented in this manuscript, which was approved
 by the University of Iowa's Institutional Review Board.
-21 participants were excluded in the primary analysis for having over
+N=21 participants were excluded in the primary analysis for having over
 0.5mm of total movement (framewise displacement) in 100 volumes or more,
 resulting in a final $N$ of 40.
 We chose 100 volumes to keep the number of regressors in LSA
@@ -2495,20 +2495,42 @@ This strategy did not help with the event-related contrast ($Switch - Repeat$)
 suggesting CNR is not the only factor at play to increase sensitivity of
 the tests.
 
-The decrease of contextual functional connectivity seen in the contrasts
+The decrease of context-dependent functional connectivity seen in the contrasts
 $Dual - Single$ and $Repeat - Single$ for the real data agrees with previous
-work looking at contextual functional connectivity during various task states~\cite{Cole2014a,Spadone2015}.
-The SchaeferTop20 atlas is over-represented with ROIs from the visual cortex, which have been shown
-to reduce their functional connectivity in response to a task~\cite{Spadone2015}.
+work looking at contextual functional connectivity during various task states~\cite{Cole2014a,Spadone2015,Di2019a,He2013,Ito2019,Hearne2020}.
+Recent work has observed a negative correlation between the activation of an ROI
+and it's task evoked connectivity ~\cite{Hearne2020}.
+The hypothesis put forward is the decreased correlations represent less redundancy of
+information being transferred between ROIs and increased capacity of encoding unique information.
+Since the activation atlas and the SchaeferTop20 atlas represent
+regions of high activity, their large proportion of decreased contextual functional connectivity results
+fits with the above hypothesis.
+Their work even shows across all cortical regions a task state reduces connectivity between ROIs relative to rest~\cite{Ito2019},
+matching the decreased context-dependent functional connectivity found in the Schaefer atlas as well.
+The $Switch - Repeat$ contrast presents an interesting challenge to the theory since
+the switch events are typically viewed as being more cognitively demanding than repeat events,
+suggesting the $Switch - Repeat$ contrast should follow the same pattern as the others.
+There could be some idiosyncracy in the design of the experiment since the null data are also
+biased to show increased context-dependent functional connectivity results.
+Additionally, there were often fewer significant results in the $Switch - Repeat$ contrast,
+suggesting this particular sample happened to detect more increases than decreases in
+context-dependent functional connectivity.
 
-PPI may arguably be the better method for detecting contextual functional connectivity
+PPI may arguably be the better method for detecting context-dependent functional connectivity
 differences, and as such could be extended to include spatiotemporal relationship as BSC methods
 have been expanded~\cite{Turner2012a}.
 Specifically, PPIs could be calculated using a finite impulse response (FIR) model, where instead of assuming
 a hemodynamic response function shape, there is a separate regressor for each time point peri-stimulus.
 This analysis strategy would require significant data per person since the number of regressors would be
 $2 * (\#FIRs * \#conditions) + 1_{physio}$, where FIRs could reasonably go up to 8 and number of conditions could
-be 3, resulting 49 regressors in the model related to the task.
+be 3, creating 49 regressors in the model related to the task.
+
+BSC methods may still have an advantage over PPI when looking at event conditions in isolation.
+The PPI $\beta$ estimates represent the event condition of interest relative to rest and all other
+event conditions.
+BSC methods, on the other hand, purportedly measure the event condition independent all other event conditions.
+Thus, one could summarize the individual event conditions using network measures before contrasting event conditions,
+while performing the same analysis using PPI is potentially ambiguous on what the network measure represents.
 
 \subsection{Limitations and Future Directions}
 This work is subject to a number of limitations.
