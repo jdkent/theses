@@ -2805,13 +2805,24 @@ from interleaved events (whether there is a change or not)
 %=============================================================================
 
 \begin{itemize}
+  \item We wanted to know if our choice of method mattered and under which circumstances we should use the methods.
+  \item PPI would likely be the best choice for low frequency events since the estimate will still use all time points
+        as opposed to BSC, where if there were only 4 events, I would be stuck trying to calculate a correlation with 4 numbers
+        (possible, but not very reliable)
+  \item LSA (and to a lesser extent LSS) perform similarly (in terms of model fit) whether their are 2 or 6 event conditions
+        (but they will suffer if there are few events to make correlations with), however, for each additional PPI,
+        two regressors must be added, which could lead to increased variance in the $\beta$ estimates.
+        It is important to note that LSA already suffers from a large number of regressors (can't get much worse). 
   \item could add a deconvolved/reconvolved physiological regressor to PPI model
-  \item The above suggestion may allow one use network analysis methods on PPI
+  \item all methods show more significant decreases for mixed-event block contrasts, support for information transfer occurring via less redundancy
+        (i.e., more efficient representations)?
+  \item The above suggestion may allow one use network analysis methods on PPI, nope, not true after correspondence with Dr. Di
   \item could try deconvolving the LSA/LSS estimates to see if the results are better in neural spaces
-	\item PPI generally is more sensitive, but less specific (e.g., shows lots of positives)
+	\item PPI generally is more sensitive, but less specific (e.g., shows lots of significant results whether or not data is real or null)
 	\item LSA/LSS still only choice to look at contexts in isolation (there is implicit contrast with PPI)
 	\item LSA/LSS could be used to choose potential regions of interest in a data driven way (CNR)
 	\item holistic network measures could be applied
+	\item a higher correlation between estimates does not necessarily translate to identifying same ROI-ROI pairs.
 	\item LSA/LSS could be used to further parse the difference between "task" state and "task" evoked state.
 	\item Since LSS is more correlated with PPI, suggests they are measuring closer to the "same" thing
 	\item Single event estimates between LSA/LSS are highly correlated
