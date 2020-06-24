@@ -43,6 +43,9 @@
 \usepackage[ruled,chapter]{algorithm}  % display algorithms
 \usepackage[super,comma,sort,numbers]{natbib}
 \usepackage{amssymb}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
 % to place figures/subfigures
 \usepackage{graphicx}
 \usepackage{subfig}
@@ -1316,7 +1319,7 @@ but LSS did not (see supplementary figures).
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{
-    data-real_type-brain_atlas-schaeferbest_contrast-repeatXsingle}
+    data-real_type-brain_atlas-schaeferbest_contrast-repeatxsingle}
   \caption[SchaeferTop20 atlas, real data, repeat - single]{
     Visualization of the significant ROI-ROI pairs detected in Figure \ref{fig:real-schaeferbest}
     for the contrast $repeat - single$.
@@ -1739,7 +1742,7 @@ which analysis path they should take amid the forking paths of researcher degree
       Looking at magnitudes alone, LSS appears to have a slightly
       higher false positive rate than LSA in the null data, and 
       LSA has a slight sensitivity advantage in the real data, 
-      with the expection of the $task - null$ contrast.
+      with the exception of the $task - null$ contrast.
   }
   \label{fig:significant-contrasts6}
 \end{figure}
@@ -2803,6 +2806,25 @@ from interleaved events (whether there is a change or not)
 %=============================================================================
 \chapter{General Discussion}
 %=============================================================================
+
+
+\begin{table}[H]
+  \centering
+  \caption{
+  {\bf Comparisons of LSA/LSS/PPI}}
+  \begin{tabular}{|l|c|c|c|}
+  \hline
+  \textbf{Query} & \textbf{LSA} & \textbf{LSS} & \textbf{PPI}\\ \hline
+  Good for event-related contrasts & \xmark & \xmark & \cmark\\ \hline
+  Good for mixed event/block contrasts & \cmark & \cmark & \cmark\\ \hline
+  Maintains expected false positive rate (in small ROI sets) & \xmark & \cmark & \xmark\\ \hline
+  Provides an estimate for condition with fewer than 3 events & \xmark & \xmark & \cmark\\ \hline
+  \end{tabular}
+
+  Considerations for choosing LSA, LSS, or PPI when calculating context-dependent
+  functional connectivity differences.
+  \label{table:comparison}
+\end{table}
 
 \begin{itemize}
   \item We wanted to know if our choice of method mattered and under which circumstances we should use the methods.
