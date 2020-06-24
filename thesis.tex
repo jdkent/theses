@@ -885,7 +885,8 @@ all identified motion outliers as regressors in the first level model for each p
 in addition to event onsets convolved with a double gamma function~\cite{Glover1999}.
 Each image was smoothed with a 6mm full-wide half-max kernel.
 We derived 3 contrasts of interest: $switch - repeat$, $dual- single$, and $repeat - single$.
-The $dual$ condition is the weighted average of $switch$ and $repeat$ to represent the global cost~\cite{Wylie2000}.
+The $dual$ condition is the weighted average of $switch$ and $repeat$ to represent the
+dual cost (the cost of performing two tasks at once relative to one)~\cite{Wylie2000,Verhaeghen2003}.
 We ignored correctness of the participant's response since it was not essential to
 separate condition and error processing to validate BSC.
 
@@ -1751,7 +1752,8 @@ which analysis path they should take amid the forking paths of researcher degree
 \chapter{PPI versus BSC}
 %=============================================================================
 
-While BSC was originally created to detect context-dependent functional connectivity, there was another method
+While BSC was originally created to detect context-dependent functional connectivity
+differences, there was another method
 that preceded BSC, named psychophysiological interaction (PPI) analysis ~\cite{Friston1997}. 
 PPIs are designed to identify brain areas that are differently functionally connected
 during specific contexts relative to others.
@@ -1772,9 +1774,12 @@ to toe tap events.
 PPI analyses have undergone several transformations since their inception in 1997 including:
 1) deconvolution~\cite{Gitelman2003}, 2) multi-conditional psychological variables~\cite{McLaren2012},
 and 3) correcting imperfect deconvolution~\cite{Di2017}.
+I will cover each of these transformations in turn.
+
 The necessity of deconvolution was investigated by Gitelman~\cite{Gitelman2003} who demonstrated
 that calculating a PPI at the BOLD level is not mathematically equivalent to calculating
 a PPI at the neural level.
+I will cover why after setting up some context.
 The BOLD signal is the result of an underlying neural response convolved (i.e., smeared)
 with a hemodynamic response function (HRF)(Equation~\ref{eq:intro_conv_bold}).
 \begin{equation}
@@ -1784,7 +1789,9 @@ with a hemodynamic response function (HRF)(Equation~\ref{eq:intro_conv_bold}).
 An HRF 
 Thus to calculate a PPI, there are two options:
 1) deconvolve the BOLD signal to represent the neural signal
-2) convolve the psychological variable with an HRF to represent BOLD signal (Equation~\ref{eq:intro_conv_psych}).
+(right hand side of equation~\ref{eq:neq_conv}) or
+2) convolve the psychological variable with an HRF to represent BOLD signal
+(left hand side of equation~\ref{eq:neq_conv}),
 \begin{equation}
   PSYCH_{BOLD} = HRF \circledast psych
   \label{eq:intro_conv_psych}
@@ -1794,7 +1801,30 @@ BOLD response level, as represented in Equation~\ref{eq:intro_conv_psych}.
 Importantly, calculating the interaction at the BOLD level is not
 equivalent to calculating the interaction the neural level~\cite{Gitelman2003}.
 \begin{equation}
-	(HRF \circledast neural) \cdot (HRF \circledast psych) \neq HRF \circledast (neural \cdot psych)
+  (HRF \circledast neural) \cdot (HRF \circledast psych) \neq HRF \circledast (neural \cdot psych)
+  \label{eq:neq_conv}
+\end{equation}
+While convolution is distributive with scalar multiplication (Equation~\ref{eq:conv_distributive}) and
+\begin{equation}
+  (HRF \circledast neural) \cdot 2 = (HRF \circledast neural \cdot 2) 
+  \label{eq:conv_distributive}
+\end{equation}
+the cross product of the $neural$ and $psych$ vectors are distributive (Equation~\ref{eq:cross_product}),
+\begin{equation}
+  neural * psych = psych * neural
+  \label{eq:cross_product}
+\end{equation}
+convolution is not distributive over vector cross products (Equation~\ref{eq:neq_conv}).
+Since convolution is related to integrals,
+we can demonstrate the inequality with a small example in
+equations~\ref{eq:familiar_int} and~\ref{eq:familiar_int2}.
+\begin{equation}
+  x \cdot \int 2x = x \cdot x^2 = x^3
+  \label{eq:familiar_int}
+\end{equation}
+\begin{equation}
+   \int 2x \cdot x = \int 2x^2 = 2x^3 / 3
+  \label{eq:familiar_int2}
 \end{equation}
 To get the neural signal we need to deconvolve the BOLD signal (option 1).
 Deconvolution of the BOLD signal is not a well defined problem since
@@ -1803,6 +1833,7 @@ Therefore we have to rely on regularized regression with an over-complete
 basis set.
 Over-complete meaning there are more columns (the basis set) than there
 are rows (the BOLD signal).
+In other words, there are more predictors than there are samples.
 Since the BOLD signal is noisy and assumed hemodynamic response function
 may not match the data, some software packages simply do not attempt
 deconvolution and swallow the error from multiplying the physiological and psychological
@@ -1811,14 +1842,14 @@ Other software packages bite the bullet and attempt deconvolution.
 In block designs where contexts are not intermixed the difference between
 methods appears inconsequential, but with rapid event-related designs,
 deconvolution is essential to separate the influence of intermixed contexts.
-The implementation used in this thesis work does perform deconvolution.
+The implementation used in this thesis work performs deconvolution.
 
 The second transformation of PPI analyses came from McLaren et al. (2012)~\cite{McLaren2012}.
 Their goal was to properly represent experiments with more than two experimental conditions, like
-the example in the BSC section where there were cue, delay, and probe event conditions.
-Traditionally, the psychological variable was actually a contrast between two event conditions, such as
-$probe - cue$ to create one PPI for analyses.
-McLaren et al. (2012) presented that instead of using a contrast, researchers could
+in task switching, where there are three event conditions of interest: $switch$, $repeat$, and $single$.
+Traditionally, the psychological variable was a contrast between two event conditions, such as
+$switch - repeat$ to create one PPI for analyses.
+McLaren et al. (2012) suggested an alternative strategy where researchers could
 calculate a separate PPI for each psychological variable independently and then
 perform contrasts between the $\beta$ estimates to find differences in context-dependent functional connectivity.
 This method is known as generalized PPI (gPPI) analysis.
@@ -1827,9 +1858,9 @@ The implementation used in this thesis work performs gPPI.
 The third transformation of PPI analyses to date is the necessity to account for imperfect deconvolution
 through centering the psychological variables or including the deconvolved/reconvolved physiological variable
 in the model~\cite{Di2017}.
-These solutions are needed because of the imperfections of the deconvolution process.
-Deconvolution is not an invert-able process so the reconvolved PPIs regressors are not
-perfectly represented at the BOLD level.
+One of those solutions is needed because of the imperfections of the deconvolution process.
+Deconvolution is not an invert-able process when the underlying neural signal is not known
+so the reconvolved PPIs regressors are not perfectly represented at the BOLD level.
 Not accounting for the imperfect deconvolution process results in the PPI regressors
 containing information about the baseline functional connectivity between brain areas, biasing
 PPI effects to detect regions are highly functionally connected at baseline.
@@ -1847,11 +1878,10 @@ to identify which BSC method is most correlated with PPI analyses.
 Finally, previous work used different quantitative measures
 (i.e., number of detected clusters from a seed region analysis)
 and did not include null data to compare their results against, so it is
-difficult to measure whether the measure is likely to give false positives
-using real data.
+difficult to measure whether the measure is likely to give false positives.
 
 In this chapter we ask:
-1) whether BSC methods or PPI analysis are more sensitive
+1) whether BSC methods or PPI analysis are more sensitive,
 2) whether BSC methods or PPI analysis are more specific, and
 3) which BSC method correlates more with PPI.
 
@@ -1861,7 +1891,8 @@ In this chapter we ask:
 \label{methods:task-switch2}
 
 We used an unpublished data-set
-of older adults ($N$=61, 31 female, age=71.75$\pm$4.77, education=17.07$\pm$2.66)
+of older adults ($N$=61, 31 female,\newline
+age=71.75$\pm$4.77, education=17.07$\pm$2.66)
 performing a mixed design task switching task.
 Numbers reported are mean$\pm$standard deviation.
 Prior to any experimentation, participants provided verbal and written consent
@@ -1894,7 +1925,8 @@ prior to performing the task to ensure proper finger placement and data acquisit
 
 Participants' average accuracy and reaction time were:
 single, (92\%$\pm$27\%, 792ms$\pm$225ms); repeat, (89\%$\pm$31\%, 1001ms$\pm$278ms);
-and switch, (83\%$\pm$36.8\%, 1108ms$\pm$289ms).
+and switch, (83\%$\pm$36.8\%,\newline
+1108ms$\pm$289ms).
 Due to data collection error, behavioral data were not collected for 3 participants
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/summarizeBehavior/summarize_behavior.ipynb}{see here for relevant code})
 
@@ -1906,7 +1938,8 @@ all identified motion outliers as regressors in the first level model for each p
 in addition to event onsets convolved with a double gamma function~\cite{Glover1999}.
 Each image was smoothed with a 6mm full-wide half-max kernel.
 We derived 3 contrasts of interest: $switch - repeat$, $dual- single$, and $repeat - single$.
-The $dual$ condition is the weighted average of $switch$ and $repeat$ to represent the global cost~\cite{Wylie2000}.
+The $dual$ condition is the weighted average of $switch$ and $repeat$ to represent the
+dual cost (the cost of performing two tasks at once relative to one)~\cite{Wylie2000,Verhaeghen2003}.
 We ignored correctness of the participant's response since it was not essential to
 separate condition and error processing to compare BSC with PPI.
 
@@ -2107,8 +2140,8 @@ parameter to 0.0001, but keeping all other parameters at their default values.
 Independently, we took each psychological condition of interest ($switch$, $repeat$, and $single$)
 represented as a stick function (i.e., 1's where the stimulus was "on" and 0's everywhere else)
 and mean centered each psychological condition separately.
-The stimuli were presented for less time than the acquisition of a volume
-(e.g., 1.5 seconds versus 2.0 seconds), thus to accurately represent the duration
+The stimuli were presented for less time (1.5 seconds) than the acquisition of
+a volume (2.0 seconds), thus to accurately represent the duration
 of the stimulus, each of the psychological conditions and deconvolved ROI time series were up-sampled to
 a resolution of 0.1 seconds.
 Next, we multiplied each of the up-sampled psychological conditions with the deconvolved/up-sampled
@@ -2117,7 +2150,7 @@ psychological conditions~\cite{McLaren2012}.
 We down-sampled the "neural" PPI back to a resolution of 2 seconds and convolved the signal with
 SPM's hemodynamic response function representing the PPI in the original BOLD time-course.
 
-After all PPIs were created, the full regression model was represented in Equation~\ref{eq:full_ppi}
+The creation of the PPIs resulted in the the full regression model in Equation~\ref{eq:full_ppi}
 
 \begin{equation}
 	\begin{multlined}[b]
@@ -2313,7 +2346,7 @@ We analyzed the data from three different perspectives:
 1) identifying whether each method found more significant results than expected,
 2) finding which method estimates are more closely related, and
 3) describing the pattern of increases and decreases of context-dependent functional connectivity
-   in the significant ROI-ROI pairs.
+in the significant ROI-ROI pairs for each method.
 
 \begin{figure}[H]
   \centering
@@ -2425,7 +2458,7 @@ relative to the event-related contrast ($switch - repeat$), regardless of data (
 
 Another descriptive variable we tracked was the proportion of significant ROI-ROI pairs
 that demonstrated increased context-dependent functional connectivity.
-In the null data, we would expect the the false positives to be 50/50 for
+In the null data, we would expect the the false positives to be split 50/50 between
 increasing (positive) context-dependent functional connectivity differences
 and decreasing (negative) context-dependent functional connectivity differences,
 whereas the real data may show a distinct bias towards either more ROI-ROI pairs
@@ -2487,7 +2520,7 @@ depending on which method is chosen.
 
 An intriguing result is the large percentage of significant ROI-ROI pairs found by
 PPI analysis in Figure~\ref{fig:real-schaeferbestppi}.
-The top CNR regions were chosen using LSA and LSS, with no influence from PPI.
+The top CNR regions were chosen using LSA and LSS, with no input from PPI.
 This suggests LSS/LSA could be used as a data driven approach to select ROIs
 for PPI analyses, as opposed to the traditional method of selecting
 highly activated regions.
@@ -2504,22 +2537,22 @@ work looking at context-dependent functional connectivity during various task st
 Recent work has observed a negative correlation between the activation of an ROI
 and it's task evoked connectivity ~\cite{Hearne2020}.
 The hypothesis put forward is the decreased correlations represent less redundancy of
-information being transferred between ROIs and increased capacity of encoding unique information.
+information being transferred between ROIs and increased capacity to encode unique information.
 Since the activation atlas and the SchaeferTop20 atlas represent
 regions of high activity, their large proportion of decreased context-dependent functional connectivity results
 fits with the above hypothesis.
 Their work even shows across all cortical regions a task state reduces connectivity between ROIs relative to rest~\cite{Ito2019},
 matching the decreased context-dependent functional connectivity found in the Schaefer atlas as well.
-The $Switch - Repeat$ contrast presents an interesting challenge to the theory since
+The $Switch - Repeat$ contrast presents a challenge to the theory since
 the switch events are typically viewed as being more cognitively demanding than repeat events,
 suggesting the $Switch - Repeat$ contrast should follow the same pattern as the others.
 There could be some idiosyncracy in the design of the experiment since the null data are also
-biased to show increased context-dependent functional connectivity results.
+biased to show increased context-dependent functional connectivity results as well.
 Additionally, there were often fewer significant results in the $Switch - Repeat$ contrast,
 suggesting this particular sample happened to detect more increases than decreases in
 context-dependent functional connectivity.
 
-PPI may arguably be the better method for detecting context-dependent functional connectivity
+PPI may be the better method for detecting context-dependent functional connectivity
 differences, and as such could be extended to include spatiotemporal relationship as BSC methods
 have been expanded~\cite{Turner2012a}.
 Specifically, PPIs could be calculated using a finite impulse response (FIR) model, where instead of assuming
@@ -2561,7 +2594,7 @@ A proper null model would insert uniform BOLD responses across all onsets, such 
 the only context-dependent differences that could be detected would be driven by the
 resting state BOLD oscillations.
 
-While the data suggest that block contrasts are more likely to show results relative to event-related contrasts,
+While the data suggest that mixed event/block contrasts are more likely to show results relative to event-related contrasts,
 we did not control for the cognitive effort difference between the conditions.
 We cannot rule out the possibility that the difference in cognitive effort for
 $switch$ and $repeat$ is less than the difference between $repeat$ and $single$.
