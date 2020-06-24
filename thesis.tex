@@ -130,7 +130,26 @@
 
 At the heart of any cognitive neuroscientist is the desire to relate the physical
 processes of the brain to cognition.
-The advent of functional Magnetic Resonance Imaging (fMRI) presented an amazing opportunity
+Cognitive neuroscientists couple clever experiments with a measure of the brain
+(such as functional Magnetic Resonance Imaging (fMRI)) to provide a nuanced
+analysis of behavior and how that behavior correlates with measures of the brain.
+The measures of the brain using fMRI typically look for which brain areas are more
+active than other brain areas between two (or more) conditions in a task.
+More recently, fMRI research has acknowledged the importance of understanding
+which brain areas work together as networks more during one condition relative to another as opposed to
+brain areas merely being active.
+While the methods to detect which brain areas are working together more during one condition
+relative to another were developed around the turn of the century, they have primarily
+been used for directed hypotheses within a small number of brain areas, or an
+exporatory analyses observing how one brain area changes its relationship
+with the rest of the brain.
+These methods have not been extensively used to investigate large numbers of defined
+brain areas which is the bedrock of analyzing brain networks.
+To fill this gap, \textbf{I compared three different methods that measure brain networks during a task
+and provide recommendations on which method to use.}
+
+The core of these methods depends on the peculiarities of fMRI, which deserves some exposition.
+The advent of fMRI presented an amazing opportunity
 to pursue the brain/cognition relationship~\cite{ogawa1990,Ogawa1992}.
 Ogawa et al. observed the ratio of oxygenated blood to the de-oxygenated blood changed the transverse
 relaxation time ($T_2$) of the MRI signal~\cite{ogawa1990}.
@@ -143,38 +162,59 @@ The signal measured through the BOLD contrast is more correlated to the inputs o
 areas and local processing within those areas (as opposed to the outgoing neuronal activity)~\cite{Logothetis2001}.
 However, there are other non-neuronal factors that contribute to the BOLD contrast~\cite{Kim2012}, which
 remains an active field of study.
-Overall, the connection between blood rushing to areas of the brain where 
-neuronal activity occurs provided the backdrop for discovering the large scale organization
-of the brain at rest and discovering which brain areas are active for specific tasks.
+
+Despite the limitations of the BOLD contrast, the connection between blood rushing to areas of the brain where 
+neuronal activity occurs provided the backdrop for discovering the large scale brain networks
+at rest and discovering which brain areas are active for specific tasks.
 A third line of inquiry combines the previous questions to ask: How does the brain
 organize to complete different tasks?
-Instead of observing the brain's organization while there is no explicit task or observing
-the whether a particular area is strongly active during a particular context,
-answering the question how the brain organizes during a task more closely represents our brain state
-during the majority of our lives.
+Instead of observing brain networks while there is no explicit task or observing
+whether a particular area is strongly active during a particular context,
+observing how the brain organizes during a task deepens our understanding of how
+our brain operates during different contexts.
 Whether it's writing an email, playing a card game, talking with colleagues; we are
-often engaged in complex tasks throughout the day in which our brain has to process
-and share information between areas in a quick and efficient manner.
-Thus, investigating how the brain organizes during a task grants understanding how
-we operate in daily life.
+often engaged in different contexts throughout the day in which our brain has to process
+and share information between areas in a quick and efficient manner, and we cannot
+measure this sharing of information by solely looking at which brain areas are active.
+Nor can we fully understand how brain areas communicate during a task when observing a
+participant at rest.
+It is the \textit{context-dependent functional connectivity} between brain areas observed during a task
+that gives us the specific insight of which brain areas communicate during a task~\cite{Friston1997}.
+Thus, investigating context-dependent functional connectivity grants deeper understanding
+of how we operate in daily life.
 
-What do I mean by organization?
-For the context of this thesis, brain organization refers to which brain areas are communicating
-with each other, as measured by a statistical dependency between
-regions like a Pearson's correlation~\cite{Uddin2019}.
-A predominant way to describe large scale brain organization is through network science~\cite{Rubinov2010}.
+I have used the phrase brain networks several times, but I have avoided an explicit definition.
+For the context of this thesis, brain networks refer to which brain areas are strongly communicating
+with each other, as measured by either a statistical or physical dependency between
+regions like a Pearson's correlation or a white matter tract~\cite{Uddin2019}.
+A predominant way to describe large scale brain networks is through network science~\cite{Rubinov2010}.
 The network perspective partitions the brain into anatomically/functionally relevant areas (named nodes)
 which are connected to each other via a physical or statistical dependency (named edges).
 fMRI enables the study of the entire brain simultaneously with regional specificity (creating nodes),
 and measures the BOLD contrast over time which can be compared between nodes by a Pearson's correlation (creating edges).
+This Pearson's correlation gives us the notion of \textit{functional connectivity} between brain areas,
+which implies two brain areas process information at similar time intervals, but does not imply
+the directionality or how many mediating brain areas exist between the two brain areas.
 From our understanding of the BOLD contrast, we can measure which brain areas
 typically receive inputs and/or locally process information within a similar time frame.
 Instead of comparing the overall activation of brain areas separately, the network perspective
 gives a more mechanistic description of which brain areas are either directly/indirectly
 communicating during task performance.
+For example, Seeley et al. (2007) was able to dissociate two brain networks that are typically
+co-avtivated during a task~\cite{Seeley2007}.
+Dissociating these networks allowed researchers to ascribe more specific cognitive functions
+to each network which would not be possible if one were to only observe activation of brain areas.
+A limitation to Seeley et al. (2007) is that the networks were separated in resting state data,
+the separation of the networks would be even more convincing if shown during task performance
+with context-dependent functional connectivity as implemented by the methods I am
+investigating.
+Regardless, being able to draw dissociations between networks of regions that are all active
+during a task provides a more mechanistic description of how the brain accomplishes a task
+through correlating the networks with specific behavioral outcomes.
 This more mechanistic perspective furthers insights in cognitive neuroscience by identifying
 which brain regions are working together versus working independently while engaging
-in a cognitive process of interest.
+in several cognitive processes of interest and potentially relate networks to more specific
+cognitive processes.
 
 While it is exciting to understand brain organization during tasks,
 the excitement has outpaced the investigations of the methods to understand brain organization.
@@ -193,25 +233,33 @@ being completely consistent and completely random.
 While not necessarily reaching the level of crisis,
 analytical variability is cause for serious consideration.
 Methods that purportedly measure the same underlying biological process
-should be put to task to evaluate whether they are as similar
+should be held to the fire to evaluate whether they are as similar
 as they imply.
+In this thesis, I perform the necessary method comparisons
+to test how similar the methods are and provide a foundation
+for future studies to know how much confidence they should
+place in each method or if their results may be idiosyncratic
+because of the method they chose.
 
-\textbf{I compared three different methods that measure brain organization during a task
-and provide recommendations on which method to use.}
-For consistency with existing literature, a "measure of brain organization during a task" will be
-investigated as \textit{context-dependent functional connectivity}, which refers to
-the statistical dependency between two or more brain areas during a specific context
+By this point, you have read the phrase context-dependent functional connectivity several times,
+which refers to the statistical dependency between two or more brain areas during a specific context
 (i.e., reading a book, biking on a trail, tapping your finger, etc.)~\cite{Friston1997}.
+However, I have not mentioned the exact methods that can measure context-dependent functional connectivity.
 There are (at least) four classes of methods that measure context-dependent functional connectivity:
 sliding windows~\cite{Shine2015}, residual correlations~\cite{Cole2014a},
 Psycho-Physiological Interaction (PPI) analysis~\cite{Friston1997}, and Beta Series Correlations (BSC)~\cite{Rissman2004}.
 Of these classes of methods, only BSC and PPI analysis can purportedly measure the differences
 between interleaved contexts (e.g., event-related designs).
+An example of interleaved contexts would be performing a task where you typically
+press a button corresponding to an arrow's directions, but sometimes a tone or visual cue
+turns on telling you to withhold your response.
+Withholding your response is a transient context that exists interleaved
+with the other context of pressing the arrow as expected.
 Sliding window and residual correlation approaches can only detect contexts that are
 temporally separable and not interleaved with each other.
-A large swath of existing cognitive neuroscience literature contains interleaved
+A large swath of existing cognitive neuroscience literature rely on interleaved
 contexts so the focus of this work will pertain to classes of methods
-that can in theory detect differences in event-related designs.
+that can in theory detect differences in event-related designs (BSC and PPI).
 
 \section{General Linear Models}
 In order to understand BSC and PPI analyses, a gentle introduction to the
@@ -219,7 +267,7 @@ General Linear Model (GLM) is required.
 GLMs are an extension of the more familiar linear regression.
 The main goal of both linear regression and GLMs is to take
 a series of observations ($X$) and scale the observations by
-multiplying them by numbers ($\beta$) that make the observations
+multiplying them by a scalar ($\beta$) that make the observations
 look like the outcome data ($Y$).
 Since it is often impossible for the observations to look exactly like
 the outcome data, there is some error $\epsilon$.
@@ -237,8 +285,11 @@ an apple ($X_{apple}$) and an orange ($X_orange$) immediately after, it is diffi
 a brain area ($Y_{brain}$) is responding solely to the apple or if the brain area is responding solely to the orange.
 Thus there could be many possible numbers given to $\beta_{apple}$ and $\beta_{orange}$
 to multiply with $X_{apple}$ and $X_{orange}$ that would make a solution look similar to
-$Y_{brain}$.
-GLMs are central to the methods I discuss, and we will revisit this problem repeatedly.
+the observed BOLD signal from $Y_{brain}$.
+Broadly, this problem is known as \textit{collinearity} between $X_{apple}$ and $X_{orange}$. 
+Problematic collinearity occurs frequently when contexts are interleaved as in event-related designs and
+BSC and PPI analysis methods have different approaches to tackle collinearity
+which we will revisit for each method.
 % For example, if I measured how many cats people owned
 % and their current stress level, I could have the following observations:
 % $PersonA(3 cats, 2 stress)$, $PersonB(1 cats, 5 stress)$, and
@@ -2850,6 +2901,9 @@ Additionally, I have discovered PPI contrast estimates are more correlated
 with LSS contrast estimates relative to LSA contrast estimates, suggesting
 LSS and PPI measures are more related.
 Several additional key insights are listed in Table~\ref{table:comparison}.
+
+All of these insights are tempered from the full Schaefer atlas, which showed mostly a similar pattern,
+but several key differences as well.
 
 \begin{table}[H]
   \centering
