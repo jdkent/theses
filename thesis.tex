@@ -312,7 +312,7 @@ In experiments with more than two conditions, calculating only one PPI did not a
 for the unmodelled condition and resulted in incorrect estimates of the effect~\cite{McLaren2012}.
 McLaren et al. (2012) presented that instead of using a contrast, researchers could
 calculate a separate PPI for each psychological variable independently and then
-perform contrasts between the $\beta$ estimates to find differences in contextual functional connectivity.
+perform contrasts between the $\beta$ estimates to find differences in context-dependent functional connectivity.
 This method is known as generalized PPI (gPPI) analysis.
 The implementation used in this thesis work performs gPPI.
 
@@ -337,7 +337,7 @@ In this task, participants saw a cue, a delay, and a probe, all occurring
 within a short time period (~9 seconds).
 The cue was presented for one second, a delay occurred for seven seconds,
 and a probe was presented for one second.
-If Rissman chose a sliding window or residual approach to measure contextual functional connectivity,
+If Rissman chose a sliding window or residual approach to measure context-dependent functional connectivity,
 they would not be able to dissociate the processes of visually encoding a stimulus,
 maintaining the stimulus in working memory over a delay and the decision process when comparing a
 probe to the stimulus in working memory.
@@ -388,7 +388,7 @@ LSS $\beta$ estimates are influenced by adjacent events such that if an event in
 was flanked by two events in condition B, the $\beta$ estimate for the event in condition A
 is likely biased (i.e., not orthogonal) to the adjacent events in condition B.
 BSC methods have primarily been tested with multivariate approaches in mind, univariate
-differences in contextual correlations have been relatively ignored.
+differences in context-dependent correlations have been relatively ignored.
 The present work seeks to further validate BSC as PPI analyses have already had
 extensive validation.
 
@@ -414,7 +414,7 @@ Simon task~\cite{Simon1963}, and others.
 In order to investigate the neural underpinnings engaged in these tasks, the unexpected events
 need to be interleaved with the expected events.
 The necessity of event-related designs means that BSC and PPI analyses must be able to
-detect differences in contextual functional connectivity when events from different conditions
+detect differences in context-dependent functional connectivity when events from different conditions
 are interleaved.
 Thus in my investigations, I will include both block and event-related contrasts
 to ascertain if the advantage of one method over another is dependent on the type of experimental design.
@@ -426,7 +426,7 @@ the interaction between condition and BOLD responses within the $\beta$ estimate
 2) Correlations are different than changes in regression slopes~\cite{Di2019}.
 
 The first difference presents a potential advantage of PPI analyses creating more reliable
-estimates of contextual functional connectivity because when contrasting the $\beta$ estimates
+estimates of context-dependent functional connectivity because when contrasting the $\beta$ estimates
 within the PPI framework, the standard errors of the $\beta$ estimates provide the level of
 confidence in the $\beta$ estimate.
 BSC on the other hand do not typically incorporate the standard error of the $\beta$ estimate
@@ -442,7 +442,7 @@ they will all produce very similar outcomes or divergent results, and if they
 diverge, it is unknown which method I should have more confidence in.
 Thus, I compared LSS, LSA, and PPI to discover to what extent the methods converge and provide
 recommendations on which method is potentially more sensitive to detect
-differences in contextual functional connectivity.
+differences in context-dependent functional connectivity.
 \newline
 \newline
 \textbf{Specific Aim 1}: Evaluate whether LSS or LSA has more power to detect
@@ -530,7 +530,7 @@ within and between brain networks over time~\cite{Sakoglu2008,Hindriks2016}.
 However, there has not been investigation and validation of brain networks
 when participants engage in tasks with interleaved conditions that could induce
 different brain networks dynamically~\cite{Di2019a}.
-In other words, measuring contextual brain networks has not been validated within fast event-related designs~\cite{Buckner1998}.
+In other words, measuring context-dependent brain networks has not been validated within fast event-related designs~\cite{Buckner1998}.
 We seek here to validate and compare two methods that may measure brain responses to events that occur
 close in time.
 
@@ -1751,7 +1751,7 @@ which analysis path they should take amid the forking paths of researcher degree
 \chapter{PPI versus BSC}
 %=============================================================================
 
-While BSC was originally created to detect contextual functional connectivity, there was another method
+While BSC was originally created to detect context-dependent functional connectivity, there was another method
 that preceded BSC, named psychophysiological interaction (PPI) analysis ~\cite{Friston1997}. 
 PPIs are designed to identify brain areas that are differently functionally connected
 during specific contexts relative to others.
@@ -1820,7 +1820,7 @@ Traditionally, the psychological variable was actually a contrast between two ev
 $probe - cue$ to create one PPI for analyses.
 McLaren et al. (2012) presented that instead of using a contrast, researchers could
 calculate a separate PPI for each psychological variable independently and then
-perform contrasts between the $\beta$ estimates to find differences in contextual functional connectivity.
+perform contrasts between the $\beta$ estimates to find differences in context-dependent functional connectivity.
 This method is known as generalized PPI (gPPI) analysis.
 The implementation used in this thesis work performs gPPI.
 
@@ -2090,7 +2090,7 @@ A simplified visualization of this process is in Figure~\ref{fig:ppi_method_over
     Next, the neuronal time series is then multiplied with each of the psychological
     conditions, generating neural PPIs seen in the middle row.
     Finally, each neural PPI is convolved with a hemodynamic response function
-    to represent the contextual BOLD signal for their respective psychological
+    to represent the context-dependent BOLD signal for their respective psychological
     condition.
   }
   \label{fig:ppi_method_overview}
@@ -2156,14 +2156,14 @@ An example design matrix is illustrated in Figure~\ref{fig:example_ppi_design}.
     The $physio$ column represents BOLD signal from an ROI.
     The event type $firsttrial$ was not of interest in the contrasts,
     but included in the model for completeness.
-    The $constant$ column can also be refereed to as the intercept.
+    The $constant$ column can also be refered to as the intercept.
   }
   \label{fig:example_ppi_design}
 \end{figure}
 
 The contrasts of interests taken from this model were:\\
 $((switch\_ppi + repeat\_ppi) / 2) - single\_ppi$, $repeat\_ppi - single\_ppi$,
-and $switch\_ppi - repeat\_ppi$ to measure each contextual difference in functional connectivity. 
+and $switch\_ppi - repeat\_ppi$ to measure each context-dependent difference in functional connectivity. 
 This equation was run for every unique ROI-ROI pair in both directions
 (e.g., $Y$ and $X_{ROI}$ swap places) resulting in an
 asymmetrical correlation matrix for each of the mentioned contrasts.
@@ -2268,17 +2268,17 @@ We did not use false discovery rate correction on the observed p-values since we
 which specific ROI-ROI pair correlations were likely to be true positives, but rather if the number of positives
 observed would be expected by chance alone or if LSS/LSA/PPI likely detected an overall difference between event conditions.
 
-We provided a description of the number of significant ROI-ROI pairs with increased contextual functional connectivity and
-decreased contextual functional connectivity to identify if contextual connectivity tends to increase or decrease overall
+We provided a description of the number of significant ROI-ROI pairs with increased context-dependent functional connectivity and
+decreased context-dependent functional connectivity to identify if context-dependent connectivity tends to increase or decrease overall
 for the contrasts $dual - single$, $repeat - single$, and $switch - repeat$, and see if the pattern replicates
 in the null data. 
 Within the null data, there is no expectation of context-dependent functional connectivity changing, so false
-positives should be equally distributed between increases and decreases in correlations.
-The ratio of positive results will help identify whether biases for increased/decreased contextual functional connectivity
+positives should be equally distributed between increases and decreases in the significant ROI-ROI pairs.
+The ratio of positive results will help identify whether biases for increased/decreased context-dependent functional connectivity
 in real data are also seen in null data.
 
 With three separate methods being compared, we also measured agreement through convergence by correlating the
-contextual differences across all unique ROI-ROI pairs for each of the contrasts.
+context-dependent functional connectivity differences across all unique ROI-ROI pairs for each of the contrasts.
 For example, we compared the estimated connectivity differences between $switch - repeat$ for each unique
 ROI-ROI pair for every method (LSA, LSS, and PPI).
 The difference estimates for PPI were correlated with the difference estimates for LSS and LSA, providing
@@ -2312,7 +2312,7 @@ jupyter notebooks\cite{Kluyver2016a}, and the packages they depend on.
 We analyzed the data from three different perspectives:
 1) identifying whether each method found more significant results than expected,
 2) finding which method estimates are more closely related, and
-3) describing the pattern of increases and decreases of contextual functional connectivity
+3) describing the pattern of increases and decreases of context-dependent functional connectivity
    in the significant ROI-ROI pairs.
 
 \begin{figure}[H]
@@ -2342,7 +2342,7 @@ We analyzed the data from three different perspectives:
     are results from the real data.
     Right panels \ref{fig:null-activationppi} and \ref{fig:null-schaeferbestppi} are results
     from the null data.
-    PPI consistently has a greater number of significant contextual differences between ROI-ROI pairs
+    PPI consistently has a greater number of significant context-dependent differences between ROI-ROI pairs
     than expected, except for the $switch - repeat$ contrast.
   }
 \label{fig:main-resultppi}
@@ -2491,7 +2491,7 @@ The top CNR regions were chosen using LSA and LSS, with no influence from PPI.
 This suggests LSS/LSA could be used as a data driven approach to select ROIs
 for PPI analyses, as opposed to the traditional method of selecting
 highly activated regions.
-The derivation of CNR does not select for ROIs that have contextual
+The derivation of CNR does not select for ROIs that have context-dependent
 connectivity differences so this strategy does not suffer from
 double-dipping~\cite{Kriegeskorte2009}.
 This strategy did not help with the event-related contrast ($Switch - Repeat$)
@@ -2500,13 +2500,13 @@ the tests.
 
 The decrease of context-dependent functional connectivity seen in the contrasts
 $Dual - Single$ and $Repeat - Single$ for the real data agrees with previous
-work looking at contextual functional connectivity during various task states~\cite{Cole2014a,Spadone2015,Di2019a,He2013,Ito2019,Hearne2020}.
+work looking at context-dependent functional connectivity during various task states~\cite{Cole2014a,Spadone2015,Di2019a,He2013,Ito2019,Hearne2020}.
 Recent work has observed a negative correlation between the activation of an ROI
 and it's task evoked connectivity ~\cite{Hearne2020}.
 The hypothesis put forward is the decreased correlations represent less redundancy of
 information being transferred between ROIs and increased capacity of encoding unique information.
 Since the activation atlas and the SchaeferTop20 atlas represent
-regions of high activity, their large proportion of decreased contextual functional connectivity results
+regions of high activity, their large proportion of decreased context-dependent functional connectivity results
 fits with the above hypothesis.
 Their work even shows across all cortical regions a task state reduces connectivity between ROIs relative to rest~\cite{Ito2019},
 matching the decreased context-dependent functional connectivity found in the Schaefer atlas as well.
@@ -2558,7 +2558,7 @@ of the onset times.
 Trying to model the BOLD response with no expectation of a BOLD response existing could lead
 to large misfits and deviating beta estimates for BSC and to a lesser extent PPI.
 A proper null model would insert uniform BOLD responses across all onsets, such that
-the only contextual differences that could be detected would be driven by the
+the only context-dependent differences that could be detected would be driven by the
 resting state BOLD oscillations.
 
 While the data suggest that block contrasts are more likely to show results relative to event-related contrasts,
