@@ -1327,10 +1327,11 @@ replicate in the Activation Atlas, there may be an interaction between using the
 high CNR ROIs.
 Those two contrasts indicate the success of LSS and LSA to measure
 condition specific difference in ROI-ROI correlations when the events are in different blocks.
-The Schaefer atlas has qualitatively similar results, with the exception of
-the $switch - repeat$ contrast where LSA found more statistically significant
+The full Schaefer atlas has qualitatively similar results with two noteable exceptions:
+1) the $switch - repeat$ contrast using LSA found more statistically significant
 ROI-ROI pair correlation differences between conditions relative to chance,
-but LSS did not (see supplementary figures).
+but LSS did not and
+2) LSS has higher false positive rate than LSA (Figure~\ref{fig:significant-contrasts6}).
 
 \begin{figure}[H]
   \centering
@@ -1583,6 +1584,26 @@ could still drive spurious results.
 A proper null model would have BOLD responses at the onset times, but the bold responses
 would be the same amplitude at every event such that the only deviance in the simulated
 BOLD responses would come from the underlying resting state fluctuations.
+
+All of these insights are tempered from the full Schaefer atlas, which showed mostly a similar pattern,
+but several key differences as well.
+While LSS maintained the expected number of false positives for the motivated selection of
+ROIs for the activation and SchaeferTop20 atlases, LSS percentage of false positives is
+higher than LSA when using the full Schaefer atlas.
+PPI false positive percentage remained the highest in the full Schaefer atlas.
+This could indicate a relative advantage in specificity for LSA when CNR is low.
+Previous work indicates LSA would out perform LSS when CNR is greater than 1,
+and when scan noise is more consistent across voxels than the beta series estimates~\cite{Abdulrahman2016}.
+Our results in the Schaefer atlas contradict the first statement since the average CNR in the Schaefer atlas
+is at or below 1 (Table~\ref{table1}), suggesting LSS should have the advantage.
+Scan noise may be more correlated between brain areas than the beta series correlations, but this is unlikely
+since motion artifacts and large uniform changes in signal where censored during the beta series modelling steps.
+The reason for these discrepencies could be due to the differences in outcome measures used in their work and
+this thesis.
+Namely, for the first point, they used the precision of correlation metric, with which the precision
+of the correlation is orthogonal to the ability to detect a difference between two correlations.
+The second point used classification performance, which was determined by the mean amplitude difference
+between voxels, but not the correlation between two voxels.
 
 \subsection*{Future Directions}
 
@@ -2453,7 +2474,12 @@ Within the SchaeferTop20 atlas with null data, both PPI and LSA had significant 
 $dual - single$ (LSA: 8.94\%; $p = 0.015$, LSS: 3.68\%; $p = 0.842$, PPI: 13.68\%; $p < 0.001$),
 $repeat - single$ (LSA: 12.63\%; $p < 0.001$, LSS: 4.74\%; $p = 0.613$, PPI: 12.63\%; $p < 0.001$), and
 $switch - repeat$ (LSA: 15.79\%; $p < 0.001$, LSS: 3.16\%; $p = 0.917$, PPI: 5.26\%; $p = 0.480$) (Figure~\ref{fig:null-schaeferbestppi}).
-These results are qualitatively similar to the full Schaefer atlas (Supplemental Figure~\ref{fig:schaefer_binomial_ppi})
+These results are qualitatively similar to the full Schaefer atlas with the same two noteable exceptions
+as stated in Chapter 2:
+1) the $switch - repeat$ contrast using LSA found more statistically significant
+ROI-ROI pair correlation differences between conditions relative to chance,
+but LSS and PPI did not and
+2) LSS has higher false positive rate than LSA, but still less than PPI (Figure~\ref{fig:schaefer_binomial_ppi}).
 
 \begin{figure}[H]
   \centering
@@ -2534,7 +2560,8 @@ The specific measure I used was $positives / (positives + negatives)$ from the s
   $Switch - Repeat$ & $PPI$ & 0.79 & 0.81\\ \hline
   \end{tabular}
 
-  A description of the positive bias for the results $positives / (positives + negatives)$.
+  A description of the positive bias for the results $positives / (positives + negatives)$
+  averaged across atlases.
   The block contrasts ($Dual - Single$ and $Repeat - Single$) have a strong negative
   bias in the real data and a smaller negative bias in the null data.
   The event-related contrast ($Switch - Repeat$) positivity ratio is
@@ -2900,10 +2927,8 @@ is the least sensitive, but most specific method, and LSA sits in the middle.
 Additionally, I have discovered PPI contrast estimates are more correlated
 with LSS contrast estimates relative to LSA contrast estimates, suggesting
 LSS and PPI measures are more related.
-Several additional key insights are listed in Table~\ref{table:comparison}.
-
-All of these insights are tempered from the full Schaefer atlas, which showed mostly a similar pattern,
-but several key differences as well.
+Several additional key insights are listed in Table~\ref{table:comparison} when using
+atlas with ROIs that were either significant active in the task or have a high CNR.
 
 \begin{table}[H]
   \centering
@@ -2914,17 +2939,58 @@ but several key differences as well.
   \textbf{Query} & \textbf{LSA} & \textbf{LSS} & \textbf{PPI}\\ \hline
   Good for event-related contrasts & \xmark & \xmark & \cmark\\ \hline
   Good for mixed event/block contrasts & \cmark & \cmark & \cmark\\ \hline
-  Maintains expected false positive rate (in small ROI sets) & \xmark & \cmark & \xmark\\ \hline
+  Maintains expected false positive rate (in small ROI sets) & \xmark & \cmark* & \xmark\\ \hline
   Provides an estimate for condition with fewer than 3 events & \xmark & \xmark & \cmark\\ \hline
   \end{tabular}
 
   Considerations for choosing LSA, LSS, or PPI when calculating context-dependent
   functional connectivity differences.
+
+  * depends on the choice of atlas
   \label{table:comparison}
 \end{table}
 
+When using an atlas that containing full coverage of the cortex, however, LSS appears to have
+more false positives than LSA~\ref{fig:schaefer_binomial_ppi}.
+
+While these methods can theoretically detect context-dependent functional differences with an event-related
+contrast, only PPI had marginally more results than expected by chance alone in the activation atlas.
+Network measures could be used to compare real data from null data such as: participation coefficient,
+clustering coefficient, and modularity~\cite{Rubinov2010}.
+The participation coefficient measures how strongly one ROI is correlated with other ROIs within its
+network and with ROIs outside of its network.
+At one extreme the ROI would be equally correlated with all other ROIs regardless of which network the
+ROI was assigned to, and at the other extreme, the ROI would only be correlated with other ROIs within its
+network.
+As cognitive effort increases, I would expect the participation coefficient to broadly decrease, where ROIs
+would decrease the correlation with ROIs within their own network and increase correlations with ROIs outside
+their network.
+Clustering coefficient measures the number of nodes that form triangles of correlations, that is, groups of three
+ROIs that exhibit increased correlations.
+I would expect this measure to decrease as well as cognitive effort increases since cognitive effort is likely
+sustained by larger clusters than groups of 3 ROIs.
+Modularity provides an overall metric of how strong the correlations are within a network relative to the strength
+of correlations between networks.
+As with participation coefficient, I would suspect modularity to decrease as cognitive effort increases.
+As for calculating the network measures, BSC methods have a straightforward interpretation as each
+event condition is represented independently.
+However, PPI analyses are less straightforward since the $\beta$ estimate for each PPI represents
+the event condition of interest minus the average of all other conditions.
+Thus it is difficult to interpret the modularity of an implicit difference of the contextual functional connectivity
+of one event condition with the average of all other conditions.
+It remains an open question whether these network measures calculated with PPI would agree with or be interpretable relative
+to the network measures measured with BSC.
+Moving forward, there is at least a baseline of expected similarity between LSA/LSS/PPI from the work presented
+in the present thesis.
+
+The bias towards decreases in contextual functional connectivity deserves further discussion,
+particularly as it relates to the univariate statistical maps.
+
+Future work should combine contextual functional connectivity measures and behavior
+
 
 \begin{itemize}
+  \item Atlas choice may matter
   \item We wanted to know if our choice of method mattered and under which circumstances we should use the methods.
   \item PPI would likely be the best choice for low frequency events since the estimate will still use all time points
         as opposed to BSC, where if there were only 4 events, I would be stuck trying to calculate a correlation with 4 numbers
