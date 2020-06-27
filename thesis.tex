@@ -427,20 +427,16 @@ this is not mathematically equivalent to deconvolving the BOLD signal and multip
 neural signal with the psychological variable.
 The amount of error incurred from using the former option is dependent on the experimental
 design employed.
-For tasks where events in one condition all occur together and the BOLD signal is temporally separable
-from other conditions, the difference appears inconsequential, but when the events
-from different conditions are interleaved and the BOLD
-signal is overlapping between events, the difference is more substantial~\cite{Gitelman2003}.
-While different conditions of the psychological variable can be separated, the overlapping
-BOLD responses in the physiological BOLD signal are not accounted for.
-If different cognitive processes occurring in close proximity such word and nonword
+For block designs, the difference appears inconsequential, but for event-related designs
+the difference is more substantial~\cite{Gitelman2003}.
+If different cognitive processes occur in close proximity such as word and nonword
 reading, deconvolution of the BOLD signal is essential.
 
 The second transformation of PPI analyses came from McLaren et al. (2012)~\cite{McLaren2012}.
 Their goal was to properly represent experiments with more than two experimental conditions, like
 the above example where there were cue, delay, and probe event conditions.
 Traditionally, the psychological variable was actually a contrast between two event conditions, such as
-$probe - cue$ to create one PPI for analyses.
+$word - nonword$ to create one PPI for analyses.
 In experiments with more than two conditions, calculating only one PPI did not account
 for the unmodelled condition and resulted in incorrect estimates of the effect~\cite{McLaren2012}.
 McLaren et al. (2012) presented that instead of using a contrast, researchers could
@@ -449,17 +445,24 @@ perform contrasts between the $\beta$ estimates to find differences in context-d
 This method is known as generalized PPI (gPPI) analysis.
 The implementation used in this thesis work performs gPPI.
 
-The third transformation of PPI analyses to date is the necessity to account for imperfect deconvolution
-through centering the psychological variables or including the deconvolved/reconvolved physiological variable
-in the model~\cite{Di2017}.
-These solutions are needed because of the imperfections of the deconvolution process.
-Trying to estimate the underlying neural activity from BOLD is error prone because we
-assume the BOLD response is a single shape represented across all brain areas.
-While the assumption is reasonable for most applications, it does introduce error
-into the PPI signal.
-Not accounting for the imperfect deconvolution process results in the PPI regressors
-containing information about the baseline functional connectivity between brain areas, biasing
-PPI effects to detect regions are highly functionally connected at baseline.
+The third transformation of PPI analyses to date involves a peculiarity from the combination of
+deconvolution and not centering the psychological variable when computing a PPI~\cite{Di2017}.
+To conceptually understand this process we need to accept that deconvolution is imperfect, and if I
+deconvolved and reconvoled physiological BOLD signal, I would not get the exact same BOLD signal.
+Additionally, we need to accept that a non-centered variable is a centered variable plus a constant.
+Thus, if we deconvolve the physiological physiological BOLD signal and multiply the deconvolved
+BOLD signal with a centered psychological variable and a constant, we have the neural PPI
+as well as scaled multiple of the physiological deconvolved BOLD signal.
+When we reconvolve the neural PPI (and the implicit scaled neural signal a part of the PPI),
+we have the PPI we want and a deconvolved/reconvolved physiological BOLD signal that is not equivalent to the
+original physiological BOLD signal.
+It turns out this non-equivalence gives the PPI term information about the physiological BOLD signal that
+reflects how well the physiological BOLD signal correlates overall with the outcome brain area BOLD signal, and not just
+during the psychological context.
+If deconvolution is not a part of the process, centering the psychological variable does not impact the interpretation
+of the PPI term because the physiological signal represented in the PPI is equivalent to the main effect of the physiological
+signal that is also included in the model so their shared variance removes their impact on the PPI term.
+Thus in order to create correct PPIs using deconvolution, the psychological variables must be centered.
 The implementation used in this thesis work demeans the psychological variables.
 
 \section{Beta Series Correlations}
@@ -530,7 +533,8 @@ extensive validation.
 There are at least two points of difference between BSC and PPI analyses.
 1) BSC correlates $\beta$ estimates from the same condition, whereas PPI analyses define
 the interaction between condition and BOLD responses within the $\beta$ estimate.
-2) Correlations are different than changes in regression slopes~\cite{Di2019}.
+2) Correlations (as calculated in BSC) are different than changes in regression slopes
+(as used in PPI analysis)~\cite{Di2019}.
 
 The first difference presents a potential advantage of PPI analyses creating more reliable
 estimates of context-dependent functional connectivity because when contrasting the $\beta$ estimates
@@ -542,11 +546,13 @@ estimates.
 
 The second difference acknowledges that correlation is different from regression.
 This is relevant if one event condition has a higher variance than the other event condition,
-which would impact the correlation, but not the regression slope.
+which would impact the correlations in BSC, but not the regression slope in PPI analyses.
 
 With the differences between the BSC methods (LSA and LSS) and PPI, it is difficult to ascertain whether
-they will all produce very similar outcomes or divergent results, and if they 
-diverge, it is unknown which method I should have more confidence in.
+they will all produce very similar or divergent results, and if they 
+diverge, it is unknown which method researchers should have more confidence in.
+Furthermore, to my knowledge, no other research exists that formally compares
+LSA, LSS, and PPI using the same data-set.
 Thus, I compared LSS, LSA, and PPI to discover to what extent the methods converge and provide
 recommendations on which method is potentially more sensitive to detect
 differences in context-dependent functional connectivity.
@@ -564,13 +570,18 @@ However, multivariate machine learning measures and precision of correlations do
 univariate correlation differences.
 Machine learning identifies the unique fingerprint of an event condition, which may not be related
 to a correlation between two brain areas.
+If we define precision as the absolute difference between the observations and the reality,
 Correlations that are systematically biased may not be precise, but if both event conditions are
 impacted similarly, the precision of the correlation is independent of its ability to
 detect differences between event conditions.
+For example, LSS may give more precise correlations, while LSA could give
+correlations that are systematically 0.2 greater than reality.
+While LSS would be deemed more precise, both LSS and LSA could perform similarly
+when looking at the difference between condition specific correlations.
 \newline
 \newline
 \textit{Hypothesis}:
-LSS will detect more context-dependent functional correlation differences for both block and event-related contrasts.
+LSS will detect more context-dependent functional correlation differences in a mixed event/block task.
 \newline
 \newline
 \textit{Method}:
@@ -600,6 +611,9 @@ more power to detect differences in context-dependent functional connectivity.
 \textit{Rationale}: Researchers may not want to use BSC methods
 to detect context dependent functional correlation differences if
 PPI analyses are superior.
+Preliminary evidence from Xi et al. (2019) suggests PPI detects more
+context-dependent functional correlation differences relative to LSS,
+but this observation was not thoroughly investigated~\cite{Di2019}.
 Additionally, while BSC and PPI analyses purport to measure the same underlying
 biological process, they take different approaches which could lead to large differences
 in their estimates.
