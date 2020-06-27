@@ -2655,38 +2655,45 @@ increasing (positive) context-dependent functional connectivity differences
 and decreasing (negative) context-dependent functional connectivity differences,
 whereas the real data may show a distinct bias towards either more ROI-ROI pairs
 increasing or decreasing their context-dependent functional connectivity.
-The specific measure I used was $positives / (positives + negatives)$ from the significant ROI-ROI pairs~\ref{table_bias}.
+The specific measure I used was $positives / (positives + negatives)$ from the significant ROI-ROI pairs~\ref{fig:positive_bias}.
 
-\begin{table}[H]
+\begin{figure}[H]
   \centering
-  \caption{
-  {\bf Differences in positive bias between real and null data}}
-  \begin{tabular}{|l|l+l|l|}
-  \hline
-  Contrast & Estimator & Real Data & Null Data\\ \hline
-  $Dual - Single$ & $LSA$ & 0.04 & 0.24\\ \hline
-  $Dual - Single$ & $LSS$ & 0.27 & 0.51\\ \hline
-  $Dual - Single$ & $PPI$ & 0.10 & 0.44\\ \hline
-  $Repeat - Single$ & $LSA$ & 0.03 & 0.22\\ \hline
-  $Repeat - Single$ & $LSS$ & 0.24 & 0.46\\ \hline
-  $Repeat - Single$ & $PPI$ & 0.09 & 0.41\\ \hline
-  $Switch - Repeat$ & $LSA$ & 0.91 & 0.72\\ \hline
-  $Switch - Repeat$ & $LSS$ & 0.71 & 0.75\\ \hline
-  $Switch - Repeat$ & $PPI$ & 0.79 & 0.81\\ \hline
-  \end{tabular}
+  \subfloat[][]{\includegraphics[width=0.49\linewidth]{
+    data-real_atlas-activation_positive_bias} 
+  \label{fig:real-activationbias}}
+  \hfill
+  \subfloat[][]{\includegraphics[width=0.49\linewidth]{
+    data-null_atlas-activation_positive_bias} 
+  \label{fig:null-activationbias}}
+  \vfill
+  \subfloat[][]{\includegraphics[width=0.49\linewidth]{
+    data-real_atlas-schaeferbest_positive_bias} 
+  \label{fig:real-schaeferbestbias}}
+  \hfill
+  \subfloat[][]{\includegraphics[width=0.49\linewidth]{
+    data-null_atlas-schaeferbest_positive_bias} 
+  \label{fig:null-schaeferbestbias}}
+  \caption[Positive bias of LSA/LSS/PPI using participant data]{
+    An illustration of the positive bias for the significant ROI-ROI pairs
+    ($positives / (positives + negatives)$).
+    The center black bar represents having an equal number of significant
+    ROI-ROI pairs that are increasing and decreasing their context-dependent
+    functional connectivity.
+    The bars around the points indicate the 95\% confidence interval
+    of the observed ratio.
+    The block contrasts ($Dual - Single$ and $Repeat - Single$) have a strong negative
+    bias in the real data and a smaller negative bias in the null data.
+    The event-related contrast ($Switch - Repeat$) positivity ratio is
+    similar between the real and null data for LSS and PPI, while LSA
+    has a larger positivity bias in the real data relative to the null.
+  }
+\label{fig:positive_bias}
+\end{figure}
 
-  A description of the positive bias for the results $positives / (positives + negatives)$
-  averaged across atlases.
-  The block contrasts ($Dual - Single$ and $Repeat - Single$) have a strong negative
-  bias in the real data and a smaller negative bias in the null data.
-  The event-related contrast ($Switch - Repeat$) positivity ratio is
-  similar between the real and null data for LSS and PPI, while LSA
-  has a larger positivity bias in the real data relative to the null.
-  \label{table_bias}
-\end{table}
-
-The positivity bias is lower in the real data relative to the null data for the mixed block/event contrasts,
-providing further evidence suggesting the results represent a real context-dependent
+The positivity bias generally is lower in the real data relative
+to the null data for the mixed block/event contrasts,
+providing further evidence suggesting the results represent a true context-dependent
 correlation change.
 The positivity bias from the event-related contrast however do not reliably distinguish the real
 and null data.
@@ -2738,7 +2745,7 @@ the tests.
 The lowered context-dependent functional connectivity seen in the majority of the 
 significant ROI-ROI pairs for the contrasts
 $Dual - Single$ and $Repeat - Single$ in the real data (relative to the null data)
-(Table~\ref{table_bias}) agrees with previous work looking at
+(Table~\ref{fig:positive_bias}) agrees with previous work looking at
 context-dependent functional connectivity during various task states
 ~\cite{Cole2014a,Spadone2015,Di2019a,He2013,Ito2019,Hearne2020}.
 While the previous work emphasized the difference between task and rest, we extend
@@ -3047,6 +3054,23 @@ from interleaved events.
   \label{fig:schaefer_binomial_ppi}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \subfloat{\includegraphics[width=0.49\textwidth]{data-real_atlas-schaefer_positive_bias}}
+  \hfill
+  \subfloat{\includegraphics[width=0.49\textwidth]{data-null_atlas-schaefer_positive_bias}}
+
+  \caption[Positive bias of LSA/LSS/PPI in Schaefer Atlas]{
+    An illustration of the positive bias for the significant ROI-ROI pairs
+    ($positives / (positives + negatives)$).
+    The center black bar represents having an equal number of significant
+    ROI-ROI pairs that are increasing and decreasing their context-dependent
+    functional connectivity.
+    The bars around the points indicate the 95\% confidence interval
+    of the observed ratio.
+  }
+  \label{fig:positive_bias_schaefer}
+\end{figure}
 %=============================================================================
 \chapter{General Discussion}
 %=============================================================================
@@ -3067,13 +3091,13 @@ atlas with ROIs that were either significant active in the task or have a high C
   \centering
   \caption{
   {\bf Comparisons of LSA/LSS/PPI}}
-  \begin{tabular}{|l|c|c|c|}
+  \begin{tabular}{|p{0.7\textwidth}|c|c|c|}
   \hline
   \textbf{Query} & \textbf{LSA} & \textbf{LSS} & \textbf{PPI}\\ \hline
   Good for event-related contrasts & \xmark & \xmark & \cmark\\ \hline
   Good for mixed event/block contrasts & \cmark & \cmark & \cmark\\ \hline
-  Maintains expected false positive rate (in high activation/CNR ROI sets) & \xmark & \cmark & \xmark\\ \hline
-  Maintains expected false positive rate (with full cortex coverage) & \xmark & \xmark & \xmark\\ \hline
+  Maintains expected false positive rate (with high activation/CNR ROI sets) & \xmark & \cmark & \xmark\\ \hline
+  Maintains expected false positive rate (with full cortex coverage ROI set) & \xmark & \xmark & \xmark\\ \hline
   Provides an estimate for condition with fewer than 3 events & \xmark & \xmark & \cmark\\ \hline
   \end{tabular}
 
@@ -3081,9 +3105,6 @@ atlas with ROIs that were either significant active in the task or have a high C
   functional connectivity differences.
   \label{table:comparison}
 \end{table}
-
-When using an atlas that containing full coverage of the cortex, however, LSS appears to have
-more false positives than LSA~\ref{fig:schaefer_binomial_ppi}.
 
 While these methods can theoretically detect context-dependent functional differences with an event-related
 contrast, only PPI had marginally more results than expected by chance alone in the activation atlas.
@@ -3119,7 +3140,6 @@ The bias towards decreases in contextual functional connectivity deserves furthe
 particularly as it relates to the univariate statistical maps.
 
 Future work should combine contextual functional connectivity measures and behavior
-
 
 \begin{itemize}
   \item Atlas choice may matter
