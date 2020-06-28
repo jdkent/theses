@@ -2716,8 +2716,8 @@ The positivity bias generally is lower in the real data relative
 to the null data for the mixed block/event contrasts,
 providing further evidence suggesting the results represent a true context-dependent
 correlation change.
-The positivity bias from the event-related contrast however do not reliably distinguish the real
-and null data.
+The positivity bias from the event-related contrast however does not
+reliably distinguish the real and null data.
 
 \section{Discussion}
 We provided the first in-depth comparison between LSA, LSS, and PPI.
@@ -2766,7 +2766,7 @@ the tests.
 The lowered context-dependent functional connectivity seen in the majority of the 
 significant ROI-ROI pairs for the contrasts
 $Dual - Single$ and $Repeat - Single$ in the real data (relative to the null data)
-(Table~\ref{fig:positive_bias}) agrees with previous work looking at
+(FIgure~\ref{fig:positive_bias}) agrees with previous work looking at
 context-dependent functional connectivity during various task states
 ~\cite{Cole2014a,Spadone2015,Di2019a,He2013,Ito2019,Hearne2020}.
 While the previous work emphasized the difference between task and rest, we extend
@@ -2778,9 +2778,9 @@ The hypothesis put forward is the decreased correlations represent less redundan
 information being transferred between ROIs and increased capacity to encode unique information.
 Since the activation atlas and the SchaeferTop20 atlas represent
 regions of high activity, their large proportion of decreased context-dependent functional connectivity results
-fits with the above hypothesis.
+is congruent with the above hypothesis.
 Their work even shows across all cortical regions a task state reduces connectivity between ROIs relative to rest~\cite{Ito2019},
-matching the decreased context-dependent functional connectivity found in the Schaefer atlas as well.
+matching the decreased context-dependent functional connectivity found in the Schaefer atlas as well~\ref{fig:positive_bias_schaefer}.
 The $Switch - Repeat$ contrast presents a challenge to the theory since
 the switch events are typically viewed as being more cognitively demanding than repeat events,
 suggesting the $Switch - Repeat$ contrast should follow the same pattern as the others.
@@ -3129,7 +3129,8 @@ atlas with ROIs that were either significant active in the task or have a high C
 \end{table}
 
 While these methods can theoretically detect context-dependent functional differences with an event-related
-contrast, only PPI had marginally more results than expected by chance alone in the activation atlas.
+contrast, only PPI analyses had marginally more results than expected by chance alone in the activation atlas.
+
 Network measures could be used to compare real data from null data such as: participation coefficient,
 clustering coefficient, and modularity~\cite{Rubinov2010}.
 The participation coefficient measures how strongly one ROI is correlated with other ROIs within its
@@ -3160,8 +3161,98 @@ in the present thesis.
 
 The bias towards decreases in contextual functional connectivity deserves further discussion,
 particularly as it relates to the univariate statistical maps.
+A common interpretation would be that a decreased correlation between two ROIs reflects less information
+sharing between the two ROIs, that an increasing correlation reflects greater information transfer.
+However, a recent theory suggests that any deviation from spontaneous resting activity
+(either activation or deactivation) should result in a decreased correlation between ROIs~\cite{Ito2019}.
 
-Future work should combine contextual functional connectivity measures and behavior
+
+Future work should combine context-dependent functional connectivity measures and behavior.
+A common way to connect brain function and behavior is through correlating the brain measure
+with a behavioral measure and observe individual differences.
+Assessing changes in context-dependent functional connectivity in relation to reaction time
+or accuracy could provide more nuanced theories of the cognitive process under investigation.
+However, careful thought has to be given for the number of participants and experimental design,
+and analysis choices to reliably detect this relationship.
+Most cognitive tasks have focused on showing robust experimental effects which led to the side effect
+of low between subject variance~\cite{Hedge2018}.
+The equation for intraclass correlations (ICC) ---a common measure of reliability---
+will decrease when measurement error increases ($ErrorVariance$),
+but notably ICC will also decrease if variance between Individuals
+decreases (holding other factors constant)(Equation~\ref{eq:icc}).
+\begin{equation}
+  ICC = \frac{Variance Between Individuals}{Variance Between Individuals + Error Variance + Variance Between Sessions}
+  \label{eq:icc}
+\end{equation}
+Furthermore, often the measure of interest is a difference score, which
+generally have lower reliability than their component scores~\cite{Edwards2001},
+compounding the issue.
+The main task used in this thesis, task switching falls under the family of tasks that prioritize
+group differences, but not individual differences and whose main outcomes are
+difference scores ($Dual - Single$, $Repeat - Single$, $Switch - Repeat$) and thus
+likely does not meet the threshold for clinically relevant reliability~\cite{Barch2008}.
+Hedge et al. (2018)~\cite{Hedge2018} found an average reliability (as measured with ICC)
+of 0.5 among common cognitive tasks, below the recommended reliability for clinically relevant measures~\cite{Barch2008}.
+With the reliability of fMRI hovering around 0.5 as well, an adequately powered fMRI study
+would require 100's of participants to measure individual differences~\cite{Bennett2010,Hedge2018}.
+Besides (or in addition to) increasing sample size, there are alternative methods to
+calculate and analyze the measures of interest to improve reliability.
+Incorporating both reaction time costs and accuracy into a composite measure in task switching was
+a better predictor of performance in an antisaccade task than reaction time costs alone~\cite{Hughes2014}.
+Additionally, modeling reaction time and accuracy using a drift-diffusion model could improve 
+reliability, but it is unknown if it offers any benefit in
+reliability above using a composite score~\cite{Schmitz2012,Ratcliff1978,Lerche2017}.
+Using linear mixed effects models or structural equation models could also better account
+for distributional assumptions in the data and provide better reliability, although
+such choices require training to use appropriately, and could lead to an inaccurate
+model of the data~\cite{West2008,Bates2015}.
+Thus, while it is important to consider behavior in combination with brain function,
+there are a number of important considerations to assure a proper analysis.
+
+Beyond detecting changes in context-dependent functional connectivity in two discrete
+conditions, BSC and PPI methods have unique capabilities that set them apart.
+BSC has been extended to perform spatiotemporal analyses~\cite{Turner2012a}.
+Under the spatio-temporal framework BSC does not assume the shape of the HRF,
+and instead estimates the BOLD signal at specific time points following an event.
+Spatiotemporal BSC could return 5 separate estimates for each event, and
+one could create 5 different correlation maps; one for each time point.
+The 5 separate estimates is different from traditional (spatial) BSC,
+where each event only gets one estimate.
+Having multiple estimates per event opens the door to more complex analyses,
+and more detailed features for machine learning applications as detailed in
+the paper that introduced this method~\cite{Turner2012a}.
+There is no apparent reason PPI analysis could not also be applied in a similar manner
+where each PPI represents a particular time after the event.
+As with BSC, spatiotemporal analyses with PPI would require a large number
+of parameters to model meaning a lot of data per participant would need to be
+collected.
+A unique feature of PPI analyses that cannot be mirrored by BSC is
+measuring parametric designs, such as modeling word length.
+The PPI would represent a pair of ROIs that parametrically increase
+their correlation which each other as a function of the event magnitude.
+For example, two ROIs may not be correlated when word length is short,
+but their correlation may increase as word length increases.
+BSC methods currently do not accommodate parametric experimental designs
+since there is no straightforward way to split the events into categories
+and correlate the $\beta$ estimates within each category.
+To this author's knowledge, no one has attempted to use a parametric design
+in conjunction with a PPI analysis, but it should be possible.
+PPI analyses can also extend to factorial designs.
+For example, if in addition to the word and nonword conditions,
+the color of the word (or nonword) could represent a cue to speak or read silently.
+This experiment is a 2 (word or nonword) by 2 (speak or read) factorial design.
+PPI analyses are extensible to include a psycho-psycho-physiological interaction (PPPI),
+where the interaction of the two factors (word or nonword and speak or read) can also be
+multiplied with a physiological variable.
+All lower order interactions must included in the model as well, increasing the number
+of parameters in the model.
+BSC can theoretically model a facorial design by treating all combinations of the factors
+as separate event conditions.
+Thus, BSC would generate beta series for: 1) word-speak, 2) word-read, 3) nonword-speak,
+and 4) nonword-read.
+However, treating each factor combination as an independent event condition does not model the
+interaction occurring between the factors.
+Thus I would predict PPI analyses and BSC would diverge on their estimates.
 
 \begin{itemize}
   \item Atlas choice may matter
@@ -3188,15 +3279,6 @@ Future work should combine contextual functional connectivity measures and behav
 	\item Since LSS is more correlated with PPI, suggests they are measuring closer to the "same" thing
 	\item Single event estimates between LSA/LSS are highly correlated
 \end{itemize}
-%=============================================================================
-\appendix
-%=============================================================================
-
-%=============================================================================
-\chapter{Appendix}
-
-\section{Appendix One}
-Should I use this?
 
 %=============================================================================
 % bibliography
