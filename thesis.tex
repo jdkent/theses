@@ -222,15 +222,31 @@ of how we operate in daily life.
 Writing emails and playing card games are not the typical experiments performed with fMRI.
 Experimental paradigms fall under three main categories: subtractive, parametric, and factorial~\cite{Friston1994}.
 Subtractive experiments allow for "cognitive subtraction" as previously mentioned,
-parametric experiments vary the condition continuously, like size of reward, and finally
+parametric experiments vary the condition continuously, like the length of the word being read, and finally
 factorial experiments take the interaction of separate conditions~\cite{Friston1994}.
 The focus of this thesis will be on subtractive experiments to emphasize differences
 in context-dependent functional connectivity, such as the word versus nonword lexical processing example.
 With the type of experiment in place, there is still the choice of how often and
 what order we would like to place the word/nonword stimuli.
 Again, there are three main choices for experimental designs:
-event-related, block, or mixed~\cite{Friston1995b,Buckner1996,Petersen2012}.
-Event-related designs are when the word and nonword conditions are interleaved with each other.
+event-related, block, or mixed~\cite{Friston1995b,Buckner1996,Petersen2012} (Figure~\ref{fig:example_designs}).
+\begin{figure}[H]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.31\linewidth]{event_design} 
+  \label{fig:event_design}}
+  \hfill
+  \subfloat[][]{\includegraphics[width=0.202\linewidth]{block_design} 
+  \label{fig:block_design}}
+  \hfill
+  \subfloat[][]{\includegraphics[width=0.37\linewidth]{mixed_design} 
+  \label{fig:mixed_design}}
+  \caption[Example Experimental Designs]{
+    Example experimental designs for event-related, block,
+    and mixed block/event-related designs.
+  }
+  \label{fig:example_designs}
+\end{figure}
+Event-related designs are when the word and nonword conditions are interleaved with each other (Figure~\ref{fig:event_design}).
 During one event the participant may read a word, but the next event several seconds later may be
 a nonword.
 Event-related designs are well suited to define the shape of the BOLD response to a stimulus (slow event related),
@@ -245,13 +261,17 @@ Flanker task~\cite{Eriksen1974a}, Stop-signal task~\cite{Logan1982},
 Simon task~\cite{Simon1963}, and others.
 Block designs show all events belonging to one condition (e.g., word) together in a sequence,
 then after allowing the BOLD contrast to return to baseline, showing all events belonging
-to another condition (e.g., nonword) together in a sequence.
+to another condition (e.g., nonword) together in a sequence~\ref{fig:block_design}.
 Block designs are well suited to detect differences between conditions, as long as the cognitive process of interest
 does not depend on the intermixing of the conditions~\cite{Friston1999}.
 The mixed design combines both the event-related and block design approaches, where certain blocks
-could only contain one condition, but other blocks may contain a both conditions interleaved with each other.
+could only contain one condition, but
+other blocks may contain a both conditions interleaved with each other (Figure~\ref{fig:mixed_design}).
 Mixed designs can be used to test more complex hypotheses concerning transient changes in brain function
 relative to sustained changes in brain function.
+A primary difference between typical block designs and mixed designs is the jittering of onset times.
+In block design, the inter event interval (IEI) is consistently 2 seconds, whereas
+in a mixed block, the IEI is jittered such that it could be 1 second or 10 seconds within the same block.
 The primary data-set leveraged in this thesis was mixed event/block design, so I was
 able make contrasts within blocks and between blocks.
 
