@@ -843,7 +843,7 @@ The null control measures the number of spurious results found
 with BSC since there is no expectation of BSC to change
 during resting state.
 
-\subsection*{Beta Series Correlation Simulations}
+\subsection{Beta Series Correlation Simulations}
 \label{methods:bsc-simulations}
 
 To assess the validity and power of beta series correlations,
@@ -981,7 +981,7 @@ task design.
 Each parameter combination was simulated 1000 times resulting in a total of 240,000 simulations.
 False positive rate and power were evaluated using the same procedure as the other simulated data.
 
-\subsection*{Participant Data Validation}
+\subsection{Participant Data Validation}
 \label{methods:task-switch}
 
 To validate the beta series simulations we used an unpublished data-set
@@ -1064,7 +1064,7 @@ This null task data was treated equivalently to the task switching data for the
 beta series correlation analysis.
 (\href{https://github.com/jdkent/validateBetaSeries/tree/195ad5b4201971038dbbf8f73a3c537caf032743}{see relevant code here})
 
-\subsection*{Scanner Parameters}
+\subsection{Scanner Parameters}
 \label{methods:scanner}
 
 MRI data were collected on a 3T GE Discovery 750w using a 32 channel head coil.
@@ -1077,7 +1077,7 @@ the bottom up sequentially with a flip angle of 80$^{\circ}$, echo time of 30ms,
 repetition time of 2000ms, voxel sizes of 3.44x3.44x4.00mm on a [64x64] acquisition matrix
 with 37 slices, field of view 22cm x 22cm.
 
-\subsection*{Preparing fMRI}
+\subsection{Preparing fMRI}
 \label{methods:fmriprep}
 
 Results included in this manuscript come from preprocessing performed
@@ -1086,7 +1086,7 @@ which is based on \emph{Nipype} 1.4.0
 (\cite{nipype1}; \cite{nipype2}; RRID:SCR\_002502).
 
 
-\subsubsection*{Anatomical data preprocessing}
+\subsubsection{Anatomical data preprocessing}
 \label{methods:anat}
 
 The T1-weighted (T1w) image was corrected for intensity non-uniformity
@@ -1111,7 +1111,7 @@ The following templates were selected for spatial normalization: \emph{ICBM 152 
 Asymmetrical template version 2009c} {[}\cite{mni152nlin2009casym},
 RRID:SCR\_008796; TemplateFlow ID: MNI152NLin2009cAsym{]}.
 
-\subsubsection*{Functional data preprocessing}
+\subsubsection{Functional data preprocessing}
 \label{methods:func}
 
 For each of the two BOLD runs (task switch and null data) per subject,
@@ -1152,10 +1152,10 @@ Gridded (volumetric) resamplings were performed using \texttt{antsApplyTransform
 configured with Lanczos interpolation to minimize the smoothing effects of other kernels
 \cite{lanczos}.
 
-\subsection*{Beta Series Correlations}
+\subsection{Beta Series Correlations}
 \label{methods:bsc}
 
-\subsubsection*{Beta Series Modeling}
+\subsubsection{Beta Series Modeling}
 \label{methods:bsc_model}
 
 The LSS models were generated for each event in
@@ -1195,7 +1195,7 @@ number of conditions in the task.
 The number of volumes in each 4D beta series image
 represents the number of events in that condition.
 
-\subsubsection*{Atlas Correlation Analysis}
+\subsubsection{Atlas Correlation Analysis}
 \label{methods:atlas-corr-analysis}
 
 The 4D beta series image for each condition in the task was subjected to
@@ -1290,7 +1290,7 @@ which specific ROI-ROI pair correlations were likely to be true positives, but r
 observed would be expected by chance alone or if LSS/LSA likely detected an overall difference between event conditions.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/beta_series_analysis.ipynb}{see here for relevant code})
 
-\subsection*{Software Dependencies}
+\subsection{Software Dependencies}
 \label{methods:software-dependencies}
 
 The results in this manuscript are dependent on many open source
@@ -1320,7 +1320,7 @@ jupyter notebooks\cite{Kluyver2016a}, and the packages they depend on.
 \section{Results}
 \label{results}
 
-\subsection*{Beta Series Correlation Simulations}
+\subsection{Beta Series Correlation Simulations}
 \label{results:bsc-simulations}
 
 The first stage of BSC testing focused on simulations with varying event numbers,
@@ -1364,7 +1364,7 @@ CNR or AVNR improve detection power.
 % add the numbers to say what the difference between CNR and AVNR
 For LSS, the 8 second IEI does not appear to greatly increase detection power beyond a 6 second IEI.
 
-\subsection*{Participant Data Beta Series Correlations}
+\subsection{Participant Data Beta Series Correlations}
 \label{results:bsc-taskswitch}
 
 We simulated data using the task switching design for stage two of beta series
@@ -1490,7 +1490,7 @@ the results from the participant data do not show whether LSS or LSA is the more
 We detail the conclusions from the simulations and the participant data, and provide
 suggestions for future avenues of research.
 
-\subsection*{Simulation Conclusions}
+\subsection{Simulation Conclusions}
 \label{discussion:simulation-conclusions}
 
 The main finding from the simulations is that LSS has greater detection power than LSA,
@@ -1577,7 +1577,7 @@ a large number of regressors representing each event.
 Future work could use fmrisim to simulate entire brains which could be preprocessed using fmriprep,
 making the processing pipeline more similar between participant data and simulations.
 
-\subsection*{Participant Data Conclusions}
+\subsection{Participant Data Conclusions}
 \label{discussion:taskswitching-conclusions}
 
 The analysis of the participant data suggests LSS and LSA perform similarly.
@@ -1699,7 +1699,7 @@ of the correlation is orthogonal to the ability to detect a difference between t
 The second point used classification performance, which was determined by the mean amplitude difference
 between voxels, but not the correlation between two voxels.
 
-\subsection*{Future Directions}
+\subsection{Future Directions}
 
 There are several immediate next steps that could be taken to provide a more concrete answer
 on when one should use LSA or LSS when looking at ROI-ROI pair correlation differences between event
@@ -2095,7 +2095,7 @@ In this chapter we ask:
 
 \section{Materials and Methods}
 
-\subsection*{Participant Data}
+\subsection{Participant Data}
 \label{methods:task-switch2}
 
 We used an unpublished data-set
@@ -2180,7 +2180,7 @@ This null task data was treated equivalently to the task switching data for the
 beta series correlation analysis.
 (\href{https://github.com/jdkent/validateBetaSeries/tree/195ad5b4201971038dbbf8f73a3c537caf032743}{see relevant code here})
 
-\subsection*{Scanner Parameters}
+\subsection{Scanner Parameters}
 \label{methods:scanner2}
 
 MRI data were collected on a 3T GE Discovery 750w using a 32 channel head coil.
@@ -2193,7 +2193,7 @@ the bottom up sequentially with a flip angle of 80$^{\circ}$, echo time of 30ms,
 repetition time of 2000ms, voxel sizes of 3.44x3.44x4.00mm on a [64x64] acquisition matrix
 with 37 slices, field of view 22cm x 22cm.
 
-\subsection*{Preparing fMRI}
+\subsection{Preparing fMRI}
 \label{methods:fmriprep2}
 
 Results included in this manuscript come from preprocessing performed
@@ -2202,7 +2202,7 @@ which is based on \emph{Nipype} 1.4.0
 (\cite{nipype1}; \cite{nipype2}; RRID:SCR\_002502).
 
 
-\subsubsection*{Anatomical data preprocessing}
+\subsubsection{Anatomical data preprocessing}
 \label{methods:anat2}
 
 The T1-weighted (T1w) image was corrected for intensity non-uniformity
@@ -2227,7 +2227,7 @@ The following templates were selected for spatial normalization: \emph{ICBM 152 
 Asymmetrical template version 2009c} {[}\cite{mni152nlin2009casym},
 RRID:SCR\_008796; TemplateFlow ID: MNI152NLin2009cAsym{]}.
 
-\subsubsection*{Functional data preprocessing}
+\subsubsection{Functional data preprocessing}
 \label{methods:func2}
 
 For each of the two BOLD runs (task switch and null data) per subject,
@@ -2268,7 +2268,7 @@ Gridded (volumetric) resamplings were performed using \texttt{antsApplyTransform
 configured with Lanczos interpolation to minimize the smoothing effects of other kernels
 \cite{lanczos}.
 
-\subsection*{Beta Series Modeling}
+\subsection{Beta Series Modeling}
 \label{methods:bsc_model2}
 
 The LSS models were generated for each event in
@@ -2309,7 +2309,7 @@ The number of volumes in each 4D beta series image
 represents the number of events in that condition.
 
 
-\subsection*{Psychophysiological Interaction Modeling}
+\subsection{Psychophysiological Interaction Modeling}
 
 The computation of Psychophysiological interactions underwent multiple steps:
 1) extraction and cleaning of an ROI time series,
@@ -2412,7 +2412,7 @@ For reference, the first term in the first listed contrast ($((switch\_ppi + rep
 is referred to as the $dual$ condition because it represents the functional connectivity during the
 two-task blocks.
 
-\subsection*{Atlas Generation}
+\subsection{Atlas Generation}
 \label{methods:atlas-corr-analysis2}
 
 In the participant data; two atlases were used to generate ROI-to-ROI correlation matrices.
@@ -2477,7 +2477,7 @@ We refer this subset of ROIs as the SchaeferTop20 Atlas for the rest of the manu
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/cnr_trial_variability.ipynb}{see here for relevant code}).
 The results for the entire 400 ROI atlas are shown in the supplementals.
 
-\subsection*{BSC Analysis}
+\subsection{BSC Analysis}
 
 Outlier beta estimate volumes were identified and discarded using a
 modified Nipype function for outlier detection
@@ -2494,13 +2494,13 @@ between task and null.
 We contrasted $dual - single$, $repeat - single$, and $switch - repeat$, for LSS/LSA in both
 real and null data.
 
-\subsection*{PPI Analysis}
+\subsection{PPI Analysis}
 
 To create symmetric correlation matrices similar to BSC using PPI, the asymmetric matrices generated for
 each contrast were transposed, added to the original, and divided by two, as done in previous work~\cite{Di2019a}.
 The resulting symmetric matrices were comparable to the contrast matrices generated from BSC.
 
-\subsection*{BSC and PPI Comparison}
+\subsection{BSC and PPI Comparison}
 
 Since we do not have a ground truth for which ROI-ROI pairs should be different between conditions,
 we used a binomial test across all ROI-ROI pairs to discover if the number of observed significant ROI-ROI pairs was greater
@@ -2526,7 +2526,7 @@ The difference estimates for PPI were correlated with the difference estimates f
 evidence whether LSS or LSA are more similar to PPI~\cite{Steiger1980}.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/2e5d7d2443795133770383daaa401cf70cc03f29/PPITest/compare_bsc_ppi.ipynb}{see here for relevant code}).
 
-\subsection*{Software Dependencies}
+\subsection{Software Dependencies}
 \label{methods:software-dependencies2}
 
 The results in this manuscript are dependent on many open source
