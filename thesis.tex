@@ -3159,13 +3159,34 @@ to the network measures measured with BSC.
 Moving forward, there is at least a baseline of expected similarity between LSA/LSS/PPI from the work presented
 in the present thesis.
 
-The bias towards decreases in contextual functional connectivity deserves further discussion,
-particularly as it relates to the univariate statistical maps.
+The bias towards decreases in contextual functional connectivity deserves further discussion
+(Figures ~\ref{fig:positive_bias} \& ~\ref{fig:positive_bias_schaefer}).
 A common interpretation would be that a decreased correlation between two ROIs reflects less information
-sharing between the two ROIs, that an increasing correlation reflects greater information transfer.
+sharing between the two ROIs, that an increasing correlation reflects greater information transfer~\cite{Gonzalez-Castillo2018}.
 However, a recent theory suggests that any deviation from spontaneous resting activity
 (either activation or deactivation) should result in a decreased correlation between ROIs~\cite{Ito2019}.
-
+Their theory pulls from electrophysiological recordings in animals where
+spike count correlations between neuron spikes typically decrease during events,
+particularly for task responsive neurons~\cite{Ruff2014,Cohen2009}.
+The decrease in spike count correlations during events improves performance,
+suggesting the decreased correlations improve information encoding of task
+relevant features.
+Ito et al. (2019) extended the finding from animals to human fMRI
+using data from the Human Connectome Project, showing decreased variability
+in their "task-state" measure as well as a majority of ROI-ROI pairs decreasing their
+correlations relative to rest.
+Instances of increased functional connectivity relative to rest primarily occurred between
+networks that have low correlations during rest (e.g., Default Mode Network and Cingulo-Opercular Network).
+It is important to note Ito et al. (2019) used the residual correlations method for analyzing
+their task data preventing them from investigating changes in cognitive load within a task.
+The current thesis largely corraborates and extends the work by Ito et al. (2019),
+showing a tendency for significant ROI-ROI context-dependent correlations to decrease
+when comparing a lower cognitive load ($Single$) to a higher cognitive load ($Repeat$ and $Dual$).
+The $Switch - Repeat$ contrast however showed an increase in context-dependent functional connectivity
+for the majority of significant ROI-ROI pairs in both the real and null data, perhaps suggesting the
+design of the experiment led to the results independent of the data.
+Replication using different event-related tasks is required to make a more definitive
+claim.
 
 Future work should combine context-dependent functional connectivity measures and behavior.
 A common way to connect brain function and behavior is through correlating the brain measure
@@ -3226,6 +3247,7 @@ where each PPI represents a particular time after the event.
 As with BSC, spatiotemporal analyses with PPI would require a large number
 of parameters to model meaning a lot of data per participant would need to be
 collected.
+
 A unique feature of PPI analyses that cannot be mirrored by BSC is
 measuring parametric designs, such as modeling word length.
 The PPI would represent a pair of ROIs that parametrically increase
@@ -3237,6 +3259,7 @@ since there is no straightforward way to split the events into categories
 and correlate the $\beta$ estimates within each category.
 To this author's knowledge, no one has attempted to use a parametric design
 in conjunction with a PPI analysis, but it should be possible.
+
 PPI analyses can also extend to factorial designs.
 For example, if in addition to the word and nonword conditions,
 the color of the word (or nonword) could represent a cue to speak or read silently.
