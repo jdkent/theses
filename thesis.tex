@@ -143,9 +143,9 @@ Ideally the only difference between the two conditions is the cognitive process
 of interest such that when they are subtracted the active brain areas are
 the areas involved in the cognitive process, such as lexical processing.
 Isolating the cognitive process of interest through subtraction of two conditions
-is known as "cognitive subtraction".
+is known as "cognitive subtraction"~\cite{Sartori2000,Friston1996b}.
 Even with careful design multiple cognitive processes may be
-different between conditions or the cognitive process represents multiple
+different between conditions or the cognitive process may represent multiple
 neural processes.
 For example, lexical processing could involve word retrieval and priming motor functions
 to speak (if nonwords are not pronounceable), or word retrieval could be implemented
@@ -154,14 +154,14 @@ on the individual characters than the whole word resulting in another difference
 As a solution to imperfect cognitive subtractions, fMRI research has acknowledged the importance of understanding
 which brain areas work together as networks more during one condition relative to another as opposed to
 brain areas merely being active.
-How brain areas are working together during a condition is known as \textit{context-dependent functional connectivity},
-and this can change depending on the condition.
+How brain areas are working together during a condition is known as
+\textit{context-dependent functional connectivity}.
 Although many brain areas may be active from a cognitive subtraction,
 smaller groups of brain areas may form a network to complete a specific
 cognitive function included from the subtraction, giving additional
 insight between cognition and brain function, such as a network for word retrieval and
 a network for motor preparation.
-While the methods to detect context-dependent functional connectivity
+While several methods to detect context-dependent functional connectivity
 were developed around the turn of the century, they have primarily
 been used for directed hypotheses within a small number of brain areas, or
 exploratory analyses observing how one brain area changes its relationship
@@ -3128,26 +3128,27 @@ atlas with ROIs that were either significant active in the task or have a high C
   \label{table:comparison}
 \end{table}
 
-While these methods can theoretically detect context-dependent functional differences with an event-related
-contrast, only PPI analyses had marginally more results than expected by chance alone in the activation atlas.
-
 Network measures could be used to compare real data from null data such as: participation coefficient,
-clustering coefficient, and modularity~\cite{Rubinov2010}.
+modularity, and clustering coefficient~\cite{Rubinov2010}.
 The participation coefficient measures how strongly one ROI is correlated with other ROIs within its
 network and with ROIs outside of its network.
-At one extreme the ROI would be equally correlated with all other ROIs regardless of which network the
+If the participation coefficient was 0 the ROI would be equally
+correlated with all other ROIs regardless of which network the
 ROI was assigned to, and at the other extreme, the ROI would only be correlated with other ROIs within its
 network.
 As cognitive effort increases, I would expect the participation coefficient to broadly decrease, where ROIs
 would decrease the correlation with ROIs within their own network and increase correlations with ROIs outside
-their network.
+their network~\cite{Ito2019,Gonzalez-Castillo2018}.
+Modularity provides an overall metric of how well the brain can be partitioned into networks to maximize
+within network correlations and minimize between network correlations.
+As opposed to participation coefficient which gives a measure per ROI, modularity gives a global metric.
+As with participation coefficient, I would suspect modularity to decrease
+as cognitive effort increases~\cite{Gonzalez-Castillo2018}.
 Clustering coefficient measures the number of nodes that form triangles of correlations, that is, groups of three
 ROIs that exhibit increased correlations.
+Broadly, the clustering coefficient measures how efficiently information flows between local nodes.
 I would expect this measure to decrease as well as cognitive effort increases since cognitive effort is likely
-sustained by larger clusters than groups of 3 ROIs.
-Modularity provides an overall metric of how strong the correlations are within a network relative to the strength
-of correlations between networks.
-As with participation coefficient, I would suspect modularity to decrease as cognitive effort increases.
+sustained by a more distributed effort~\cite{Di2013}.
 As for calculating the network measures, BSC methods have a straightforward interpretation as each
 event condition is represented independently.
 However, PPI analyses are less straightforward since the $\beta$ estimate for each PPI represents
