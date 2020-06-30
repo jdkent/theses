@@ -186,7 +186,7 @@ the signal measured through the BOLD contrast is more correlated to the inputs o
 neuronal populations and local processing within those areas (as opposed to large bursts of activity
 associated with spiking activity in populations of neurons)~\cite{Logothetis2001}.
 Unfortunately, changes in overall blood flow, housekeeping functions of neurons and glial cells,
-venous drainage, head movement, respiration, cardiac rythyms, and other factors unrelated
+venous drainage, head movement, respiration, cardiac rhythms, and other factors unrelated
 to neural activity also influence the BOLD contrast~\cite{Attwell2002,Kim2012,Liu2016}.
 Thus it is important to keep in mind that any endeavor using fMRI is attempting to measure
 a signal in a sea of potential noise sources.
@@ -244,6 +244,11 @@ event-related, block, or mixed~\cite{Friston1995b,Buckner1996,Petersen2012} (Fig
     Example experimental designs for event-related~\ref{fig:event_design},
     block~\ref{fig:block_design},
     and mixed block/event-related designs~\ref{fig:mixed_design}.
+    The green contrast represents the expected amount of activation, and the darker
+    colors represent decreases in the expected amount of activation.
+    The above designs have been convolved with a model of the BOLD
+    response, highlighting the block design's consistent activity,
+    and the event-related/mixed design's variability.
   }
   \label{fig:example_designs}
 \end{figure}
@@ -252,11 +257,11 @@ During one event the participant may read a word, but the next event several sec
 a nonword.
 Event-related designs are well suited to define the shape of the BOLD response to a stimulus (slow event related),
 and when the experimental paradigm requires intermixing of conditions, for example if the researcher
-was interested in measuring the brain's reponse towards unexpectedness of seeing a nonword
+was interested in measuring the brain's response towards unexpectedness of seeing a nonword
 in a predominantly word sequence.
 Thus the presentation of the unexpected nonword creates a temporary context where a network of brain areas relating
 to salience may be activated.
-Less contrived examples come from many tasks that measure cogntive control (defined vacuously
+Less contrived examples come from many tasks that measure cognitive control (defined vacuously
 as a process is not automatic) such as the: Stroop task~\cite{Stroop1935},
 Flanker task~\cite{Eriksen1974a}, Stop-signal task~\cite{Logan1982},
 Simon task~\cite{Simon1963}, and others.
@@ -276,7 +281,7 @@ in a mixed block, the IEI is jittered such that it could be 1 second or 10 secon
 The primary data-set leveraged in this thesis was mixed event/block design, so I was
 able make contrasts within blocks and between blocks.
 
-\section{Context-Dependent Functional Connectivty}
+\section{Context-Dependent Functional Connectivity}
 
 By this point, you have read the phrase context-dependent functional connectivity several times,
 which refers to the statistical dependency between two or more brain areas during a specific context
@@ -296,7 +301,7 @@ that can in theory detect differences in event-related designs (BSC and PPI).
 \section{Network Analysis}
 
 I have used the phrase brain networks several times, but I have avoided an explicit definition.
-In this thesis, brain networks refer to a collection spatially distibuted brain areas
+In this thesis, brain networks refer to a collection spatially distributed brain areas
 are strongly communicating with each other, as measured by either a
 statistical or physical dependency between
 brain areas like a Pearson's correlation or a white matter tract~\cite{Uddin2019}.
@@ -314,7 +319,7 @@ Instead of comparing the overall activation of brain areas separately, the netwo
 gives a more mechanistic description of which brain areas are either directly/indirectly
 communicating during task performance.
 For example, Seeley et al. (2007) was able to dissociate two brain networks that are typically
-co-avtivated during a task~\cite{Seeley2007}.
+co-activated during a task~\cite{Seeley2007}.
 Dissociating these networks allowed researchers to ascribe more specific cognitive functions
 to each network which would not be possible if one were to only observe activation of brain areas.
 A limitation to Seeley et al. (2007) is that the networks were separated in resting state data,
@@ -469,7 +474,7 @@ The implementation used in this thesis work performs gPPI.
 The third transformation of PPI analyses to date involves a peculiarity from the combination of
 deconvolution and not centering the psychological variable when computing a PPI~\cite{Di2017}.
 To conceptually understand this process we need to accept that deconvolution is imperfect, and if I
-deconvolved and reconvoled physiological BOLD signal, I would not get the exact same BOLD signal.
+deconvolved and reconvolved physiological BOLD signal, I would not get the exact same BOLD signal.
 Additionally, we need to accept that a non-centered variable is a centered variable plus a constant.
 Thus, if we deconvolve the physiological physiological BOLD signal and multiply the deconvolved
 BOLD signal with a centered psychological variable and a constant, we have the neural PPI
@@ -1043,7 +1048,7 @@ false discovery rate error control (Figure~\ref{fig:stat_maps}).
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth,height=0.8\paperheight,keepaspectratio]{contrast_summary}
-  \caption[Univariate statisitcal maps]{
+  \caption[Univariate statistical maps]{
     Univariate statistical maps of second level results representing
     all contrasts of interest, $dual - single$, $repeat - single$, $switch - repeat$}
   \label{fig:stat_maps}
@@ -1421,7 +1426,7 @@ replicate in the Activation Atlas, there may be an interaction between using the
 high CNR ROIs.
 Those two contrasts indicate the success of LSS and LSA to measure
 condition specific difference in ROI-ROI correlations when the events are in different blocks.
-The full Schaefer atlas has qualitatively similar results with two noteable exceptions:
+The full Schaefer atlas has qualitatively similar results with two notable exceptions:
 1) the $switch - repeat$ contrast using LSA found more statistically significant
 ROI-ROI pair correlation differences between conditions relative to chance,
 but LSS did not and
@@ -1691,8 +1696,8 @@ and when scan noise is more consistent across voxels than the beta series estima
 Our results in the Schaefer atlas contradict the first statement since the average CNR in the Schaefer atlas
 is at or below 1 (Table~\ref{table1}), suggesting LSS should have the advantage.
 Scan noise may be more correlated between brain areas than the beta series correlations, but this is unlikely
-since motion artifacts and large uniform changes in signal where censored during the beta series modelling steps.
-The reason for these discrepencies could be due to the differences in outcome measures used in previous work and
+since motion artifacts and large uniform changes in signal where censored during the beta series modeling steps.
+The reason for these discrepancies could be due to the differences in outcome measures used in previous work and
 this thesis.
 Namely, for the first point, they used the precision of correlation metric, with which the precision
 of the correlation is orthogonal to the ability to detect a difference between two correlations.
@@ -2025,7 +2030,7 @@ The implementation used in this thesis work performs gPPI.
 The third transformation of PPI analyses to date involves a peculiarity from the combination of
 deconvolution and not centering the psychological variable when computing a PPI~\cite{Di2017}.
 To conceptually understand this process we need to accept that deconvolution is imperfect, and if I
-deconvolved and reconvoled physiological BOLD signal,
+deconvolved and reconvolved physiological BOLD signal,
 I would not get the exact same BOLD signal (Equation~\ref{eq:decon_recon}).
 
 \begin{equation}
@@ -2315,7 +2320,7 @@ The computation of Psychophysiological interactions underwent multiple steps:
 1) extraction and cleaning of an ROI time series,
 2) deconvolution of an ROI time series~\cite{Gitelman2003},
 3) centering of the psychological variable~\cite{Di2017},
-4) up-sampling of both the deconconvoled ROI time series and psychological variable,
+4) up-sampling of both the deconvoled ROI time series and psychological variable,
 5) multiplication of the deconvolved ROI time series and psychological variable, and
 6) convolution of the resulting multiplicative in step 5.
 A simplified visualization of this process is in Figure~\ref{fig:ppi_method_overview}.
@@ -2397,7 +2402,7 @@ An example design matrix is illustrated in Figure~\ref{fig:example_ppi_design}.
     The $physio$ column represents BOLD signal from an ROI.
     The event type $firsttrial$ was not of interest in the contrasts,
     but included in the model for completeness.
-    The $constant$ column can also be refered to as the intercept.
+    The $constant$ column can also be referred to as the intercept.
   }
   \label{fig:example_ppi_design}
 \end{figure}
@@ -2509,21 +2514,23 @@ We did not use false discovery rate correction on the observed p-values since we
 which specific ROI-ROI pair correlations were likely to be true positives, but rather if the number of positives
 observed would be expected by chance alone or if LSS/LSA/PPI likely detected an overall difference between event conditions.
 
-We provided a description of the number of significant ROI-ROI pairs with increased context-dependent functional connectivity and
-decreased context-dependent functional connectivity to identify if context-dependent connectivity tends to increase or decrease overall
-for the contrasts $dual - single$, $repeat - single$, and $switch - repeat$, and see if the pattern replicates
-in the null data. 
-Within the null data, there is no expectation of context-dependent functional connectivity changing, so false
-positives should be equally distributed between increases and decreases in the significant ROI-ROI pairs.
-The ratio of positive results will help identify whether biases for increased/decreased context-dependent functional connectivity
-in real data are also seen in null data.
-
 With three separate methods being compared, we also measured agreement through convergence by correlating the
 context-dependent functional connectivity differences across all unique ROI-ROI pairs for each of the contrasts.
 For example, we compared the estimated connectivity differences between $switch - repeat$ for each unique
 ROI-ROI pair for every method (LSA, LSS, and PPI).
 The difference estimates for PPI were correlated with the difference estimates for LSS and LSA, providing
 evidence whether LSS or LSA are more similar to PPI~\cite{Steiger1980}.
+
+We also describe the number of significant positive and negative condition correlation differences
+for the contrasts $dual - single$, $repeat - single$, and $switch - repeat$
+in both the real and null data.
+If the data are null, we would expect the the number of positive and negative
+differences to be equal, however, the real data could demonstrate a pattern
+of results with more positive or negative differences.
+To test if the number of positive/negative differences is different from a $50/50$
+split we used a binomial test with the expected ratio of 50\%.
+We displayed the 95\% confidence interval to easily see if the interval
+overlaps with the expected 50\% ratio of positive differences.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/2e5d7d2443795133770383daaa401cf70cc03f29/PPITest/compare_bsc_ppi.ipynb}{see here for relevant code}).
 
 \subsection{Software Dependencies}
@@ -2553,8 +2560,11 @@ jupyter notebooks\cite{Kluyver2016a}, and the packages they depend on.
 We analyzed the data from three different perspectives:
 1) identifying whether each method found more significant results than expected,
 2) finding which method estimates are more closely related, and
-3) describing the pattern of increases and decreases of context-dependent functional connectivity
-in the significant ROI-ROI pairs for each method.
+3) describing the pattern of positive and negative context-dependent functional connectivity
+differences in the significant ROI-ROI pairs for each method.
+
+
+\subsection{Number of Significant Results}
 
 \begin{figure}[H]
   \centering
@@ -2610,12 +2620,14 @@ Within the SchaeferTop20 atlas with null data, both PPI and LSA had significant 
 $dual - single$ (LSA: 8.94\%; $p = 0.015$, LSS: 3.68\%; $p = 0.842$, PPI: 13.68\%; $p < 0.001$),
 $repeat - single$ (LSA: 12.63\%; $p < 0.001$, LSS: 4.74\%; $p = 0.613$, PPI: 12.63\%; $p < 0.001$), and
 $switch - repeat$ (LSA: 15.79\%; $p < 0.001$, LSS: 3.16\%; $p = 0.917$, PPI: 5.26\%; $p = 0.480$) (Figure~\ref{fig:null-schaeferbestppi}).
-These results are qualitatively similar to the full Schaefer atlas with the same two noteable exceptions
+These results are qualitatively similar to the full Schaefer atlas with the same two notable exceptions
 as stated in Chapter 2:
 1) the $switch - repeat$ contrast using LSA found more statistically significant
 ROI-ROI pair correlation differences between conditions relative to chance,
 but LSS and PPI did not and
 2) LSS has higher false positive rate than LSA, but still less than PPI (Figure~\ref{fig:schaefer_binomial_ppi}).
+
+\subsection{Correlations Between LSA/LSS/PPI}
 
 To find whether PPI was more similar to LSA or LSS, we correlated the contrast estimates for all of the contrasts
 ($dual - single$, $repeat - single$, and $switch - repeat$),
@@ -2663,20 +2675,21 @@ relative to the event-related contrast ($switch - repeat$), regardless of data (
     estimates from PPI from the Schaefer atlas.
     \textbf{NOTE}: the scatter plot points were binned to reduce figure size, but
     this does not impact the slopes of the regression lines.
-    If all dots were plotted, the image would look equivalently blobby
-    to the other atlases.
+    If all dots were plotted, the dots would equivalently 
+    distributed to the other atlases.
   }
   \label{fig:atlas-schaefer_correlations}
 \end{figure}
 
+\subsection{Proportion of Positive Condition Differences}
+
 Another descriptive variable we tracked was the proportion of significant ROI-ROI pairs
-that demonstrated increased context-dependent functional connectivity.
-In the null data, we would expect the the false positives to be split 50/50 between
-increasing (positive) context-dependent functional connectivity differences
-and decreasing (negative) context-dependent functional connectivity differences,
-whereas the real data may show a distinct bias towards either more ROI-ROI pairs
-increasing or decreasing their context-dependent functional connectivity.
-The specific measure I used was $positives / (positives + negatives)$ from the significant ROI-ROI pairs~\ref{fig:positive_bias}.
+that had positive or negative context-dependent connectivity differences.
+In the null data, we would expect the the false positives to be split $50/50$ between
+positive and negative context-dependent functional connectivity differences.
+Whereas the real data may show a tendency for positive or negative condition differences.
+The specific measure I used was $positives / (positives + negatives)$
+from the significant ROI-ROI pairs~\ref{fig:positive_bias}.
 
 \begin{figure}[H]
   \centering
@@ -2695,27 +2708,27 @@ The specific measure I used was $positives / (positives + negatives)$ from the s
   \subfloat[][]{\includegraphics[width=0.49\linewidth]{
     data-null_atlas-schaeferbest_positive_bias} 
   \label{fig:null-schaeferbestbias}}
-  \caption[Positive bias of LSA/LSS/PPI using participant data]{
-    An illustration of the positive bias for the significant ROI-ROI pairs
-    ($positives / (positives + negatives)$).
-    The center black bar represents having an equal number of significant
-    ROI-ROI pairs that are increasing and decreasing their context-dependent
-    functional connectivity.
+  \caption[Proportion of positive condition differences in LSA/LSS/PPI using participant data]{
+    An illustration of the proportion of positive condition differences
+    for significant ROI-ROI pairs ($positives / (positives + negatives)$).
+    The center black bar represents having an equal number of positive
+    and negative condition differences in significant
+    ROI-ROI pairs.
     The bars around the points indicate the 95\% confidence interval
     of the observed ratio.
-    The block contrasts ($Dual - Single$ and $Repeat - Single$) have a strong negative
-    bias in the real data and a smaller negative bias in the null data.
-    The event-related contrast ($Switch - Repeat$) positivity ratio is
-    similar between the real and null data for LSS and PPI, while LSA
-    has a larger positivity bias in the real data relative to the null.
+    The block contrasts ($Dual - Single$ and $Repeat - Single$) have mostly
+    negative conditions differences, suggesting the context-dependent functional
+    connectivity decreases when comparing $Dual$ or $Repeat$ to $Single$.
+    The event-related contrast ($Switch - Repeat$) has more positive
+    condition differences in both the real and null data.
   }
 \label{fig:positive_bias}
 \end{figure}
 
-The positivity bias generally is lower in the real data relative
+The proportion of positive differences is generally lower in the real data relative
 to the null data for the mixed block/event contrasts,
 providing further evidence suggesting the results represent a true context-dependent
-correlation change.
+correlation difference.
 The positivity bias from the event-related contrast however does not
 reliably distinguish the real and null data.
 
@@ -2763,28 +2776,33 @@ This strategy did not help with the event-related contrast ($Switch - Repeat$)
 suggesting CNR is not the only factor at play to increase sensitivity of
 the tests.
 
-The lowered context-dependent functional connectivity seen in the majority of the 
-significant ROI-ROI pairs for the contrasts
+There was a greater proportion of negative context-dependent functional connectivity
+differences for the contrasts
 $Dual - Single$ and $Repeat - Single$ in the real data (relative to the null data)
-(FIgure~\ref{fig:positive_bias}) agrees with previous work looking at
+(Figure~\ref{fig:positive_bias}).
+This finding agrees with previous work looking at
 context-dependent functional connectivity during various task states
 ~\cite{Cole2014a,Spadone2015,Di2019a,He2013,Ito2019,Hearne2020}.
 While the previous work emphasized the difference between task and rest, we extend
 the evidence to comparing a more cognitively demanding state ($Dual$ or $Repeat$)
-relative to a less cognitively demanding state ($single$).
+relative to a less cognitively demanding state ($Single$).
 Recent work has observed a negative correlation between the activation of an ROI
 and it's task evoked connectivity ~\cite{Hearne2020}.
 The hypothesis put forward is the decreased correlations represent less redundancy of
 information being transferred between ROIs and increased capacity to encode unique information.
 Since the activation atlas and the SchaeferTop20 atlas represent
-regions of high activity, their large proportion of decreased context-dependent functional connectivity results
+regions of high activity, their large proportion of negative
+context-dependent functional connectivity differences
 is congruent with the above hypothesis.
-Their work even shows across all cortical regions a task state reduces connectivity between ROIs relative to rest~\cite{Ito2019},
-matching the decreased context-dependent functional connectivity found in the Schaefer atlas as well~\ref{fig:positive_bias_schaefer}.
+Their work even shows across a majority of cortical
+regions a task state reduces
+connectivity between ROIs relative to rest~\cite{Ito2019},
+matching the decreased context-dependent functional connectivity
+found in the Schaefer atlas as well~\ref{fig:positive_bias_schaefer}.
 The $Switch - Repeat$ contrast presents a challenge to the theory since
 the switch events are typically viewed as being more cognitively demanding than repeat events,
 suggesting the $Switch - Repeat$ contrast should follow the same pattern as the others.
-There could be some idiosyncracy in the design of the experiment since the null data are also
+There could be some idiosyncrasy in the design of the experiment since the null data are also
 biased to show increased context-dependent functional connectivity results as well.
 Additionally, there were often fewer significant ROI-ROI pairs for the $Switch - Repeat$ contrast,
 giving lower confidence whether an actual bias exists (e.g., flipping a coin 3 times and getting all heads
@@ -3160,10 +3178,11 @@ to the network measures measured with BSC.
 Moving forward, there is at least a baseline of expected similarity between LSA/LSS/PPI from the work presented
 in the present thesis.
 
-The bias towards decreases in contextual functional connectivity deserves further discussion
-(Figures ~\ref{fig:positive_bias} \& ~\ref{fig:positive_bias_schaefer}).
-A common interpretation would be that a decreased correlation between two ROIs reflects less information
-sharing between the two ROIs, that an increasing correlation reflects greater information transfer~\cite{Gonzalez-Castillo2018}.
+The high proportion of negative contextual functional connectivity differences deserves
+further discussion (Figures ~\ref{fig:positive_bias} \& ~\ref{fig:positive_bias_schaefer}).
+A common interpretation would be that a low correlation between two ROIs reflects less information
+sharing between the two ROIs and that a high correlation
+reflects greater information transfer~\cite{Gonzalez-Castillo2018}.
 However, a recent theory suggests that any deviation from spontaneous resting activity
 (either activation or deactivation) should result in a decreased correlation between ROIs~\cite{Ito2019}.
 Their theory pulls from electrophysiological recordings in animals where
@@ -3180,7 +3199,7 @@ Instances of increased functional connectivity relative to rest primarily occurr
 networks that have low correlations during rest (e.g., Default Mode Network and Cingulo-Opercular Network).
 It is important to note Ito et al. (2019) used the residual correlations method for analyzing
 their task data preventing them from investigating changes in cognitive load within a task.
-The current thesis largely corraborates and extends the work by Ito et al. (2019),
+The current thesis largely corroborates and extends the work by Ito et al. (2019),
 showing a tendency for significant ROI-ROI context-dependent correlations to decrease
 when comparing a lower cognitive load ($Single$) to a higher cognitive load ($Repeat$ and $Dual$).
 The $Switch - Repeat$ contrast however showed an increase in context-dependent functional connectivity
@@ -3270,7 +3289,7 @@ where the interaction of the two factors (word or nonword and speak or read) can
 multiplied with a physiological variable.
 All lower order interactions must included in the model as well, increasing the number
 of parameters in the model.
-BSC can theoretically model a facorial design by treating all combinations of the factors
+BSC can theoretically model a factorial design by treating all combinations of the factors
 as separate event conditions.
 Thus, BSC would generate beta series for: 1) word-speak, 2) word-read, 3) nonword-speak,
 and 4) nonword-read.
