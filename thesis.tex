@@ -255,7 +255,7 @@ event-related, block, or mixed~\cite{Friston1995b,Buckner1996,Petersen2012} (Fig
 Event-related designs are when the word and nonword conditions are interleaved with each other (Figure~\ref{fig:event_design}).
 During one event the participant may read a word, but the next event several seconds later may be
 a nonword.
-Event-related designs are well suited to define the shape of the BOLD response to a stimulus (slow event related),
+Event-related designs are well suited to define the shape of the BOLD response to a stimulus (slow event-related),
 and when the experimental paradigm requires intermixing of conditions, for example if the researcher
 was interested in measuring the brain's response towards unexpectedness of seeing a nonword
 in a predominantly word sequence.
@@ -1591,7 +1591,7 @@ Based on the number of statistically significantly different ROI-ROI pair correl
 LSS and LSA cannot be easily distinguished.
 Overall, we have evidence that LSA and LSS are able to detect differences between
 blocks of events ($task - null$, $dual - single$, $repeat - single$), but not an event-related contrast ($switch - repeat$).
-This suggests our sample of 40 older adults may not have been large enough to detect a reliable event related effect,
+This suggests our sample of 40 older adults may not have been large enough to detect a reliable event-related effect,
 which should caution researchers to perform power analyses to determine an adequate sample size.
 % false positives?
 Contrary to the simulations where LSS was found to be more powerful,
@@ -2845,6 +2845,7 @@ Thus, one could summarize the individual event conditions using network measures
 while performing the same analysis using PPI is potentially ambiguous on what the network measure represents.
 
 \subsection{Limitations and Future Directions}
+
 This work is subject to a number of limitations.
 The implementation of PPI used in this manuscript is based on
 home-grown analysis pipeline and has not been vigorously tested
@@ -3166,6 +3167,7 @@ Several additional key insights are listed in Table~\ref{table:comparison}.
 \end{table}
 
 \section{Network Measures}
+\label{network-measures}
 
 Network measures could be used to compare real data from null data such as: participation coefficient,
 modularity, and clustering coefficient~\cite{Rubinov2010}.
@@ -3188,6 +3190,7 @@ ROIs that exhibit increased correlations.
 Broadly, the clustering coefficient measures how efficiently information flows between local nodes.
 I would expect this measure to decrease as well as cognitive effort increases since cognitive effort is likely
 sustained by a more distributed effort~\cite{Di2013}.
+
 As for calculating the network measures, BSC methods have a straightforward interpretation as each
 event condition is represented independently.
 However, PPI analyses are less straightforward since the $\beta$ estimate for each PPI represents
@@ -3325,7 +3328,7 @@ However, treating each factor combination as an independent event condition does
 interaction occurring between the factors.
 Thus I would predict PPI analyses and BSC would diverge on their estimates.
 
-\section{Improve Simulations}
+\section{Improving Simulations}
 
 Simulated data are a gold standard for method validation, but as demonstrated in my
 thesis, careful consideration must be taken to ensure what the simulations represent.
@@ -3333,32 +3336,107 @@ While the simulations concluded LSS was the more powerful method, the
 participant data showed a relative weakness for LSS to detect a
 context-dependent functional connectivity difference for an
 event-related contrast.
+The reason for this discrepency was because of how the simulated
+beta series correlation conditions were subtracted.
+The simulated beta series correlations were generated with another condition
+of non-interest interleaved with the condition of interest, but the calculated
+correlation was subtracted from a correlation that was
+generated from another simulation.
+Thus while the simulations reflected the difficulty of comparing two conditions
+when the HRF is overlapping, the two conditions being compared did not come
+from the same simulation instance and so I was not measuring the impact
+of comparing two conditions from the same simulation.
+Whether or not the conditions were from the same simulation
+turned out to be important to generalize the event-related contrast
+in the participant data.
+A smaller simulation confirmed the importance of comparing conditions
+that come from the same simulation instance
+(\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/49e95ff36721abc66fde67202a34866979af0954/nibsAnalysis/investigate_induced_correlations.ipynb}{see code here}).
 
-\begin{itemize}
-  \item Atlas choice may matter
-  \item PPI methods can adopt to parametric and factorial designs easier
-  \item We wanted to know if our choice of method mattered and under which circumstances we should use the methods.
-  \item PPI would likely be the best choice for low frequency events since the estimate will still use all time points
-        as opposed to BSC, where if there were only 4 events, I would be stuck trying to calculate a correlation with 4 numbers
-        (possible, but not very reliable)
-  \item LSA (and to a lesser extent LSS) perform similarly (in terms of model fit) whether their are 2 or 6 event conditions
-        (but they will suffer if there are few events to make correlations with), however, for each additional PPI,
-        two regressors must be added, which could lead to increased variance in the $\beta$ estimates.
-        It is important to note that LSA already suffers from a large number of regressors (can't get much worse). 
-  \item could add a deconvolved/reconvolved physiological regressor to PPI model
-  \item all methods show more significant decreases for mixed-event block contrasts, support for information transfer occurring via less redundancy
-        (i.e., more efficient representations)?
-  \item The above suggestion may allow one use network analysis methods on PPI, nope, not true after correspondence with Dr. Di
-  \item could try deconvolving the LSA/LSS estimates to see if the results are better in neural spaces
-	\item PPI generally is more sensitive, but less specific (e.g., shows lots of significant results whether or not data is real or null)
-	\item LSA/LSS still only choice to look at contexts in isolation (there is implicit contrast with PPI)
-	\item LSA/LSS could be used to choose potential regions of interest in a data driven way (CNR)
-	\item holistic network measures could be applied
-	\item a higher correlation between estimates does not necessarily translate to identifying same ROI-ROI pairs.
-	\item LSA/LSS could be used to further parse the difference between "task" state and "task" evoked state.
-	\item Since LSS is more correlated with PPI, suggests they are measuring closer to the "same" thing
-	\item Single event estimates between LSA/LSS are highly correlated
-\end{itemize}
+In addition to improving the simulations used to compare LSS/LSA,
+an important next step is to include PPI analysis.
+Since various experimental parameters were tested between LSS/LSA,
+it would be informative to know if the correlation between LSS and PPI
+is stronger under a variety of experimental conditions or if
+the correlation between LSS and PPI breaks down in certain scenerios.
+Furthermore, if the methods disagree, I can see which method
+is more likely to be correct since I know the ground truth from
+the simulations.
+
+Once a variety of experimental conditions are compared, more complex
+simulations can be used to measure how network dynamics could change.
+These more complex simulations would offer insight on how the PPI
+$\beta$ estimates capture the ground truth network dynamics.
+As mentioned in \nameref{network-measures}, the PPI $\beta$ estimate
+represents an implicit difference between the condition of interest
+and an average of all other conditions, potentially obscuring the network
+dynamics for that condition.
+These simulations would help identify if PPI $\beta$ estimates could be
+interpetable when calculating network measures.
+
+The more complex simulations could also include spatial and temporal
+noise sources.
+Temporal sources of noise were already included in this thesis work,
+but the impact of spatial noise has been ignored.
+fmrisim~\cite{Ellis2020} has the capability to simulate spatial and
+temporal noise builtin making the extension to include these simulations
+relatively straight forward.
+From these simulations I could determine whether different aspects of
+spatial and temporal noise could drive changes in network
+dynamics independent of ground truth network dynamics I set.
+From these simulations I could identify what types of network dynamic
+changes could be driven by noise.
+If the more complex simulations include whole brain simulations,
+I could run the simulated brains through fmriprep~\cite{fmriprep1}
+to mirror the preprocessing steps that one would normally take
+to prepare their data.
+After preprocessing, I could test using different combinations of
+confounds to test if a certain combination better captures the
+ground truth network organization.
+Simulating and emulating a typical analysis workflow would
+drive insights surrounding experimental design, confound selection,
+and method choice to measure context-dependent functional connectivity
+differences.
+
+\section{Conclusion}
+
+Measuring context-dependent functional connectivity differences between
+event-related conditions remains a difficult challenge.
+My dissertation investigated several methods that could
+measure context-dependent functional connectivity
+using mixed block/event-related design and discovered PPI
+analysis is the most sensitive method, but is also the least specific
+relative to the BSC methods (LSS and LSA).
+This work highlights the importance of combining
+simulations with real data to validate methods, and lays a framework
+to help other researchers choose which method they should use
+for their experimental design.
+
+% \begin{itemize}
+%   \item Atlas choice may matter
+%   \item PPI methods can adopt to parametric and factorial designs easier
+%   \item We wanted to know if our choice of method mattered and under which circumstances we should use the methods.
+%   \item PPI would likely be the best choice for low frequency events since the estimate will still use all time points
+%         as opposed to BSC, where if there were only 4 events, I would be stuck trying to calculate a correlation with 4 numbers
+%         (possible, but not very reliable)
+%   \item LSA (and to a lesser extent LSS) perform similarly (in terms of model fit) whether their are 2 or 6 event conditions
+%         (but they will suffer if there are few events to make correlations with), however, for each additional PPI,
+%         two regressors must be added, which could lead to increased variance in the $\beta$ estimates.
+%         It is important to note that LSA already suffers from a large number of regressors (can't get much worse). 
+%   \item could add a deconvolved/reconvolved physiological regressor to PPI model
+%   \item all methods show more significant decreases for mixed-event block contrasts, support for information transfer occurring via less redundancy
+%         (i.e., more efficient representations)?
+%   \item The above suggestion may allow one use network analysis methods on PPI, nope, not true after correspondence with Dr. Di
+%   \item could try deconvolving the LSA/LSS estimates to see if the results are better in neural spaces
+% 	\item PPI generally is more sensitive, but less specific (e.g., shows lots of significant results whether or not data is real or null)
+% 	\item LSA/LSS still only choice to look at contexts in isolation (there is implicit contrast with PPI)
+% 	\item LSA/LSS could be used to choose potential regions of interest in a data driven way (CNR)
+% 	\item holistic network measures could be applied
+% 	\item a higher correlation between estimates does not necessarily translate to identifying same ROI-ROI pairs.
+% 	\item LSA/LSS could be used to further parse the difference between "task" state and "task" evoked state.
+% 	\item Since LSS is more correlated with PPI, suggests they are measuring closer to the "same" thing
+% 	\item Single event estimates between LSA/LSS are highly correlated
+% \end{itemize}
 
 %=============================================================================
 % bibliography
