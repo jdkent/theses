@@ -577,7 +577,8 @@ The second difference acknowledges that correlation is different from regression
 This is relevant if one event condition has a higher variance than the other event condition,
 which would impact the correlations in BSC, but not the regression slope in PPI analyses.
 
-With the differences between the BSC methods (LSA and LSS) and PPI, it is difficult to ascertain whether
+With the differences between the BSC methods (LSA and LSS)
+and PPI, it is difficult to ascertain whether
 they will all produce very similar or divergent results, and if they 
 diverge, it is unknown which method researchers should have more confidence in.
 Furthermore, to my knowledge, no other research exists that formally compares
@@ -1924,10 +1925,11 @@ which analysis path they should take amid the forking paths of researcher degree
 %=============================================================================
 
 While BSC was originally created to detect context-dependent functional connectivity
-differences, there was another method
-that preceded BSC, named psychophysiological interaction (PPI) analysis ~\cite{Friston1997}. 
-PPIs are designed to identify brain areas that are differently functionally connected
-during specific contexts relative to others.
+differences in 2004, there was another method
+that preceded BSC in 1997 named psychophysiological
+interaction (PPI) analysis ~\cite{Friston1997}. 
+PPI analyses are designed to identify brain areas that are differently functionally connected
+during specific contexts relative to other contexts.
 If this sounds like the same goal as BSC, you would be correct, although PPI
 analyses take a different approach.
 There are three necessary components to any PPI.
@@ -1936,17 +1938,19 @@ either needs to read a word or nonword.
 The second is the physiological variable, such as the BOLD signal from
 the motor cortex.
 The third variable is the PPI itself, which represents a multiplication
-between the psychological variable and the physiological variable.
+between the psychological variable (e.g., word)
+and the physiological variable (e.g., motor cortex BOLD signal).
 If our dependent variable is the BOLD signal in the medial frontal gyrus,
 then we can answer the question if the motor cortex and medial frontal gyrus
 are differently functionally connected during word reading events relative
 to nonword reading events, potentially isolating the process of
 lexical processing.
 
-PPI analyses have undergone several transformations since their inception in 1997 including:
-1) deconvolution~\cite{Gitelman2003}, 2) multi-conditional psychological variables~\cite{McLaren2012},
-and 3) correcting imperfect deconvolution~\cite{Di2017}.
-I will cover each of these transformations in turn.
+PPI analyses have undergone several innovations since their inception in 1997 including:
+1) deconvolution~\cite{Gitelman2003}, 2) including three or more 
+psychological variables~\cite{McLaren2012}, and 3) correcting 
+imperfect deconvolution~\cite{Di2017}.
+I will cover each of these innovations in turn.
 
 The necessity of deconvolution was investigated by Gitelman~\cite{Gitelman2003} who demonstrated
 that calculating a PPI at the BOLD level is not mathematically equivalent to calculating
@@ -1981,14 +1985,14 @@ While convolution is distributive with scalar multiplication (Equation~\ref{eq:c
   (HRF \circledast neural) \cdot 2 = (HRF \circledast neural \cdot 2) 
   \label{eq:conv_distributive}
 \end{equation}
-the cross product of the $neural$ and $psych$ vectors are distributive (Equation~\ref{eq:cross_product}),
+the cross product of the $neural$ and $psych$ vectors is distributive (Equation~\ref{eq:cross_product}),
 \begin{equation}
   neural * psych = psych * neural
   \label{eq:cross_product}
 \end{equation}
 convolution is not distributive over vector cross products (Equation~\ref{eq:neq_conv}).
-Since convolution is related to integrals,
-we can demonstrate the inequality with a small example in
+Since convolution is related to the integral,
+we demonstrate the inequality with a small example in
 equations~\ref{eq:familiar_int} and~\ref{eq:familiar_int2}.
 \begin{equation}
   x \cdot \int 2x = x \cdot x^2 = x^3
@@ -1998,7 +2002,10 @@ equations~\ref{eq:familiar_int} and~\ref{eq:familiar_int2}.
    \int 2x \cdot x = \int 2x^2 = 2x^3 / 3
   \label{eq:familiar_int2}
 \end{equation}
-To get the neural signal we need to deconvolve the BOLD signal (option 1).
+Thus the inequity of calculating the PPI at the BOLD level versus
+the neural level coupled with the fact the interaction of interest
+occurs at the neural level motivates the
+need to deconvolve the BOLD signal (option 1).
 Deconvolution of the BOLD signal is not a well defined problem since
 we do not know the exact neural process that gave rise to the BOLD signal.
 Therefore we have to rely on regularized regression with an over-complete
@@ -2006,28 +2013,32 @@ basis set.
 Over-complete meaning there are more columns (the basis set) than there
 are rows (the BOLD signal).
 In other words, there are more predictors than there are samples.
-Since the BOLD signal is noisy and assumed hemodynamic response function
+Since the BOLD signal is noisy and the assumed hemodynamic response function
 may not match the data, some software packages simply do not attempt
 deconvolution and swallow the error from multiplying the physiological and psychological
 variables at the BOLD level.
-Other software packages bite the bullet and attempt deconvolution.
+Other software packages attempt deconvolution through a variant of
+regularized regression.
 In block designs where contexts are not intermixed the difference between
-methods appears inconsequential, but with rapid event-related designs,
+deconvolving or not appears inconsequential, but with rapid event-related designs,
 deconvolution is essential to separate the influence of intermixed contexts.
 The implementation used in this thesis work performs deconvolution.
 
-The second transformation of PPI analyses came from McLaren et al. (2012)~\cite{McLaren2012}.
+The second innovation of PPI analyses came from McLaren et al. (2012)~\cite{McLaren2012}.
 Their goal was to properly represent experiments with more than two experimental conditions, like
-in task switching, where there are three event conditions of interest: $switch$, $repeat$, and $single$.
-Traditionally, the psychological variable was a contrast between two event conditions, such as
-$switch - repeat$ to create one PPI for analyses.
+in task switching, where there are three event conditions of interest:
+$Switch$, $Repeat$, and $Single$.
+Traditionally, the psychological variable used to calculate a PPI
+was a contrast between two event conditions, such as
+$Switch - Repeat$.
 McLaren et al. (2012) suggested an alternative strategy where researchers could
 calculate a separate PPI for each psychological variable independently and then
-perform contrasts between the $\beta$ estimates to find differences in context-dependent functional connectivity.
+perform contrasts between the $\beta$ estimates for the PPIs
+to find differences in context-dependent functional connectivity.
 This method is known as generalized PPI (gPPI) analysis.
 The implementation used in this thesis work performs gPPI.
 
-The third transformation of PPI analyses to date involves a peculiarity from the combination of
+The third innovation of PPI analyses to date involves a peculiarity from the combination of
 deconvolution and not centering the psychological variable when computing a PPI~\cite{Di2017}.
 To conceptually understand this process we need to accept that deconvolution is imperfect, and if I
 deconvolved and reconvolved physiological BOLD signal,
@@ -2066,7 +2077,7 @@ as well as scaled multiple of the physiological deconvolved BOLD signal
  \label{eq:ppi_bad}
 \end{equation}
 
-When we reconvolve the neural PPI (and the implicit scaled neural signal a part of the PPI),
+When we reconvolve the neural PPI (and the implicit scaled neural signal included in the PPI),
 we have the PPI we want and a deconvolved/reconvolved physiological BOLD signal that is not equivalent to the
 original physiological BOLD signal (Equation~\ref{eq:decon_recon}).
 Even if we include the original $BOLD$ signal in the model, it will not fully account for the 
@@ -2079,24 +2090,26 @@ If we do not use deconvolution, then the original $BOLD$ signal included in the 
 for the $BOLD$ signal also included in the $PPI^*$ term.
 Thus in order to create correct PPIs using deconvolution, the psychological variables must be centered.
 
-Previous work has compared BSC methods to PPI analyses~\cite{Cisler2012,Di2019}.
-Cisler et al. (2012) found BSC to be more powerful in event related designs
-and PPI to be more powerful in block designs, whereas Di et al. (2019)
-found PPI to be more powerful in both block and event-related designs,
+PBSC methods and PPI analyses have been compared previously~\cite{Cisler2012,Di2019}.
+Cisler et al. (2012) found BSC to be more powerful in event-related designs
+and PPI analyses to be more powerful in block designs, whereas Di et al. (2019)
+found PPI analyses to be more powerful in both block and event-related designs,
 thus it remains an open question whether PPI is more powerful in
 event-related designs.
 Additionally, previous work only used the LSS implementation of BSC.
 Since LSA and LSS have largely non-overlapping results, it will be informative
-to identify which BSC method is most correlated with PPI analyses.
+to identify which BSC method is most correlated with PPI analysis.
 Finally, previous work used different quantitative measures
 (i.e., number of detected clusters from a seed region analysis)
 and did not include null data to compare their results against, so it is
-difficult to measure whether LSA/LSS/PPI are likely to give false positives.
+difficult to test if false positives drove the
+conclusion in previous work comparing LSA/LSS/PPI.
 
-In this chapter we ask:
-1) whether BSC methods or PPI analysis are more sensitive,
-2) whether BSC methods or PPI analysis are more specific, and
-3) which BSC method correlates more with PPI.
+To expand on previous work by including a null data and
+including both LSA and LSS, in this chapter we ask:
+1) whether BSC methods or PPI analyses are more sensitive,
+2) whether BSC methods or PPI analyses are more specific, and
+3) which BSC method correlates most with PPI analysis.
 
 \section{Materials and Methods}
 
@@ -2316,14 +2329,15 @@ represents the number of events in that condition.
 
 \subsection{Psychophysiological Interaction Modeling}
 
-The computation of Psychophysiological interactions underwent multiple steps:
+The computation of psychophysiological interactions underwent multiple steps:
 1) extraction and cleaning of an ROI time series,
 2) deconvolution of an ROI time series~\cite{Gitelman2003},
 3) centering of the psychological variable~\cite{Di2017},
 4) up-sampling of both the deconvoled ROI time series and psychological variable,
 5) multiplication of the deconvolved ROI time series and psychological variable, and
-6) convolution of the resulting multiplicative in step 5.
-A simplified visualization of this process is in Figure~\ref{fig:ppi_method_overview}.
+6) convolution of the resulting interaction term in step 5.
+A simplified visualization of deconvolution, multiplication,
+and reconvolution process is in Figure~\ref{fig:ppi_method_overview}.
 
 \begin{figure}[H]
   \centering
@@ -2350,7 +2364,7 @@ We deconvolved the ROI time series using a Fourier basis set convolved with
 SPM's hemodynamic response function as predictors using ridge regression.
 Ridge regression was implemented in Scikit-Learn setting the alpha (regularization)
 parameter to 0.0001, but keeping all other parameters at their default values.
-Independently, we took each psychological condition of interest ($switch$, $repeat$, and $single$)
+Independently, we took each psychological condition of interest ($Switch$, $Repeat$, and $Single$)
 represented as a stick function (i.e., 1's where the stimulus was "on" and 0's everywhere else)
 and mean centered each psychological condition separately.
 The stimuli were presented for less time (1.5 seconds) than the acquisition of
@@ -2391,7 +2405,7 @@ $\beta_{switch\_ppi}$, $\beta_{repeat\_ppi}$, and $\beta_{single\_ppi}$
 represent the context dependent functional connectivity estimates for
 each event condition.
 $X_{switch\_ppi}$, $X_{repeat\_ppi}$, and $X_{single\_ppi}$ represent
-the multiplicative between the ROI time series and each event condition.
+the interaction between the ROI time series and each event condition.
 An example design matrix is illustrated in Figure~\ref{fig:example_ppi_design}.
 
 \begin{figure}[H]
@@ -2414,7 +2428,7 @@ This equation was run for every unique ROI-ROI pair in both directions
 (e.g., $Y$ and $X_{ROI}$ swap places) resulting in an
 asymmetrical correlation matrix for each of the mentioned contrasts.
 For reference, the first term in the first listed contrast ($((switch\_ppi + repeat\_ppi) / 2)$)
-is referred to as the $dual$ condition because it represents the functional connectivity during the
+is referred to as the $Dual$ condition because it represents the functional connectivity during the
 two-task blocks.
 
 \subsection{Atlas Generation}
@@ -2496,7 +2510,7 @@ BSC generated correlation matrices for each condition (dual, switch, repeat, sin
 each method, (LSA and LSS), each data type (real and null), and each participant (N=40).
 A paired t-test was run on each ROI-ROI pair for the activation atlas, totaling 210 comparisons
 between task and null.
-We contrasted $dual - single$, $repeat - single$, and $switch - repeat$, for LSS/LSA in both
+We contrasted $Dual - Single$, $Repeat - Single$, and $Switch - Repeat$, for LSS/LSA in both
 real and null data.
 
 \subsection{PPI Analysis}
@@ -2516,13 +2530,13 @@ observed would be expected by chance alone or if LSS/LSA/PPI likely detected an 
 
 With three separate methods being compared, we also measured agreement through convergence by correlating the
 context-dependent functional connectivity differences across all unique ROI-ROI pairs for each of the contrasts.
-For example, we compared the estimated connectivity differences between $switch - repeat$ for each unique
+For example, we compared the estimated connectivity differences between $Switch - Repeat$ for each unique
 ROI-ROI pair for every method (LSA, LSS, and PPI).
 The difference estimates for PPI were correlated with the difference estimates for LSS and LSA, providing
 evidence whether LSS or LSA are more similar to PPI~\cite{Steiger1980}.
 
 We also describe the number of significant positive and negative condition correlation differences
-for the contrasts $dual - single$, $repeat - single$, and $switch - repeat$
+for the contrasts $Dual - Single$, $Repeat - Single$, and $Switch - Repeat$
 in both the real and null data.
 If the data are null, we would expect the the number of positive and negative
 differences to be equal, however, the real data could demonstrate a pattern
@@ -2741,18 +2755,23 @@ for event-related contrasts, and either PPI or LSS for mixed event-related/block
 With LSS, you may have fewer results relative to PPI, but based on this data-set,
 LSS is less prone towards finding spurious results relative to both LSA and PPI.
 
-The choice of atlas did not have a strong impact on LSS's and LSA's relationship with
-the PPI analysis.
+The choice of atlas did not have a strong impact on LSS's and LSA's correlation with
+PPI analyses.
 LSS was almost always more correlated with PPI than LSA was correlated with PPI indicating
 LSS and PPI are more related than LSA and PPI.
-The stronger relationship between LSS and PPI could be due to both methods being biased by adjacent
-events since the deconvolution of the BOLD signal does not remove the event to event
-variances of adjacent events similarly to LSS.
-Whereas LSA only keeps the unique event variance and any shared variance with adjacent events
-is not given to any event.
+The stronger relationship between LSS and PPI could be
+due to both methods being influenced by adjacent
+events.
+The deconvolution of the BOLD signal used in PPI analyis
+does not remove the event to event variances of adjacent events.
+Similarly, in LSS the $\beta$ estimate for the event of interest
+is not forced to be orthogonal to adjacent events and as such
+influence the $\beta$ estimate for the target event.
+In contrast, LSA only keeps the unique event variance and any
+shared variance with adjacent events is not given to any event.
 This does not explain why LSS would have poor performance with event-related contrasts
 and why PPI would perform relatively well. 
-However, the higher correlation between LSS and PPI analyses estimates
+Additionally, the higher correlation between LSS and PPI analyses estimates
 did not translate to a large agreement of which ROI-ROI pairs were found
 significant between LSS and PPI (Figure ~\ref{fig:data-null_type-brain_atlas-activation_contrast-dualxsingle}).
 This implies while LSS and PPI estimates are often in the same direction, the magnitude
@@ -2760,7 +2779,7 @@ of the estimates are different.
 If the magnitude is different between LSS and PPI estimates,
 one method may reach significance for a particular ROI-ROI pair while the other method
 may not reach the threshold.
-Thus, there is still significant variance between LSA/LSS/PPI producing unique results,
+Thus, there is still significant variance between LSA/LSS/PPI producing unique results
 depending on which method is chosen.
 
 An intriguing result is the large percentage of significant ROI-ROI pairs found by
@@ -2772,9 +2791,9 @@ highly activated regions.
 The derivation of CNR does not select for ROIs that have context-dependent
 connectivity differences so this strategy does not suffer from
 double-dipping~\cite{Kriegeskorte2009}.
-This strategy did not help with the event-related contrast ($Switch - Repeat$)
+However, this strategy did not help with the event-related contrast ($Switch - Repeat$)
 suggesting CNR is not the only factor at play to increase sensitivity of
-the tests.
+detecting context-dependent functional connectivity differences.
 
 There was a greater proportion of negative context-dependent functional connectivity
 differences for the contrasts
@@ -2797,7 +2816,7 @@ is congruent with the above hypothesis.
 Their work even shows across a majority of cortical
 regions a task state reduces
 connectivity between ROIs relative to rest~\cite{Ito2019},
-matching the decreased context-dependent functional connectivity
+matching the negative context-dependent functional connectivity differences
 found in the Schaefer atlas as well~\ref{fig:positive_bias_schaefer}.
 The $Switch - Repeat$ contrast presents a challenge to the theory since
 the switch events are typically viewed as being more cognitively demanding than repeat events,
@@ -2805,8 +2824,9 @@ suggesting the $Switch - Repeat$ contrast should follow the same pattern as the 
 There could be some idiosyncrasy in the design of the experiment since the null data are also
 biased to show increased context-dependent functional connectivity results as well.
 Additionally, there were often fewer significant ROI-ROI pairs for the $Switch - Repeat$ contrast,
-giving lower confidence whether an actual bias exists (e.g., flipping a coin 3 times and getting all heads
-is less surprising than flipping the coin 20 times and getting all heads).
+giving lower confidence whether an actual
+trend exists (e.g., flipping a coin 3 times and getting all heads
+is less surprising than flipping a coin 20 times and getting all heads).
 
 PPI may be the better method for detecting context-dependent functional connectivity
 differences, and as such could be extended to include spatiotemporal relationship as BSC methods
@@ -2853,14 +2873,14 @@ resting state BOLD oscillations.
 While the data suggest that mixed event/block contrasts are more likely to show results relative to event-related contrasts,
 we did not control for the cognitive effort difference between the conditions.
 We cannot rule out the possibility that the difference in cognitive effort for
-$switch$ and $repeat$ is less than the difference between $repeat$ and $single$.
+$Switch$ and $Repeat$ is less than the difference between $Repeat$ and $Single$.
 In fact, in the context of an older adult population like the one used here,
-age tends to impact global switch costs (i.e., $repeat - single$) more than local
-switch cost (i.e., $switch - repeat$), possibly resulting in greater difficulty to detect
+age tends to impact global switch costs (i.e., $Repeat - Single$) more than local
+switch cost (i.e., $Switch - Repeat$), possibly resulting in greater difficulty to detect
 differences between the two conditions~\cite{Wasylyshyn2011}.
 Future work could incorporate a study using younger adults with several runs of the same task, where
-the contrast would be calculated between events of the same run (e.g., $switch_{run1} - repeat_{run1}$
-and between the events in separate runs (e.g., $switch_{run1} - repeat_{run2}$).
+the contrast would be calculated between events of the same run (e.g., $Switch_{run1} - Repeat_{run1}$
+and between the events in separate runs (e.g., $Switch_{run1} - Repeat_{run2}$).
 This design would control for cognitive effort differences while contrasting event conditions that are adjacent
 to each other versus from separate runs.
 
@@ -3116,16 +3136,15 @@ from interleaved events.
 %=============================================================================
 
 In the course of this thesis I validated and compared two BSC methods (LSS and LSA) and compared
-the BSC methods with the older and more accepted method PPI to investigate
-which method is best able to detect differences in context-dependent functional
-connectivity.
+the BSC methods with the older and more accepted PPI analysis to investigate
+which method is best able to detect context-dependent functional
+connectivity differences.
 Overall, I have found PPI is the most sensitive, but least specific method, LSS
 is the least sensitive, but most specific method, and LSA sits in the middle.
 Additionally, I have discovered PPI contrast estimates are more correlated
 with LSS contrast estimates relative to LSA contrast estimates, suggesting
-LSS and PPI measures are more related.
-Several additional key insights are listed in Table~\ref{table:comparison} when using
-atlas with ROIs that were either significant active in the task or have a high CNR.
+LSS and PPI methods are more related.
+Several additional key insights are listed in Table~\ref{table:comparison}.
 
 \begin{table}[H]
   \centering
@@ -3145,6 +3164,8 @@ atlas with ROIs that were either significant active in the task or have a high C
   functional connectivity differences.
   \label{table:comparison}
 \end{table}
+
+\section{Network Measures}
 
 Network measures could be used to compare real data from null data such as: participation coefficient,
 modularity, and clustering coefficient~\cite{Rubinov2010}.
@@ -3178,6 +3199,8 @@ to the network measures measured with BSC.
 Moving forward, there is at least a baseline of expected similarity between LSA/LSS/PPI from the work presented
 in the present thesis.
 
+\section{Negative Context-Dependent Functional Correlation Differences}
+
 The high proportion of negative contextual functional connectivity differences deserves
 further discussion (Figures ~\ref{fig:positive_bias} \& ~\ref{fig:positive_bias_schaefer}).
 A common interpretation would be that a low correlation between two ROIs reflects less information
@@ -3208,6 +3231,8 @@ design of the experiment led to the results independent of the data.
 Replication using different event-related tasks is required to make a more definitive
 claim.
 
+\section{Including Behavior}
+
 Future work should combine context-dependent functional connectivity measures and behavior.
 A common way to connect brain function and behavior is through correlating the brain measure
 with a behavioral measure and observe individual differences.
@@ -3222,6 +3247,7 @@ will decrease when measurement error increases ($ErrorVariance$),
 but notably ICC will also decrease if variance between Individuals
 decreases (holding other factors constant)(Equation~\ref{eq:icc}).
 \begin{equation}
+  \fontsize{10}{12}\selectfont
   ICC = \frac{Variance Between Individuals}{Variance Between Individuals + Error Variance + Variance Between Sessions}
   \label{eq:icc}
 \end{equation}
@@ -3249,6 +3275,8 @@ such choices require training to use appropriately, and could lead to an inaccur
 model of the data~\cite{West2008,Bates2015}.
 Thus, while it is important to consider behavior in combination with brain function,
 there are a number of important considerations to assure a proper analysis.
+
+\section{Unique Abilities of BSC and PPI Analyses}
 
 Beyond detecting changes in context-dependent functional connectivity in two discrete
 conditions, BSC and PPI methods have unique capabilities that set them apart.
@@ -3296,6 +3324,15 @@ and 4) nonword-read.
 However, treating each factor combination as an independent event condition does not model the
 interaction occurring between the factors.
 Thus I would predict PPI analyses and BSC would diverge on their estimates.
+
+\section{Improve Simulations}
+
+Simulated data are a gold standard for method validation, but as demonstrated in my
+thesis, careful consideration must be taken to ensure what the simulations represent.
+While the simulations concluded LSS was the more powerful method, the 
+participant data showed a relative weakness for LSS to detect a
+context-dependent functional connectivity difference for an
+event-related contrast.
 
 \begin{itemize}
   \item Atlas choice may matter
