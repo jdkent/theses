@@ -2090,7 +2090,7 @@ If we do not use deconvolution, then the original $BOLD$ signal included in the 
 for the $BOLD$ signal also included in the $PPI^*$ term.
 Thus in order to create correct PPIs using deconvolution, the psychological variables must be centered.
 
-PBSC methods and PPI analyses have been compared previously~\cite{Cisler2012,Di2019}.
+BSC methods and PPI analyses have been compared previously~\cite{Cisler2012,Di2019}.
 Cisler et al. (2012) found BSC to be more powerful in event-related designs
 and PPI analyses to be more powerful in block designs, whereas Di et al. (2019)
 found PPI analyses to be more powerful in both block and event-related designs,
@@ -2333,7 +2333,7 @@ The computation of psychophysiological interactions underwent multiple steps:
 1) extraction and cleaning of an ROI time series,
 2) deconvolution of an ROI time series~\cite{Gitelman2003},
 3) centering of the psychological variable~\cite{Di2017},
-4) up-sampling of both the deconvoled ROI time series and psychological variable,
+4) up-sampling of both the deconvolved ROI time series and psychological variable,
 5) multiplication of the deconvolved ROI time series and psychological variable, and
 6) convolution of the resulting interaction term in step 5.
 A simplified visualization of deconvolution, multiplication,
@@ -2762,7 +2762,7 @@ LSS and PPI are more related than LSA and PPI.
 The stronger relationship between LSS and PPI could be
 due to both methods being influenced by adjacent
 events.
-The deconvolution of the BOLD signal used in PPI analyis
+The deconvolution of the BOLD signal used in PPI analysis
 does not remove the event to event variances of adjacent events.
 Similarly, in LSS the $\beta$ estimate for the event of interest
 is not forced to be orthogonal to adjacent events and as such
@@ -3336,7 +3336,7 @@ While the simulations concluded LSS was the more powerful method, the
 participant data showed a relative weakness for LSS to detect a
 context-dependent functional connectivity difference for an
 event-related contrast.
-The reason for this discrepency was because of how the simulated
+The reason for this discrepancy was because of how the simulated
 beta series correlation conditions were subtracted.
 The simulated beta series correlations were generated with another condition
 of non-interest interleaved with the condition of interest, but the calculated
@@ -3358,7 +3358,7 @@ an important next step is to include PPI analysis.
 Since various experimental parameters were tested between LSS/LSA,
 it would be informative to know if the correlation between LSS and PPI
 is stronger under a variety of experimental conditions or if
-the correlation between LSS and PPI breaks down in certain scenerios.
+the correlation between LSS and PPI breaks down in certain scenarios.
 Furthermore, if the methods disagree, I can see which method
 is more likely to be correct since I know the ground truth from
 the simulations.
@@ -3372,7 +3372,7 @@ represents an implicit difference between the condition of interest
 and an average of all other conditions, potentially obscuring the network
 dynamics for that condition.
 These simulations would help identify if PPI $\beta$ estimates could be
-interpetable when calculating network measures.
+interpretable when calculating network measures.
 
 The more complex simulations could also include spatial and temporal
 noise sources.
