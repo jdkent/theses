@@ -5,9 +5,17 @@
 \NeedsTeXFormat{LaTeX2e}[1995/06/01]
 \ProvidesClass{uithesis}[1999/04/16 Univ. of Iowa Thesis Class]
 % ChangeLog
+
+% Wednesday April 8 2015 Jessica Williams <jessica-l-williams@uiowa.edu>
+%	 * Fixed TOC line spacing between final chapter and REFERENCES heading for bibliography.  Made doctoral abstract an option with boolean argument.
+%
 % December 19, 2013 Andrew Reynolds AJR (andrew.j.reynolds@gmail.com)
 %    * Fixed appendix line in table of contents.  
 %      Made phd abstract optional, since it is no longer required.
+%
+% Saturday May 18 2013 Ray Hylock <ray-hylock@uiowa.edu>
+%    * Fixed TOC line spacing issue with appendix. Adjusted titlepg
+%      and docabtitlepg for line spacing.
 %
 % December 31, 2012 Duckki Oe (duckki-oe@uiowa.edu)
 %    * Updated this sytle conforming the July 2012 standard.
@@ -134,9 +142,11 @@
 \newboolean{ackpage} % There is an acknowledgement page
 \newboolean{abtitlepage} % There is an abstract title pg (required for Ph.D.) Not an option anymore!
 \newboolean{abstractpage} % There is an abstract page
+\newboolean{publicabstractpage} % There is a public abstract page
 \newboolean{copyrightpage} % There is a copyright page
 \newboolean{dedicationpage} % There is a dedication page
 \newboolean{epigraphpage} % There is a epigraph/frontspiece page
+\newboolean{docabstract} % There is a doctoral abstract page with separate signatures
 % --------------------- declaration of options ------------------------
 % if passed in the thesis.tex document class declaration, then true
 \DeclareOption{phd}{\setboolean{phd}{true}}
@@ -154,9 +164,11 @@
 \DeclareOption{lemmastheorems}{\setboolean{lemmastheorems}{true}}
 \DeclareOption{appendix}{\setboolean{appendix}{true}}
 \DeclareOption{abstractpage}{\setboolean{abstractpage}{true}}
+\DeclareOption{publicabstractpage}{\setboolean{publicabstractpage}{true}}
 \DeclareOption{copyrightpage}{\setboolean{copyrightpage}{true}}
 \DeclareOption{dedicationpage}{\setboolean{dedicationpage}{true}}
 \DeclareOption{epigraphpage}{\setboolean{epigraphpage}{true}}
+\DeclareOption{docabstract}{\setboolean{docabstract}{true}}
 \DeclareOption{11pt}{}% Eat up attempts to change to 11pt
 \DeclareOption{12pt}{}% Grab this so we don't pass it twice
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
@@ -535,6 +547,7 @@
         \ackpg
      }{}
      \abstractpg			% (internal) abstract (optional)
+     \publicabstractpg
      %\setcounter{tocdepth}{6}
      \setcounter{tocdepth}{3}	% changed by Duckki
      \tableofcontents
@@ -682,6 +695,7 @@
 \def\dedication#1{\gdef\@dedication{#1}}
 \def\epigraph#1{\gdef\@epigraph{#1}}
 \def\acknowledgements#1{\setboolean{ackpage}{true}\gdef\@acknowledgements{#1}}
+\def\publicAbstract#1{\setboolean{abtitlepage}{true}\gdef\@publicabstract{#1}}
 
 \def\@title{}
 \def\@author{}
@@ -856,6 +870,27 @@
 	 \centering ABSTRACT\par \nobreak \vskip 2\li }
 	\doublespace
 	\@abstracttext
+	\vfill
+	\singlespace\normalsize
+	\newpage
+   }%
+   {}%
+}
+
+
+%%% PUBLIC ABSTRACT PAGE
+
+\newcommand{\publicabstractpg}{%
+   \ifthenelse{\boolean{publicabstractpage}}%
+   {%
+      \vspace*{\uitchapadd}%
+% Pain in the ass formatting: the text of the acknowledgement has to
+% appear 4 singlespace lines below the heading, rather than 2 like in
+% the rest of the front matter.
+	{\singlespace\parindent \z@ \reset@font \normalsize \bfseries
+	 \centering PUBLIC ABSTRACT\par \nobreak \vskip 2\li }
+	\doublespace
+	\@publicabstract
 	\vfill
 	\singlespace\normalsize
 	\newpage

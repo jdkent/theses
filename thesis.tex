@@ -33,7 +33,7 @@
 %\documentclass[phd,dedicationpage,ackpage,figures,tables,appendix]{uithesis}
 
 % example
-\documentclass[phd,appendix,figures]{uithesis}
+\documentclass[phd,figures,tables,ackpage,abstractpage,publicabstractpage]{uithesis}
 
 %=============================================================================
 % User packages
@@ -111,9 +111,45 @@
 \copyrightyear{2020}
 
 \Abstract{
-\blindtext
+As the field of cognitive neuroscience generates methods to answer
+questions about brain configuration during tasks, those methods
+need to be held to the fire to ensure they measure what they advertise
+and understand under what circumstances the methods are appropriate to use.
+Without solid testing and validation of methods, the field could be
+led astray towards detrimental theories of brain function.
+I battle-tested several methods that measure \textit{context-dependent
+functional connectivity} between brain areas.
+The methods were Beta Series Correlations (BSC) and Psychophysiological
+Interaction (PPI) analysis.
+In Aim 1 I compared two BSC variants---Least Squares All (LSA) and
+Least Squares Separate (LSS)---
+using both simulated and real data to ascertain which variant
+has more power to detect a change in context-dependent functional
+connectivity.
+While the simulations concluded LSS was the more powerful method,
+the real data painted a more nuanced picture.
+LSS appeared to have a disadvantage relative to LSA when 
+the experimental contexts are interleaved with each other
+(as opposed to contexts being in separate blocks).
+LSS did not identify more false positives than expected when
+isolating brain areas highly involved in a task, whereas LSA
+did have a larger number of false positives than expected.
+I was also able to identify the optimal circumstances to use
+the BSC variants by simulating a variety of experimental designs.
+The simulations suggested at least 30 events per condition,
+with each event being separated by an average of 6 seconds.
+In Aim 2, I compared BSC variants with a more established method named
+"Psychophysiological Interaction" (PPI) analysis to identify
+whether the BSC variants are more powerful than PPI analyses.
+PPI analysis was more powerful in the task I investigated.
+Additionally, the estimates from LSS are more correlated with
+PPI analysis than LSA, suggesting LSS and PPI analysis are
+more similar to each other.
 }
 
+\publicAbstract{
+  tlsfkjslfjasl.
+}
 %\dedication{Dedication here (optional)}
 
 %\epigraph{Epigraph here (optional)}
