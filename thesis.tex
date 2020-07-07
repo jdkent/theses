@@ -307,7 +307,7 @@ event-related, block, or mixed~\cite{Friston1995b,Buckner1996,Petersen2012} (Fig
   \hfill
   \subfloat[][]{\includegraphics[width=0.37\linewidth]{mixed_design} 
   \label{fig:mixed_design}}
-  \caption[Example Experimental Designs]{
+  \caption[Example experimental designs]{
     Example experimental designs for event-related~\ref{fig:event_design},
     block~\ref{fig:block_design},
     and mixed block/event-related designs~\ref{fig:mixed_design}.
@@ -902,7 +902,7 @@ Important terms used used throughout the paper are presented in Table \ref{table
 
 \begin{table}[H]
   \centering
-  \caption{
+  \caption[Acronym definitions]{
   {\bf Acronym Definitions}}
   \begin{tabular}{|l|l|p{60mm}|}
   \hline
@@ -994,8 +994,8 @@ in influencing the power of beta series correlations.
 
 \begin{table}[H]
 	\centering
-	\caption{
-	{\bf Summary of AVNR and CNR measures in Participant Data}}
+	\caption[Summary of AVNR and CNR measures in participant data]{
+	{\bf Summary of AVNR and CNR measures in participant data}}
 	\begin{tabular}{|l+l+l|l|l|l|}
 	\hline
 	Atlas & Method & CNR (mean) & CNR (max) & AVNR (mean) & AVNR (max)\\
@@ -1307,7 +1307,7 @@ to identify regions that were reliably activated for all participants (Table~\re
 
 \begin{table}[H]
   \csvautotabular[separator=tab, no check column count]{./data/cluster_table.tsv}
-  \caption{
+  \caption[Peak activation coordinates]{
     The peak MNI coordinates/Z-statistic identifying clusters/sub-clusters from the overall
     response contrast.
     These peaks were used to create regions of interest (ROIs) to form an atlas representative
@@ -1319,7 +1319,7 @@ to identify regions that were reliably activated for all participants (Table~\re
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{stat-map-overall_resp_with_rois}
-  \caption[Activation Atlas]{
+  \caption[Activation atlas]{
     ROIs drawn from the peak Z-score table, placing a sphere with a 5mm radius
     at each peak coordinate.
     The clusters are identified in their approximate locations
@@ -1330,7 +1330,7 @@ to identify regions that were reliably activated for all participants (Table~\re
 
 \begin{table}[H]
   \csvautotabular[separator=tab]{./data/schaeferbest_rois.tsv}
-  \caption{
+  \caption[Top CNR coordinates]{
     The top 20 ROIs from the Schaefer 400 (17 Network) identified with a highest CNR as measured by
     both LSS and LSA.
   }
@@ -1340,7 +1340,7 @@ to identify regions that were reliably activated for all participants (Table~\re
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{schaefer_high_cnr_rois}
-  \caption[Schaefer Top 20 ROIs Atlas]{
+  \caption[Schaefer Top 20 ROIs atlas]{
     20 ROIs selected from the Schaefer 400 parcels; 17 network atlas for having the
     highest CNR for both LSS and LSA.
   }
@@ -1508,7 +1508,7 @@ $switch - repeat$.
 The results with respect to the null data for the SchaeferTop20 atlas demonstrate
 the possibility that LSA detects a greater number of significant ROI-ROI
 pairs than expected by chance when there is no response to the model, but since this finding did not
-replicate in the Activation Atlas, there may be an interaction between using the LSA method with
+replicate in the activation atlas, there may be an interaction between using the LSA method with
 high CNR ROIs.
 Those two contrasts indicate the success of LSS and LSA to measure
 condition specific difference in ROI-ROI correlations when the events are in different blocks.
@@ -1547,7 +1547,7 @@ but LSS did not and
     real data for the $dual$ condition.
     Right panels \ref{fig:null-activation} and \ref{fig:null-schaeferbest} are results
     from the null data.
-    While in the Activation Atlas both LSS and LSA show similar performance;
+    While in the activation atlas both LSS and LSA show similar performance;
     in the SchaeferTop20 atlas, LSA has an increase in false positives
     whereas LSS is closer to an expected number of false positives.
   }
@@ -1680,7 +1680,7 @@ This suggests our sample of 40 older adults may not have been large enough to de
 which should caution researchers to perform power analyses to determine an adequate sample size.
 % false positives?
 Contrary to the simulations where LSS was found to be more powerful,
-for both the Activation Atlas and the SchaeferTop20 atlas LSS and LSA performed similarly.
+for both the activation atlas and the SchaeferTop20 atlas LSS and LSA performed similarly.
 LSA was prone to a higher rate of false positives as determined by the analyses performed on the null data within the SchaeferTop20 atlas.
 However, LSS appeared to have a greater magnitude of false positives than LSA when using the entire Schaefer atlas.
 Furthermore, there is some evidence of LSS having fewer statistically significant ROI-ROI pairs than expected through chance alone
@@ -1746,7 +1746,7 @@ did not show a statistically significant difference between null and real data (
 
 \begin{table}[H]
   \centering
-  \caption{
+  \caption[CNR/AVNR in real data]{
   {\bf Differences in CNR/AVNR between real and null data}}
   \begin{tabular}{|l+l+l|l|l|l|}
   \hline
@@ -1993,7 +1993,7 @@ which analysis path they should take amid the forking paths of researcher degree
 
   \subfloat{\includegraphics[width=0.7\textwidth]{data-null_atlas-schaefer_participants-filtered_permutation_summary}}
 
-  \caption[LSS/LSA comparison using real data in the full Schaefer Atlas]{
+  \caption[LSS/LSA comparison using real data in the full Schaefer atlas]{
       The overall results for the full Schaefer Atlas.
       Since there were 79800 unique ROI-ROI pairs, it became more likely
       to see unexpected results.
@@ -2532,7 +2532,7 @@ used to comprehensively cover the cortex and test robustness of results.
 
 \begin{table}[H]
   \csvautotabular[separator=tab, no check column count]{./data/cluster_table.tsv}
-  \caption{
+  \caption[Peak activation coordinates]{
     The peak MNI coordinates/Z-statistic identifying clusters/sub-clusters from the overall
     response contrast.
     These peaks were used to create regions of interest (ROIs) to form an atlas representative
@@ -2544,7 +2544,7 @@ used to comprehensively cover the cortex and test robustness of results.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{stat-map-overall_resp_with_rois}
-  \caption[Activation Atlas]{
+  \caption[Activation atlas]{
     ROIs drawn from the peak Z-score table, placing a sphere with a 5mm radius
     at each peak coordinate.
     The clusters are identified in their approximate locations
@@ -2555,7 +2555,7 @@ used to comprehensively cover the cortex and test robustness of results.
 
 \begin{table}[H]
   \csvautotabular[separator=tab]{./data/schaeferbest_rois.tsv}
-  \caption{
+  \caption[Top CNR coordinates]{
     The top 20 ROIs from the Schaefer 400 (17 Network) identified with a highest CNR as measured by
     both LSS and LSA.
   }
@@ -2565,7 +2565,7 @@ used to comprehensively cover the cortex and test robustness of results.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{schaefer_high_cnr_rois}
-  \caption[SchaeferTop20 Atlas]{
+  \caption[SchaeferTop20 atlas]{
     20 ROIs selected from the Schaefer 400 parcels; 17 network atlas for having the
     highest CNR for both LSS and LSA.
   }
@@ -3234,7 +3234,7 @@ Several additional key insights are listed in Table~\ref{table:comparison}.
 
 \begin{table}[H]
   \centering
-  \caption{
+  \caption[Comparisons of LSA/LSS/PPI]{
   {\bf Comparisons of LSA/LSS/PPI}}
   \begin{tabular}{|p{0.7\textwidth}|c|c|c|}
   \hline
