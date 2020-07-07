@@ -3297,8 +3297,10 @@ The current thesis largely corroborates and extends the work by Ito et al. (2019
 showing a tendency for significant ROI-ROI context-dependent correlations to decrease
 when comparing a lower cognitive load ($Single$) to a higher cognitive load ($Repeat$ and $Dual$).
 The $Switch - Repeat$ contrast however showed an increase in context-dependent functional connectivity
-for the majority of significant ROI-ROI pairs in both the real and null data, perhaps suggesting the
-design of the experiment led to the results independent of the data.
+for the majority of significant ROI-ROI pairs in both the real and null data.
+The increased context-dependent functional connectivity in the null data suggests
+the increase may be an artifact of the experimental design and does not represent
+a cognitive process.
 Replication using different event-related tasks is required to make a more definitive
 claim.
 
@@ -3313,8 +3315,9 @@ However, careful thought has to be given for the number of participants and expe
 and analysis choices to reliably detect this relationship.
 Most cognitive tasks have focused on showing robust experimental effects which led to the side effect
 of low between subject variance~\cite{Hedge2018}.
-The equation for intraclass correlations (ICC) ---a common measure of reliability---
-will decrease when measurement error increases ($ErrorVariance$),
+The equation for intraclass correlations~\cite{Stanish1983}
+(ICC)---a common measure of reliability---will
+decrease when measurement error increases ($ErrorVariance$),
 but notably ICC will also decrease if variance between Individuals
 decreases (holding other factors constant)(Equation~\ref{eq:icc}).
 \begin{equation}
@@ -3333,6 +3336,7 @@ Hedge et al. (2018)~\cite{Hedge2018} found an average reliability (as measured w
 of 0.5 among common cognitive tasks, below the recommended reliability for clinically relevant measures~\cite{Barch2008}.
 With the reliability of fMRI hovering around 0.5 as well, an adequately powered fMRI study
 would require 100's of participants to measure individual differences~\cite{Bennett2010,Hedge2018}.
+
 Besides (or in addition to) increasing sample size, there are alternative methods to
 calculate and analyze the measures of interest to improve reliability.
 Incorporating both reaction time costs and accuracy into a composite measure in task switching was
@@ -3344,6 +3348,16 @@ Using linear mixed effects models or structural equation models could also bette
 for distributional assumptions in the data and provide better reliability, although
 such choices require training to use appropriately, and could lead to an inaccurate
 model of the data~\cite{West2008,Bates2015}.
+
+Finally, changes in the design of the experiment would improve reliability.
+The simulations in this thesis suggest using 45 events per condition
+with an average IEI of 6 seconds is the optimal design.
+In contrast, the data from Hedge et al. (2018) suggest over 100 events per condition
+to achieve sufficient reliability for related tasks such as Flanker and
+Stroop~\cite{Hedge2018}.
+To reasonably accommodate the requirement for behavioral reliability,
+participants should complete the task in the scanner as well as outside
+the scanner to increase reliability of the behavioral measurements.
 Thus, while it is important to consider behavior in combination with brain function,
 there are a number of important considerations to assure a proper analysis.
 
