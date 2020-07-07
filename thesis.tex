@@ -170,10 +170,28 @@ Cognitive neuroscientists couple clever experimental manipulations
 of how we are thinking or feeling with a measure of brain function
 (such as functional Magnetic Resonance Imaging (fMRI)) to provide a nuanced
 analysis of how the brain enables cognition and behavior.
-fMRI measures typically look for which brain areas are more
+fMRI analysis typically identifies brain areas that are more
 active than other brain areas between two (or more) conditions in a task.
-For example, if we compare word reading to nonword reading, we could be isolating
-the cognitive process of lexical processing, since presentation of alphabetic characters
+A complementary and equally important analysis evaluates how brain areas
+are working together during a condition.
+The communication between brain areas during a condition is known as
+\textit{context-dependent functional connectivity}.
+While several methods to detect context-dependent functional connectivity
+were developed around the turn of the century, they have primarily
+been used for directed hypotheses within a small number of brain areas, or
+exploratory analyses observing how one brain area changes its relationship
+with the rest of the brain.
+However, these methods have not been extensively used to investigate large numbers of defined
+brain areas which is the bedrock of analyzing brain networks.
+To fill this gap, \textbf{I compared three methods that measure context-dependent functional connectivity
+and provide recommendations on which method to use.}
+
+To illustrate the difference between the typical fMRI analysis and context-dependent
+functional connectivity, imagine a task where participants are reading words
+or nonwords.
+If we compare word reading to nonword reading as we would in a typical
+fMRI analysis, we could be isolating the cognitive process of lexical processing,
+since presentation of alphabetic characters
 remains constant in both conditions.
 Ideally the only difference between the two conditions is the cognitive process
 of interest such that when they are subtracted the active brain areas are
@@ -187,25 +205,19 @@ For example, lexical processing could involve word retrieval and priming motor f
 to speak (if nonwords are not pronounceable), or word retrieval could be implemented
 using several neural systems, or the nonword condition could make participants focus more
 on the individual characters than the whole word resulting in another difference between conditions.
-As a solution to imperfect cognitive subtractions, fMRI research has acknowledged the importance of understanding
-which brain areas work together as networks more during one condition relative to another as opposed to
-brain areas merely being active.
-How brain areas are working together during a condition is known as
-\textit{context-dependent functional connectivity}.
+Thus a typical fMRI analysis could identify all active brain areas,
+but it is impossible to tell whether all active brain areas
+are working together to complete the hypothesized cognitive function
+(e.g., lexical processing) or if smaller networks of brain areas
+are working together to complete separate functions (e.g., word retrieval and
+motor function preparation).
+As a solution to imperfect cognitive subtractions, fMRI research has
+developed methods to measure context-dependent functional connectivity.
 Although many brain areas may be active from a cognitive subtraction,
 smaller groups of brain areas may form a network to complete a specific
 cognitive function included from the subtraction, giving additional
 insight between cognition and brain function, such as a network for word retrieval and
 a network for motor preparation.
-While several methods to detect context-dependent functional connectivity
-were developed around the turn of the century, they have primarily
-been used for directed hypotheses within a small number of brain areas, or
-exploratory analyses observing how one brain area changes its relationship
-with the rest of the brain.
-However, these methods have not been extensively used to investigate large numbers of defined
-brain areas which is the bedrock of analyzing brain networks.
-To fill this gap, \textbf{I compared three methods that measure context-dependent functional connectivity
-and provide recommendations on which method to use.}
 
 The core of these methods depends on the peculiarities of fMRI, which deserves some exposition.
 The advent of fMRI presented an amazing opportunity
@@ -218,9 +230,12 @@ Moreover, Ogawa et al. found the BOLD contrast in
 relation to external stimuli with regional specificity, laying the path for fMRI as a non-invasive tool
 to indirectly observe activity in the brain~\cite{Ogawa1992}.
 Later, experiments with concurrent electrophysiological and BOLD measurements showed that 
-the signal measured through the BOLD contrast is more correlated to the inputs of
+the BOLD contrast is more correlated to the inputs of
 neuronal populations and local processing within those areas (as opposed to large bursts of activity
 associated with spiking activity in populations of neurons)~\cite{Logothetis2001}.
+This neurovascular coupling is staggered in time, where the neural activity occurs
+first, then the BOLD contrast is observed 2-3 seconds later
+and peaks around 6 seconds after the neuronal population activity.
 Unfortunately, changes in overall blood flow, housekeeping functions of neurons and glial cells,
 venous drainage, head movement, respiration, cardiac rhythms, and other factors unrelated
 to neural activity also influence the BOLD contrast~\cite{Attwell2002,Kim2012,Liu2016}.
@@ -239,9 +254,8 @@ The network analyses of participant brain function during no explicit task
 across spatially distributed brain areas at low frequencies forming networks while
 participants are not engaged in any explicit task~\cite{Greicius2003,Raichle2009}.
 Instead of observing brain networks while there is no explicit task or observing
-whether a particular area is strongly active during a particular context,
-observing how the brain organizes during a task deepens our understanding of how
-our brain operates during different contexts.
+whether a particular area is strongly active, observing context-dependent functional
+connectivity deepens our understanding of how our brain operates during different contexts.
 Whether it's writing an email, playing a card game, talking with colleagues; we are
 often engaged in different contexts throughout the day in which our brain has to process
 and share information between areas in a quick and efficient manner, and we cannot
@@ -292,9 +306,11 @@ Event-related designs are when the word and nonword conditions are interleaved w
 During one event the participant may read a word, but the next event several seconds later may be
 a nonword.
 Event-related designs are well suited to define the shape of the BOLD response to a stimulus (slow event-related),
-and when the experimental paradigm requires intermixing of conditions, for example if the researcher
+and when the experimental paradigm requires rapid intermixing of conditions
+(fast event-related) where events are separated by less than 8 seconds on average.
+For example if the researcher
 was interested in measuring the brain's response towards unexpectedness of seeing a nonword
-in a predominantly word sequence.
+in a predominantly word sequence, they would use a fast event-related design.
 Thus the presentation of the unexpected nonword creates a temporary context where a network of brain areas relating
 to salience may be activated.
 Less contrived examples come from many tasks that measure cognitive control (defined vacuously
@@ -312,20 +328,21 @@ other blocks may contain a both conditions interleaved with each other (Figure~\
 Mixed designs can be used to test more complex hypotheses concerning transient changes in brain function
 relative to sustained changes in brain function.
 A primary difference between typical block designs and mixed designs is the jittering of onset times.
-In block design, the inter event interval (IEI) is consistently 2 seconds, whereas
+In block designs, the inter event interval (IEI) is consistent and often short, whereas
 in a mixed block, the IEI is jittered such that it could be 1 second or 10 seconds within the same block.
 The primary data-set leveraged in this thesis was mixed event/block design, so I was
 able make contrasts within blocks and between blocks.
 
 \section{Context-Dependent Functional Connectivity}
 
-By this point, you have read the phrase context-dependent functional connectivity several times,
-which refers to the statistical dependency between two or more brain areas during a specific context
+Context-dependent functional connectivity refers to the 
+statistical dependency between two or more brain areas during a specific context
 (i.e., reading a book, identifying tools, tapping your finger, etc.)~\cite{Friston1997}.
 However, I have not mentioned the exact methods that can measure context-dependent functional connectivity.
 There are (at least) four classes of methods that measure context-dependent functional connectivity:
 sliding windows~\cite{Shine2015}, residual correlations~\cite{Cole2014a},
-Psycho-Physiological Interaction (PPI) analysis~\cite{Friston1997}, and Beta Series Correlations (BSC)~\cite{Rissman2004}.
+Psycho-Physiological Interaction (PPI)
+analysis~\cite{Friston1997}, and Beta Series Correlations (BSC)~\cite{Rissman2004}.
 Of these classes of methods, only BSC and PPI analysis can purportedly measure the differences
 between interleaved contexts (e.g., event-related designs).
 Sliding window and residual correlation approaches can only detect contexts that are
@@ -354,15 +371,25 @@ typically receive inputs and/or locally process information within a similar tim
 Instead of comparing the overall activation of brain areas separately, the network perspective
 gives a more mechanistic description of which brain areas are either directly/indirectly
 communicating during task performance.
+
 For example, Seeley et al. (2007) was able to dissociate two brain networks that are typically
-co-activated during a task~\cite{Seeley2007}.
+co-activated during tasks: Salience and Executive Networks~\cite{Seeley2007}.
+Traditional task analysis showed these two networks are often both activated
+during tasks, but were undifferentiable.
+Observing functional connectivity during rest dissociated the Salience and Executive networks,
+and their relationship to different cognitive functions was determined by correlating
+participant behavioral performance with the strength of functional connectivity in the network.
+Specifically, Seeley, et al. (2007) found the Salience network correlated with pre-scan anxiety
+ratings and the Executive network correlated with the trail making test (a measure of executive
+performance).
 Dissociating these networks allowed researchers to ascribe more specific cognitive functions
 to each network which would not be possible if one were to only observe activation of brain areas.
 A limitation to Seeley et al. (2007) is that the networks were separated in resting state data,
 the separation of the networks would be even more convincing if shown during task performance
 with context-dependent functional connectivity as implemented by the methods I am
 investigating.
-Regardless, being able to draw dissociations between networks of regions that are all active
+
+Regardless, the ability to draw dissociations between networks of regions that are all active
 during a task provides a more mechanistic description of how the brain accomplishes a task
 through correlating the networks with specific behavioral outcomes.
 This more mechanistic perspective furthers insights in cognitive neuroscience by identifying
@@ -406,6 +433,12 @@ The main goal of both linear regression and GLMs is to take
 a series of observations ($X$) and scale the observations by
 multiplying them by a scalar ($\beta$) that make the observations
 look like the outcome data ($Y$).
+Through scaling $X$ by the scalar $\beta$,
+$\beta$ represents the strength of the relationship
+between $X$ and $Y$.
+In traditional task analysis, one $\beta$ is assigned per condition
+to indicate the strength of the relationship between event occurrences
+($X$) and the observed BOLD signal ($Y$). 
 Since it is often impossible for the observations to look exactly like
 the outcome data, there is some error $\epsilon$.
 The general form of the equation is shown in Equation~\ref{eq:glm}.
@@ -557,8 +590,7 @@ represents the $\beta$ estimates for a particular cue event.
 
 Having one regressor per event in a single model is known as "least squares- all" (LSA).
 This method, however, has limitations in the context of fast event-related
-designs (e.g., designs where the events occur less than 8
-seconds apart on average).
+designs.
 Since each event has its own regressor, events that occur very close in time
 are collinear (e.g., are overlapping and look similar).
 
