@@ -168,8 +168,7 @@ methods which can help researchers
 move towards useful theories of how the brain is organized.
 }
 \dedication{
-  I dedicate this thesis to my Grandma Nancy, who passed
-  several weeks before my defense, I love and miss you.
+  In loving memory of my Grandma, Nancy Zembo.
 }
 
 %\epigraph{Epigraph here (optional)}
@@ -184,7 +183,7 @@ move towards useful theories of how the brain is organized.
   me for which I will always be grateful.
   \newline
   \indent
-  The rest of my thesis committee--Drs. Jatin Vaidya, Eliot Hazeltine,
+  The rest of my thesis committee--Dr's. Jatin Vaidya, Eliot Hazeltine,
   Vincent Magnotta, Jan Wessel--provided many opportunities for
   collaboration which have challenged me and helped me grow critical
   skills over the years.
@@ -193,8 +192,8 @@ move towards useful theories of how the brain is organized.
   eclectic interests.
   \newline
   \indent
-  Next I would like to thank Drs. Timothy Weng, Rachel Cole, and Arianna Rigon
-  for welcoming me into the HBClab and offering guidance and comradery to help
+  Next I would like to thank Dr's. Timothy Weng, Rachel Cole, and Arianna Rigon
+  for welcoming me into the HBClab and offering guidance and camaraderie to help
   me feel like I belonged.
   They helped me understand what being a part of a lab entails and were
   excellent role models demonstrating what a successful graduate student looks
@@ -203,7 +202,7 @@ move towards useful theories of how the brain is organized.
   \indent
   Similarly, the other graduate students in my cohort: Maria, Vicky, Katrina,
   Jada, and Max have been great comrades through the years.
-  It has been inspring to watch you all grow into magnificient
+  It has been inspiring to watch you all grow into magnificent
   scientists, and I'm excited to see what's next.
   \newline
   \indent
@@ -221,7 +220,7 @@ move towards useful theories of how the brain is organized.
   \newline
   \indent
   While hobbies kept me sane, my family kept me whole.
-  The unwaivering support of my family made it possible for
+  The unwavering support of my family made it possible for
   me to continue and finish my thesis.
   I've seen many of my nieces and nephew born during my time in graduate school,
   and seeing them grow has been an absolute delight.
@@ -293,14 +292,14 @@ but it is impossible to tell whether all active brain areas
 are working together to complete the hypothesized cognitive function
 (e.g., lexical processing) or if smaller networks of brain areas
 are working together to complete separate functions (e.g., word retrieval and
-motor function preparation).
+motor function preparation)~\cite{Piai2015}.
 As a solution to imperfect cognitive subtractions, fMRI research has
 developed methods to measure context-dependent functional connectivity.
 Although many brain areas may be active from a cognitive subtraction,
 smaller groups of brain areas may form a network to complete a specific
 cognitive function included from the subtraction, giving additional
 insight between cognition and brain function, such as a network for word retrieval and
-a network for motor preparation.
+a network for motor preparation~\cite{Piai2015}.
 
 The core of these methods depends on the peculiarities of fMRI, which deserves some exposition.
 The advent of fMRI presented an amazing opportunity
@@ -429,7 +428,7 @@ analysis~\cite{Friston1997}, and Beta Series Correlations (BSC)~\cite{Rissman200
 Of these classes of methods, only BSC and PPI analysis can purportedly measure the differences
 between interleaved contexts (e.g., event-related designs).
 Sliding window and residual correlation approaches can only detect contexts that are
-temporally separable and not interleaved with each other as with block designs.
+temporally separable and not interleaved with each other as with block designs~\cite{Gonzalez-Castillo2018}.
 A large swath of existing cognitive neuroscience literature relies on interleaved
 contexts so the focus of this work will pertain to classes of methods
 that can in theory detect differences in event-related designs (BSC and PPI).
@@ -753,7 +752,7 @@ univariate correlation differences.
 Machine learning identifies the unique fingerprint of an event condition, which may not be related
 to a correlation between two brain areas.
 If we define precision as the absolute difference between the observations and the reality,
-Correlations that are systematically biased may not be precise, but if both event conditions are
+correlations that are systematically biased may not be precise, but if both event conditions are
 impacted similarly, the precision of the correlation is independent of its ability to
 detect differences between event conditions.
 For example, LSS may give more precise correlations, while LSA could give
@@ -837,7 +836,8 @@ In other words, measuring context-dependent brain networks has not been validate
 We seek here to validate and compare two methods that may measure brain responses to events that occur
 close in time.
 
-The overarching method being investigated is beta series correlations (BSC)~\cite{Rissman2004,Mumford2012,Turner2012a,Abdulrahman2016}
+The overarching method being investigated is beta series correlations \newline
+(BSC)~\cite{Rissman2004,Mumford2012,Turner2012a,Abdulrahman2016}.
 There are two main approaches to estimate the beta series for BSC: Least Squares All (LSA) and Least Squares Separate (LSS)~\cite{Mumford2012}.
 Both approaches of beta series estimation seek to derive single event estimates that represent a brain region's
 (or voxel's) activity at each individual event.
@@ -1114,7 +1114,7 @@ the same participant.
 
 To ensure the interpretability of our power analyses, we tested
 the expected false positive rate when there is no difference between samples.
-we took 2 samples (n=50) with the same ground truth correlation (e.g., 0.1)
+We took 2 samples (n=50) with the same ground truth correlation (e.g., 0.1)
 matching on event number, IEI, CNR, and AVNR, and ran a t-test to measure if the samples
 were statistically significantly different (p $<$ 0.05).
 Since the ground truth correlation is the same between samples,
@@ -1144,7 +1144,7 @@ False positive rate and power were evaluated using the same procedure as the oth
 
 To validate the beta series simulations we used an unpublished data-set
 of older adults ($N$=61, 31 female, age=71.75$\pm$4.77, education=17.07$\pm$2.66)
-performing a mixed design task switching task.
+performing a mixed design switching task.
 Numbers reported are mean$\pm$standard deviation.
 Before any experimentation, participants provided verbal and written consent
 to participate in the research presented in this manuscript, which was approved
@@ -1193,6 +1193,20 @@ dual cost (the cost of performing two tasks at once relative to one)~\cite{Wylie
 We ignored the correctness of the participant's response since it was not essential to
 separate condition and error processing to validate BSC.
 
+The 3 contrasts are interesting from both a theoretical and methodological
+perspective.
+$switch - repeat$ represents the local cost of switching between contexts, but presumably having
+to maintain the two contexts in memory at the same time~\cite{Wylie2000}.
+The brain's representation of local switch costs are not well studied~\cite{Nashiro2018},
+so this work adds to the existing literature on the neural correlates of local switch costs.
+From a methodological perspective, $switch - repeat$ is interesting because
+the events are interleaved with each other and are not from separate blocks.
+The $dual - single$ and $repeat - single$ contrasts represent events
+that are overlapping within their event condition but the event conditions are not interleaved like
+$switch - repeat$.
+For example, several $single$ events may occur close in time creating overlap, but a $single$
+event never overlaps with a $dual$ event.
+
 Second level analyses were a summary of the first level results presenting which
 regions were robustly activated among participants.
 For each contrast, the alpha was set to 0.01 with a cluster threshold of 10 voxels using
@@ -1207,7 +1221,7 @@ false discovery rate error control (Figure~\ref{fig:stat_maps}).
   \label{fig:stat_maps}
 \end{figure}
 
-In addition to the task switching task, participants also completed
+In addition to the switching task, participants also completed
 two 8 minute resting state runs.
 We used the resting state runs as a null model for task switching as done
 in other reports validating analyses~\cite{Eklund2016,Olszowy2019}.
@@ -1289,7 +1303,7 @@ MNI152NLin2009cAsym.
 Several confounding time-series were calculated based on the \emph{preprocessed BOLD}:
 % only used a subset of the confounding variables
 framewise displacement and two region-wise global signals.
-framewise displacement was calculated for each functional run, using its
+Framewise displacement was calculated for each functional run, using its
 implementation in \emph{Nipype} following the definitions
 by Power et al. (2014)\cite{power_fd_dvars}.
 The two global signals were extracted within the
@@ -1361,7 +1375,8 @@ an ROI-to-ROI correlation analysis
 to produce condition specific correlation matrices.
 For the simulation data, ROI-to-ROI correlations were calculated by
 treating each voxel as an ROI.
-In the participant data; two atlases were used to generate ROI-to-ROI correlation matrices.
+In the participant data; two atlases were used to generate ROI-to-ROI correlation matrices
+to ensure results were not idiosyncratic because of our choice of atlas.
 We created an activation atlas representing regions that were
 consistently activated across event conditions (see \nameref{methods:task-switch}).
 This atlas has coverage across several cortical and subcortical regions.
@@ -1578,7 +1593,7 @@ pairs than expected by chance when there is no response to the model, but since 
 replicate in the activation atlas, there may be an interaction between using the LSA method with
 high CNR ROIs.
 Those two contrasts indicate the success of LSS and LSA to measure
-context dependant functional connectivity differences
+context dependent functional connectivity differences
 in ROI-ROI correlations when the events are in different blocks.
 The full Schaefer atlas has qualitatively similar results with two notable exceptions:
 1) the $switch - repeat$ contrast using LSA found more statistically significant
@@ -1858,6 +1873,18 @@ of the correlation is orthogonal to the ability to detect a difference between t
 The second point used classification performance, which was determined by the mean amplitude difference
 between voxels, but not the correlation between two voxels.
 
+While the simulations suggested each method maintains the expected 5\% false positive rate,
+the null data from participants showed a larger than expected 5\% false positive rate for certain
+contrasts using LSA.
+Thus there is an assumption being violated in the null data that is not present in the simulated data.
+The assumption being violated may come from the BOLD signal during rest.
+Systematic fluctuations of BOLD signal within brain areas during rest are not driven by
+external goal-directed tasks~\cite{Greicius2003,Monti2012a}.
+However, this structured signal may bias the methods to detect a greater number of false positives
+than expected.
+The structured fluctuations during rest could by coincidence change from one task block to another,
+leading to coincidental context dependent correlation differences.
+
 \subsection{Future Directions}
 
 There are several immediate next steps that could be taken to provide a more concrete answer
@@ -1901,6 +1928,12 @@ However, this finding has not been replicated using beta series correlations and
 to be investigated between tasks and event conditions within a task~\cite{Di2019a}.
 The largely non-overlapping results from LSS and LSA suggest that LSS and LSA may differ
 in their network measures as well.
+
+As an alternative strategy to using the resting state data as the null,
+future work could randomize the event labels to ascertain if the number of significant results
+would remain at the expected 5\% false positive rate.
+Randomizing event labels in the real participant data will not be subject to the drawbacks of resting state data
+being influenced by the systematic fluctuations.
 
 \section{Conclusion}
 
@@ -2272,7 +2305,7 @@ including both LSA and LSS, in this chapter we ask:
 We used an unpublished data-set
 of older adults ($N$=61, 31 female,\newline
 age=71.75$\pm$4.77, education=17.07$\pm$2.66)
-performing a mixed design task switching task.
+performing a mixed design switching task.
 Numbers reported are mean$\pm$standard deviation.
 Before any experimentation, participants provided verbal and written consent
 to participate in the research presented in this manuscript, which was approved
@@ -2336,7 +2369,7 @@ false discovery rate error control (Figure~\ref{fig:stat_maps}).
   \label{fig:stat_maps2}
 \end{figure}
 
-In addition to the task switching task, participants also completed
+In addition to the switching task, participants also completed
 two 8 minute resting state runs.
 We used the resting state runs as a null model for task switching as done
 in other reports validating analyses~\cite{Eklund2016,Olszowy2019}.
@@ -2418,7 +2451,7 @@ MNI152NLin2009cAsym.
 Several confounding time-series were calculated based on the \emph{preprocessed BOLD}:
 % only used a subset of the confounding variables
 framewise displacement and two region-wise global signals.
-framewise displacement was calculated for each functional run, using its
+Framewise displacement was calculated for each functional run, using its
 implementation in \emph{Nipype} following the definitions
 by Power et al. (2014)\cite{power_fd_dvars}.
 The two global signals were extracted within the
@@ -2587,7 +2620,8 @@ two-task blocks.
 \subsection{Atlas Generation}
 \label{methods:atlas-corr-analysis2}
 
-In the participant data; two atlases were used to generate ROI-to-ROI correlation matrices.
+In the participant data; two atlases were used to generate ROI-to-ROI correlation matrices
+to ensure results were not idiosyncratic because of our choice of atlas.
 We created an activation atlas representing regions that were
 consistently activated across event conditions (see \nameref{methods:task-switch}).
 The activation atlas was generated based on an F-test across the switch, repeat, and single conditions
@@ -3396,7 +3430,7 @@ claim.
 Future work should combine context-dependent functional connectivity measures and behavior.
 A common way to connect brain function and behavior is through correlating the brain measure
 with a behavioral measure and observe individual differences.
-Assessing changes in context-dependent functional connectivity coulped with changes in
+Assessing changes in context-dependent functional connectivity coupled with changes in
 reaction time or accuracy could provide more nuanced theories of the cognitive process under investigation.
 However, careful thought has to be given for the number of participants and experimental design,
 and analysis choices to reliably detect this relationship.
@@ -3566,6 +3600,17 @@ Simulating and emulating a typical analysis workflow would
 drive insights surrounding experimental design, confound selection,
 and method choice to measure context-dependent functional connectivity
 differences.
+
+PPI was not used with the simulation data since PPI has sufficient
+methodological validation from previous work~\cite{Gitelman2003,McLaren2012,Barton2015,Kim2008,Di2017,Di2019a}.
+However, additional insights could be uncovered comparing LSA, LSS, and PPI with the simulation strategy employed
+in this thesis work.
+If I included PPI in the simulations I could identify if PPI is universally
+more sensitive to detect an effect relative to LSA and LSS,
+or if PPI is only more sensitive under specific experimental conditions, such as when events are closer
+or further apart on average, or when there are fewer or more events.
+While PPI was found to be more sensitive in the real data, it would be
+even more convincing if simulations replicated the pattern.
 
 \section{Conclusion}
 
