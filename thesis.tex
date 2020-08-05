@@ -53,6 +53,8 @@
 \graphicspath{{notebooks/}{img/}{img/Aim1/}{img/Aim2/}{img/Aim3/}{img/CurrentStudy/}{img/GeneralDiscussion/}{img/GeneralMethods/}{img/Introduction/}{./betaSeriesSimulations/outputs/}{./BetaSeriesRealDataAnalysis/nibsAnalysis/outputs/}{./BetaSeriesRealDataAnalysis/firstLevelAnalysis/outputs/}{./BetaSeriesRealDataAnalysis/introductionFigures/outputs/}{./BetaSeriesRealDataAnalysis/PPITest/outputs/}}
 \usepackage{forloop} % for loops display images
 \usepackage{hyperref} % to insert hyperlinks
+\hypersetup{hidelinks}
+\usepackage[nottoc]{tocbibind} % add reference section to toc
 \usepackage{textcomp} % to write degree symbols
 \usepackage{float} % image placement
 % for smaller captions
@@ -94,7 +96,8 @@
 
 % multipleSupervisors=true for two advisors
 \setboolean{multipleSupervisors}{false}
-\advisor{Assistant Professor Dr. Michelle Voss}
+\advisor{Michelle Voss}
+
 % for multiple advisors; change <value> to line up the names
 %\setboolean{multipleSupervisors}{true}
 %\advisor{Advisor 1\\\hspace{<value>mm}Advisor 2...}
@@ -102,12 +105,11 @@
 % edit the names below to have your committee members names appear
 % on the signature page.  memberOne should be your advisor.
 %
-\memberOne{Michelle Voss}
-\memberTwo{Eliot Hazeltine}
-\memberThree{Vincent Magnotta}
-\memberFour{Jatin Vaidya}
-\memberFive{Jan Wessel}
-\submitdate{July 2020}
+\memberOne{Eliot Hazeltine}
+\memberTwo{Vincent Magnotta}
+\memberThree{Jatin Vaidya}
+\memberFour{Jan Wessel}
+\submitdate{August 2020}
 \copyrightyear{2020}
 
 \Abstract{
@@ -1060,9 +1062,8 @@ in influencing the power of beta series correlations.
 (\href{https://github.com/jdkent/BetaSeriesRealDataAnalysis/blob/b18b44321edf7b662a1e5ea635f64452c8d3644c/nibsAnalysis/cnr_trial_variability.ipynb}{see here for the relevant code})
 
 \begin{table}[H]
-	\centering
-	\caption[Summary of AVNR and CNR measures in participant data]{
-	{\bf Summary of AVNR and CNR measures in participant data}}
+  \centering
+  %\begin{tabular}{|p{0.7\textwidth}|c|c|c|}
 	\begin{tabular}{|l+l+l|l|l|l|}
 	\hline
 	Atlas & Method & CNR (mean) & CNR (max) & AVNR (mean) & AVNR (max)\\
@@ -1070,11 +1071,14 @@ in influencing the power of beta series correlations.
 	$Activation$ & $LSS$ & 0.99 & 1.58 & 1.42 & 2.18\\ \hline
 	$Schaefer$ & $LSA$ & 1.02 & 2.48 & 1.54 & 3.61\\ \hline
 	$Activation$ & $LSA$ & 1.42 & 2.18 & 2.15 & 3.26\\ \hline
-	\end{tabular}
-	The average and maximum CNR and AVNR for both atlases (Schaefer and Activation)
+  \end{tabular}
+  \caption[Summary of AVNR and CNR measures in participant data]{
+  Summary of AVNR and CNR measures in participant data
+  The average and maximum CNR and AVNR for both atlases (Schaefer and Activation)
 	as well as estimation method (LSS and LSA).
 	LSS tends to give lower CNR/AVNR since the measure sacrifices
-	variance for bias, unlike LSA, which retains a high variance and a low bias.
+	variance for bias, unlike LSA, which retains a high variance and a low bias.}
+
 	\label{table1}
 \end{table}
 
@@ -1829,8 +1833,6 @@ did not show a statistically significant difference between null and real data (
 
 \begin{table}[H]
   \centering
-  \caption[CNR/AVNR in real data]{
-  {\bf Differences in CNR/AVNR between real and null data}}
   \begin{tabular}{|l+l+l|l|l|l|}
   \hline
   Atlas & Method & CNR (t-value) & CNR (p-value) & AVNR (t-value) & AVNR (p-value)\\
@@ -1839,10 +1841,13 @@ did not show a statistically significant difference between null and real data (
   $Schaefer$ & $LSA$ & 2.740 & \textbf{0.009} & 2.893 & \textbf{0.006}\\ \hline
   $Activation$ & $LSA$ & 0.306 & 0.761 & 0.927 & 0.360\\ \hline
   \end{tabular}
+  \caption[CNR/AVNR in real data]{
+    Differences in CNR/AVNR between real and null data.
   A t-test comparing average CNR/AVNR across all ROIs between real data and null data.
   A statistically significant p-value ($p < 0.05$) suggests the CNR/AVNR value in the real data
   is different from the null data.
   Only CNR/AVNR from the Schaefer atlas shows statistically significant results.
+  }
   \label{table2}
 \end{table}
 
@@ -3338,8 +3343,6 @@ Several additional key insights are listed in Table~\ref{table:comparison}.
 
 \begin{table}[H]
   \centering
-  \caption[Comparisons of LSA/LSS/PPI]{
-  {\bf Comparisons of LSA/LSS/PPI}}
   \begin{tabular}{|p{0.7\textwidth}|c|c|c|}
   \hline
   \textbf{Query} & \textbf{LSA} & \textbf{LSS} & \textbf{PPI}\\ \hline
@@ -3349,9 +3352,10 @@ Several additional key insights are listed in Table~\ref{table:comparison}.
   Maintains expected false positive rate (with full cortex coverage ROI set) & \xmark & \xmark & \xmark\\ \hline
   Provides an estimate for a condition with fewer than 3 events & \xmark & \xmark & \cmark\\ \hline
   \end{tabular}
-
+  \caption[Comparisons of LSA/LSS/PPI]{
+  Comparisons of LSA/LSS/PPI.
   Considerations for choosing LSA, LSS, or PPI when calculating context-dependent
-  functional connectivity differences.
+  functional connectivity differences.}
   \label{table:comparison}
 \end{table}
 
