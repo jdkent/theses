@@ -971,8 +971,6 @@ Important terms used throughout the paper are presented in Table \ref{table0}.
 
 \begin{table}[H]
   \centering
-  \caption[Acronym definitions]{
-  {\bf Acronym Definitions}}
   \begin{tabular}{|l|l|p{60mm}|}
   \hline
   Name & Acronym & Definition\\
@@ -981,9 +979,9 @@ Important terms used throughout the paper are presented in Table \ref{table0}.
   Contrast Noise Ratio & $CNR$ & $A_S/\sigma_N$, amplitude of signal ($A_S$) divided by standard deviation of the noise ($\sigma_N$)\\ \hline
   Activation Variation Noise Ratio & $AVNR$ & $\sigma_S/\sigma_N$, standard deviation of signal ($\sigma_S$) divided by standard deviation of the noise ($\sigma_N$)\\ \hline
   \end{tabular}
-
+  \caption[Acronym definitions]{
   Definitions of the main acronyms use in this paper.
-  $CNR$ and $AVNR$ definitions are found in Welvaert (2013)\cite{Welvaert2013a}.
+  $CNR$ and $AVNR$ definitions are found in Welvaert (2013)\cite{Welvaert2013a}.}
   \label{table0}
 \end{table}
 
@@ -1417,7 +1415,8 @@ to identify regions that were reliably activated for all participants (Table~\re
 \begin{table}[H]
   \csvautotabular[separator=tab]{./data/schaeferbest_rois.tsv}
   \caption[Top CNR coordinates]{
-    The top 20 ROIs from the Schaefer 400 (17 Network) identified with a highest CNR as measured by
+    The top 20 ROIs from the Schaefer 400 (17 Network) \\
+    identified with a highest CNR as measured by
     both LSS and LSA.
   }
   \label{table:parcels}
@@ -1833,9 +1832,9 @@ did not show a statistically significant difference between null and real data (
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|l+l+l|l|l|l|}
+  \begin{tabular}{|p{0.15\textwidth}|c+p{0.15\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|}
   \hline
-  Atlas & Method & CNR (t-value) & CNR (p-value) & AVNR (t-value) & AVNR (p-value)\\
+  Atlas & Method & CNR \newline (t-value) & CNR \newline (p-value) & AVNR \newline (t-value) & AVNR \newline (p-value)\\ \hline
   $Schaefer$ & $LSS$ & 3.163 & \textbf{0.003} & 3.659 & \textbf{0.001}\\ \hline
   $Activation$ & $LSS$ & 0.105 & 0.917 & 1.528 & 0.134\\ \hline
   $Schaefer$ & $LSA$ & 2.740 & \textbf{0.009} & 2.893 & \textbf{0.006}\\ \hline
@@ -2663,7 +2662,7 @@ used to comprehensively cover the cortex and test robustness of results.
 \begin{table}[H]
   \csvautotabular[separator=tab]{./data/schaeferbest_rois.tsv}
   \caption[Top CNR coordinates]{
-    The top 20 ROIs from the Schaefer 400 (17 Network) identified with a highest CNR as measured by
+    The top 20 ROIs from the Schaefer 400 (17 Network)\\ identified with a highest CNR as measured by
     both LSS and LSA.
   }
   \label{table:parcels2}
