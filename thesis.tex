@@ -54,7 +54,7 @@
 \usepackage{forloop} % for loops display images
 \usepackage{hyperref} % to insert hyperlinks
 \hypersetup{hidelinks}
-\usepackage[nottoc]{tocbibind} % add reference section to toc
+\usepackage[nottoc,notlof,notlot]{tocbibind} % add reference section to toc
 \usepackage{textcomp} % to write degree symbols
 \usepackage{float} % image placement
 % for smaller captions
@@ -1425,7 +1425,7 @@ to identify regions that were reliably activated for all participants (Table~\re
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{schaefer_high_cnr_rois}
-  \caption[Schaefer Top 20 ROIs atlas]{
+  \caption[SchaeferTop20 atlas]{
     20 ROIs selected from the Schaefer 400 parcels; 17 network atlas for having the
     highest CNR for both LSS and LSA.
   }
@@ -1991,7 +1991,7 @@ which analysis path they should take amid the forking paths of researcher degree
    pairs for LSA, 16 statistically significant ROI-ROI pairs
    for LSS with 3 overlapping ROI-ROI pairs for both LSS and LSA.
   }
-  \label{fig:significant-contrasts1}
+  %\label{fig:significant-contrasts1}
 \end{figure}
 
 \begin{figure}[H]
@@ -2017,7 +2017,7 @@ which analysis path they should take amid the forking paths of researcher degree
       pairs for LSA, 12 statistically significant ROI-ROI pairs
       for LSS with 1 overlapping ROI-ROI pair for both LSS and LSA.
   }
-  \label{fig:significant-contrasts2}
+  %\label{fig:significant-contrasts2}
 \end{figure}
 
 \begin{figure}[H]
@@ -2043,7 +2043,7 @@ which analysis path they should take amid the forking paths of researcher degree
       pairs for LSA, 16 statistically significant ROI-ROI pairs
       for LSS with 1 overlapping ROI-ROI pair for both LSS and LSA.
   }
-  \label{fig:significant-contrasts3}
+  %\label{fig:significant-contrasts3}
 \end{figure}
 
 \begin{figure}[H]
@@ -2069,7 +2069,7 @@ which analysis path they should take amid the forking paths of researcher degree
       pairs for LSA, 7 statistically significant ROI-ROI pairs
       for LSS with 0 overlapping ROI-ROI pairs for both LSS and LSA.
   }
-  \label{fig:significant-contrasts4}
+  %\label{fig:significant-contrasts4}
 \end{figure}
 
 \begin{figure}[H]
@@ -2089,7 +2089,7 @@ which analysis path they should take amid the forking paths of researcher degree
       pairs for LSA, 6 statistically significant ROI-ROI pairs
       for LSS with 0 overlapping ROI-ROI pairs for both LSS and LSA.
   }
-  \label{fig:significant-contrasts5}
+  %\label{fig:significant-contrasts5}
 \end{figure}
 
 \begin{figure}[H]
@@ -2113,6 +2113,9 @@ which analysis path they should take amid the forking paths of researcher degree
 %=============================================================================
 \chapter{PPI versus BSC}
 %=============================================================================
+
+\section{Introduction}
+\label{intro2}
 
 While BSC was originally created to detect context-dependent functional connectivity
 differences in 2004, there was another method
@@ -2367,7 +2370,7 @@ false discovery rate error control (Figure~\ref{fig:stat_maps}).
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth,height=0.8\paperheight,keepaspectratio]{contrast_summary}
-  \caption[Univariate statistical maps]{
+  \caption[Univariate statistical maps (same as chapter 2)]{
     Univariate statistical maps of second level results representing
     all contrasts of interest, $dual - single$, $repeat - single$, $switch - repeat$}
   \label{fig:stat_maps2}
@@ -2650,7 +2653,7 @@ used to comprehensively cover the cortex and test robustness of results.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{stat-map-overall_resp_with_rois}
-  \caption[Activation atlas]{
+  \caption[Activation atlas (same as chapter 2)]{
     ROIs drawn from the peak Z-score table, placing a sphere with a 5mm radius
     at each peak coordinate.
     The clusters are identified in their approximate locations
@@ -2661,7 +2664,7 @@ used to comprehensively cover the cortex and test robustness of results.
 
 \begin{table}[H]
   \csvautotabular[separator=tab]{./data/schaeferbest_rois.tsv}
-  \caption[Top CNR coordinates]{
+  \caption[Top CNR coordinates (same as chapter 2)]{
     The top 20 ROIs from the Schaefer 400 (17 Network)\\ identified with a highest CNR as measured by
     both LSS and LSA.
   }
@@ -2671,7 +2674,7 @@ used to comprehensively cover the cortex and test robustness of results.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{schaefer_high_cnr_rois}
-  \caption[SchaeferTop20 atlas]{
+  \caption[SchaeferTop20 atlas (same as chapter 2)]{
     20 ROIs selected from the Schaefer 400 parcels; 17 network atlas for having the
     highest CNR for both LSS and LSA.
   }
