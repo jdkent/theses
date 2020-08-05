@@ -540,7 +540,7 @@
      \titlepg
      \copyrightpg
      \setcounter{page}{1}	% pages count from now on
-     \signaturepg			% certificate page
+     % \signaturepg			% certificate page
      \dedicationpg		% dedication (optional)
      \epigraphpg      % epigraph/frontspiece (optional)
      \ifthenelse{\boolean{ackpage}}{
@@ -743,7 +743,17 @@
       \ifthenelse{\boolean{multipleSupervisors}}{
          Thesis Supervisors: \@advisor
       }{
-         Thesis Supervisor: \@advisor
+        \begin{center}
+            Thesis Committee:
+        \end{center}
+        \vskip 1\li
+         \begin{tabular}{l}
+            \@advisor, Thesis Supervisor \\
+            \@memberOne \\
+            \@memberTwo \\
+            \@memberThree \\
+            \@memberFour \\
+          \end{tabular}
       }
    \end{center}
    \vfill
